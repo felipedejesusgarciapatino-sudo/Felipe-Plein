@@ -37,7 +37,6 @@
       overflow-x: hidden;
     }
 
-    /* Ambient grain */
     body::before {
       content: "";
       position: fixed;
@@ -53,7 +52,6 @@
       padding: 0 2rem;
     }
 
-    /* Header */
     header {
       padding: 5rem 0 4rem;
       text-align: center;
@@ -118,7 +116,6 @@
       letter-spacing: 0.02em;
     }
 
-    /* Navigation */
     nav {
       display: flex;
       justify-content: center;
@@ -141,7 +138,6 @@
       color: var(--gold);
     }
 
-    /* Sections */
     section {
       padding: 5rem 0;
       border-top: 1px solid var(--line);
@@ -157,7 +153,6 @@
       text-align: center;
     }
 
-    /* About */
     .about-text {
       font-family: 'Cormorant Garamond', Georgia, serif;
       font-size: 1.35rem;
@@ -172,7 +167,6 @@
       margin-top: 1.4rem;
     }
 
-    /* Works */
     .works-grid {
       display: grid;
       gap: 1.5rem;
@@ -212,7 +206,6 @@
       line-height: 1.65;
     }
 
-    /* Contact */
     .contact-block {
       text-align: center;
     }
@@ -237,7 +230,22 @@
       border-color: var(--gold);
     }
 
-    /* Footer */
+    /* Comentarios */
+    #comentarios {
+      background: var(--paper);
+    }
+
+    #disqus_thread {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    /* Estilo suave para que Disqus se integre mejor */
+    #disqus_thread iframe {
+      border-radius: 4px;
+    }
+
     footer {
       padding: 3rem 0 4rem;
       text-align: center;
@@ -250,7 +258,6 @@
       letter-spacing: 0.1em;
     }
 
-    /* Responsive */
     @media (max-width: 600px) {
       nav {
         gap: 1.5rem;
@@ -269,7 +276,7 @@
 
   <header>
     <div class="container">
-      <!-- Sustituye la ruta por tu foto real -->
+      <!-- Sustituye por tu foto real -->
       <!-- <img src="fff.jpg" alt="Felipe P. / Gustavo Narváez" class="portrait"> -->
       <div class="portrait-placeholder">Retrato</div>
 
@@ -280,6 +287,7 @@
       <nav>
         <a href="#sobre">Sobre mí</a>
         <a href="#obras">Obras</a>
+        <a href="#comentarios">Comentarios</a>
         <a href="#contacto">Contacto</a>
       </nav>
     </div>
@@ -348,6 +356,14 @@
       </div>
     </section>
 
+    <!-- SECCIÓN DE COMENTARIOS -->
+    <section id="comentarios">
+      <div class="container">
+        <h2>Comentarios</h2>
+        <div id="disqus_thread"></div>
+      </div>
+    </section>
+
     <section id="contacto">
       <div class="container contact-block">
         <h2>Contacto</h2>
@@ -362,6 +378,24 @@
       <p>© 2026 Felipe P. / Gustavo Narváez</p>
     </div>
   </footer>
+
+  <!-- Disqus -->
+  <script>
+    var disqus_config = function () {
+      this.page.url = window.location.href;
+      this.page.identifier = 'felipe-p-gustavo-narvaez';
+    };
+
+    (function() {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://TU-SHORTNAME.disqus.com/embed.js';  // ← Cambia esto
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>
+    Por favor activa JavaScript para ver los comentarios.
+  </noscript>
 
 </body>
 </html>
