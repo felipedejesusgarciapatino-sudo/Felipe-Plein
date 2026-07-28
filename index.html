@@ -1,111 +1,344 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Felipe Plein</title>
-
-<style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
 }
 
-body {
-    background: #0f0f0f;
-    color: white;
-    font-family: Georgia, serif;
-    min-height: 100vh;
+html{
+scroll-behavior:smooth;
 }
 
-.hero {
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 40px;
+body{
+
+background:#090909;
+
+font-family:Inter,sans-serif;
+
+color:white;
+
 }
 
-.hero img {
-    width: 220px;
-    height: 220px;
-    object-fit: cover;
-    border-radius: 50%;
-    border: 4px solid white;
-    margin-bottom: 25px;
+header{
+
+position:fixed;
+
+width:100%;
+
+top:0;
+
+background:rgba(0,0,0,.55);
+
+backdrop-filter:blur(18px);
+
+z-index:999;
+
 }
 
-h1 {
-    font-size: 60px;
-    letter-spacing: 3px;
+nav{
+
+width:90%;
+
+margin:auto;
+
+height:80px;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
 }
 
-h2 {
-    color: #bbbbbb;
-    font-weight: normal;
-    margin-top: 10px;
+.logo{
+
+font-family:"Cormorant Garamond",serif;
+
+font-size:34px;
+
+letter-spacing:3px;
+
 }
 
-p {
-    max-width: 700px;
-    margin: 35px auto;
-    font-size: 20px;
-    line-height: 1.8;
+nav ul{
+
+display:flex;
+
+gap:35px;
+
+list-style:none;
+
 }
 
-.boton {
-    display: inline-block;
-    margin: 15px;
-    padding: 18px 40px;
-    background: white;
-    color: black;
-    text-decoration: none;
-    border-radius: 8px;
-    font-weight: bold;
+nav a{
+
+text-decoration:none;
+
+color:white;
+
+transition:.3s;
+
 }
 
-.boton:hover {
-    background: #dddddd;
+nav a:hover{
+
+color:#d6b06c;
+
 }
-</style>
-</head>
 
-<body>
+.hero{
 
-<section class="hero">
-<div>
-    <img src="fff.jpg">
+min-height:100vh;
 
-    <h1>FELIPE PLEIN</h1>
-    <h2>Escritor · Poeta</h2>
-    <p>La literatura Guanajuatense.</p>
+display:flex;
 
-    <a class="boton" href="Altas%20y%20bajas%20-%20F_G.pdf" target="_blank">
-        📖 Leer "Altas y bajas"
-    </a>
-    
-    <a class="boton" href="Actuación%203.pdf" target="_blank">
-        ⚖️ Leer "Actuación 3"
-    </a>
-    
-    </a>
+justify-content:center;
 
-    <h2 style="margin-top:60px;">FIESTA EN MINERAL DE LA LUZ</h2>
-    <p>
-        Poema de Felipe Plein.<br>
-        Un recorrido entre la memoria, la fiesta, la identidad, el sueño y la duda, 
-        con referencias a Mineral de la Luz, la Providencia y la experiencia 
-        alucinatoria como eje poético.
-    </p>
+align-items:center;
 
-    <a class="boton" href="FIESTA%20EN%20MINERAL%20DE%20LA%20LUZ.pdf" target="_blank">
-        📖 Leer PDF
-    </a>
+text-align:center;
 
-</div>
-</section>
+padding:100px 20px;
 
-</body>
-</html>
+background:
+radial-gradient(circle at top,#202020,#090909);
+
+}
+
+.hero img{
+
+width:240px;
+
+height:240px;
+
+object-fit:cover;
+
+border-radius:50%;
+
+border:5px solid rgba(255,255,255,.3);
+
+box-shadow:0 0 40px rgba(255,255,255,.2);
+
+margin-bottom:35px;
+
+}
+
+.hero h1{
+
+font-family:"Cormorant Garamond",serif;
+
+font-size:78px;
+
+}
+
+.hero h2{
+
+font-weight:300;
+
+margin-top:15px;
+
+color:#c0c0c0;
+
+}
+
+.hero p{
+
+font-size:22px;
+
+max-width:700px;
+
+margin:35px auto;
+
+line-height:1.8;
+
+}
+
+.boton{
+
+display:inline-block;
+
+padding:18px 45px;
+
+border-radius:40px;
+
+background:#d6b06c;
+
+color:black;
+
+text-decoration:none;
+
+font-weight:bold;
+
+transition:.3s;
+
+}
+
+.boton:hover{
+
+transform:translateY(-5px);
+
+background:white;
+
+}
+
+.contenedor{
+
+width:90%;
+
+max-width:1100px;
+
+margin:auto;
+
+padding:100px 0;
+
+}
+
+.titulo{
+
+font-family:"Cormorant Garamond",serif;
+
+font-size:54px;
+
+margin-bottom:45px;
+
+text-align:center;
+
+}
+
+#bio p{
+
+font-size:20px;
+
+line-height:2;
+
+max-width:900px;
+
+margin:auto;
+
+text-align:center;
+
+}
+
+.grid{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+
+gap:35px;
+
+margin-top:40px;
+
+}
+
+.card{
+
+background:#151515;
+
+padding:35px;
+
+border-radius:15px;
+
+transition:.35s;
+
+border:1px solid rgba(255,255,255,.05);
+
+}
+
+.card:hover{
+
+transform:translateY(-10px);
+
+background:#1f1f1f;
+
+}
+
+.card h3{
+
+font-family:"Cormorant Garamond",serif;
+
+font-size:34px;
+
+margin-bottom:20px;
+
+}
+
+.card p{
+
+margin-bottom:30px;
+
+line-height:1.8;
+
+color:#bbb;
+
+}
+
+.card a{
+
+display:inline-block;
+
+padding:14px 28px;
+
+background:#d6b06c;
+
+border-radius:30px;
+
+color:black;
+
+font-weight:bold;
+
+text-decoration:none;
+
+}
+
+#contacto{
+
+text-align:center;
+
+background:#111;
+
+}
+
+#contacto p{
+
+margin:15px 0;
+
+font-size:20px;
+
+}
+
+footer{
+
+padding:35px;
+
+text-align:center;
+
+background:black;
+
+color:#888;
+
+}
+
+@media(max-width:768px){
+
+.hero h1{
+
+font-size:52px;
+
+}
+
+.hero img{
+
+width:170px;
+
+height:170px;
+
+}
+
+nav ul{
+
+display:none;
+
+}
+
+}
