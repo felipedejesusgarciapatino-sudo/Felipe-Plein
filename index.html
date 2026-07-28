@@ -1,611 +1,367 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Felipe P. / Gustavo Narváez — Escritor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0f0e0c;
+      --paper: #1a1814;
+      --ink: #e8e0d5;
+      --muted: #a89f91;
+      --gold: #c9a86c;
+      --gold-dim: #8a7348;
+      --line: rgba(201, 168, 108, 0.25);
+    }
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-<title>Felipe Plein | Escritor</title>
+    html {
+      scroll-behavior: smooth;
+    }
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Inter', system-ui, sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
 
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    /* Ambient grain */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 1000;
+    }
 
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    .container {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
 
-<link rel="stylesheet" href="css/style.css">
+    /* Header */
+    header {
+      padding: 5rem 0 4rem;
+      text-align: center;
+      position: relative;
+    }
 
+    .portrait {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1px solid var(--line);
+      margin: 0 auto 2.2rem;
+      display: block;
+      filter: grayscale(30%) contrast(1.05);
+      transition: filter 0.4s ease;
+    }
+
+    .portrait:hover {
+      filter: grayscale(0%) contrast(1.1);
+    }
+
+    .portrait-placeholder {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      border: 1px solid var(--line);
+      margin: 0 auto 2.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--paper);
+      color: var(--muted);
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-weight: 600;
+      font-size: clamp(2.4rem, 6vw, 3.6rem);
+      letter-spacing: 0.04em;
+      color: var(--ink);
+      margin-bottom: 0.4rem;
+    }
+
+    .alias {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-style: italic;
+      font-size: 1.25rem;
+      color: var(--gold);
+      letter-spacing: 0.06em;
+      margin-bottom: 1.8rem;
+    }
+
+    .tagline {
+      font-size: 0.95rem;
+      color: var(--muted);
+      max-width: 480px;
+      margin: 0 auto;
+      letter-spacing: 0.02em;
+    }
+
+    /* Navigation */
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 2.5rem;
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--line);
+    }
+
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.8rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: var(--gold);
+    }
+
+    /* Sections */
+    section {
+      padding: 5rem 0;
+      border-top: 1px solid var(--line);
+    }
+
+    section h2 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-weight: 600;
+      font-size: 1.8rem;
+      letter-spacing: 0.06em;
+      color: var(--gold);
+      margin-bottom: 2.5rem;
+      text-align: center;
+    }
+
+    /* About */
+    .about-text {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.35rem;
+      line-height: 1.85;
+      color: var(--ink);
+      max-width: 640px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .about-text p + p {
+      margin-top: 1.4rem;
+    }
+
+    /* Works */
+    .works-grid {
+      display: grid;
+      gap: 1.5rem;
+    }
+
+    .work-card {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      padding: 1.8rem 2rem;
+      transition: border-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .work-card:hover {
+      border-color: var(--gold-dim);
+      transform: translateY(-2px);
+    }
+
+    .work-card h3 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.45rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 0.4rem;
+    }
+
+    .work-card .type {
+      font-size: 0.75rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.9rem;
+    }
+
+    .work-card p {
+      font-size: 0.95rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    /* Contact */
+    .contact-block {
+      text-align: center;
+    }
+
+    .contact-block p {
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+      font-size: 1rem;
+    }
+
+    .contact-email {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.5rem;
+      color: var(--gold);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.3s ease;
+    }
+
+    .contact-email:hover {
+      border-color: var(--gold);
+    }
+
+    /* Footer */
+    footer {
+      padding: 3rem 0 4rem;
+      text-align: center;
+      border-top: 1px solid var(--line);
+    }
+
+    footer p {
+      font-size: 0.75rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      nav {
+        gap: 1.5rem;
+        flex-wrap: wrap;
+      }
+      .about-text {
+        font-size: 1.2rem;
+      }
+      .work-card {
+        padding: 1.4rem 1.5rem;
+      }
+    }
+  </style>
 </head>
-
 <body>
 
-<header>
-
-<nav>
-
-<div class="logo">
-Felipe Plein
-</div>
-
-<ul>
-
-<li><a href="#inicio">Inicio</a></li>
-
-<li><a href="#bio">Biografía</a></li>
-
-<li><a href="#obras">Obras</a></li>
-
-<li><a href="#contacto">Contacto</a></li>
-
-</ul>
-
-</nav>
-
-</header>
-
-<section class="hero" id="inicio">
-
-<div class="hero-contenido">
-
-<img src="img/fff.jpg">
-
-<h1>Felipe Plein</h1>
-
-<h2>
-Escritor · Poeta · Ensayista
-</h2>
-
-<p>
-
-La literatura como memoria,
-filosofía,
-identidad
-y búsqueda del yo.
-
-</p>
-
-<a href="#obras" class="boton">
-
-Ver obras
-
-</a>
-
-</div>
-
-</section>
-
-<section id="bio">
-
-<div class="contenedor">
-
-<h2 class="titulo">
-
-Biografía
-
-</h2>
-
-<p>
-
-Felipe Plein es escritor y poeta originario del estado de Guanajuato.
-Su obra explora la filosofía, la conciencia, la identidad,
-la memoria y la experiencia humana mediante una escritura
-que combina reflexión y poesía.
-
-</p>
-
-</div>
-
-</section>
-
-<section id="obras">
-
-<div class="contenedor">
-
-<h2 class="titulo">
-
-Obras
-
-</h2>
-
-<div class="grid">
-
-<div class="card">
-
-<h3>
-
-Altas y bajas
-
-</h3>
-
-<p>
-
-Ensayo y reflexión filosófica.
-
-</p>
-
-<a href="pdf/Altas%20y%20bajas%20-%20F_G.pdf" target="_blank">
-
-Leer PDF
-
-</a>
-
-</div>
-
-<div class="card">
-
-<h3>
-
-Actuación 3
-
-</h3>
-
-<p>
-
-Documento jurídico.
-
-</p>
-
-<a href="pdf/Actuación%203.pdf" target="_blank">
-
-Abrir
-
-</a>
-
-</div>
-
-<div class="card">
-
-<h3>
-
-Fiesta en Mineral de la Luz
-
-</h3>
-
-<p>
-
-Poema sobre memoria,
-identidad
-y tradición.
-
-</p>
-
-<a href="pdf/FIESTA%20EN%20MINERAL%20DE%20LA%20LUZ.pdf" target="_blank">
-
-Leer
-
-</a>
-
-</div>
-
-<div class="card">
-
-<h3>
-
-FE
-
-</h3>
-
-<p>
-
-Ensayo filosófico.
-
-</p>
-
-<a href="pdf/FE.pdf" target="_blank">
-
-Leer
-
-</a>
-
-</div>
-
-<div class="card">
-
-<h3>
-
-Fel
-
-</h3>
-
-<p>
-
-Texto adicional.
-
-</p>
-
-<a href="pdf/fel.pdf" target="_blank">
-
-Abrir
-
-</a>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<section id="contacto">
-
-<div class="contenedor">
-
-<h2 class="titulo">
-
-Contacto
-
-</h2>
-
-<p>
-
-Para colaboraciones,
-publicaciones
-o entrevistas.
-
-</p>
-
-<p>
-
-correo@ejemplo.com
-
-</p>
-
-</div>
-
-</section>
-
-<footer>
-
-© 2026 Felipe Plein
-
-</footer>
+  <header>
+    <div class="container">
+      <!-- Sustituye la ruta por tu foto real -->
+      <!-- <img src="fff.jpg" alt="Felipe P. / Gustavo Narváez" class="portrait"> -->
+      <div class="portrait-placeholder">Retrato</div>
+
+      <h1>Felipe P.</h1>
+      <p class="alias">/ Gustavo Narváez</p>
+      <p class="tagline">Escritor. La palabra como territorio, la memoria como materia prima.</p>
+
+      <nav>
+        <a href="#sobre">Sobre mí</a>
+        <a href="#obras">Obras</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section id="sobre">
+      <div class="container">
+        <h2>Sobre mí</h2>
+        <div class="about-text">
+          <p>
+            Escribo desde el umbral entre lo que se recuerda y lo que se inventa.
+            Cada texto es un intento de capturar el latido de un lugar, de una fiesta,
+            de una ausencia.
+          </p>
+          <p>
+            En mis páginas habitan minerales, altas y bajas, actuaciones
+            y el polvo dorado de las historias que no quieren olvidarse.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="obras">
+      <div class="container">
+        <h2>Obras</h2>
+        <div class="works-grid">
+
+          <article class="work-card">
+            <h3>Fiesta en Mineral de la Luz</h3>
+            <p class="type">Narrativa</p>
+            <p>
+              Un recorrido por la memoria y el ritual de un pueblo minero
+              donde la luz y la sombra se celebran juntas.
+            </p>
+          </article>
+
+          <article class="work-card">
+            <h3>Altas y bajas</h3>
+            <p class="type">Prosa / Ensayo</p>
+            <p>
+              Fragmentos que oscilan entre el ascenso y la caída,
+              entre lo que se eleva y lo que regresa a tierra.
+            </p>
+          </article>
+
+          <article class="work-card">
+            <h3>Actuación 3</h3>
+            <p class="type">Texto dramático</p>
+            <p>
+              Una pieza donde el escenario se convierte en espejo
+              y el espectador en cómplice del relato.
+            </p>
+          </article>
+
+          <article class="work-card">
+            <h3>FE / fel</h3>
+            <p class="type">Cuadernos</p>
+            <p>
+              Notas, esbozos y destellos que acompañan el proceso
+              de escritura y de vida.
+            </p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <section id="contacto">
+      <div class="container contact-block">
+        <h2>Contacto</h2>
+        <p>Para lecturas, colaboraciones o simplemente conversar.</p>
+        <a href="mailto:tu@correo.com" class="contact-email">tu@correo.com</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>© 2026 Felipe P. / Gustavo Narváez</p>
+    </div>
+  </footer>
 
 </body>
-
 </html>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
-
-html{
-scroll-behavior:smooth;
-}
-
-body{
-
-background:#090909;
-
-font-family:Inter,sans-serif;
-
-color:white;
-
-}
-
-header{
-
-position:fixed;
-
-width:100%;
-
-top:0;
-
-background:rgba(0,0,0,.55);
-
-backdrop-filter:blur(18px);
-
-z-index:999;
-
-}
-
-nav{
-
-width:90%;
-
-margin:auto;
-
-height:80px;
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-}
-
-.logo{
-
-font-family:"Cormorant Garamond",serif;
-
-font-size:34px;
-
-letter-spacing:3px;
-
-}
-
-nav ul{
-
-display:flex;
-
-gap:35px;
-
-list-style:none;
-
-}
-
-nav a{
-
-text-decoration:none;
-
-color:white;
-
-transition:.3s;
-
-}
-
-nav a:hover{
-
-color:#d6b06c;
-
-}
-
-.hero{
-
-min-height:100vh;
-
-display:flex;
-
-justify-content:center;
-
-align-items:center;
-
-text-align:center;
-
-padding:100px 20px;
-
-background:
-radial-gradient(circle at top,#202020,#090909);
-
-}
-
-.hero img{
-
-width:240px;
-
-height:240px;
-
-object-fit:cover;
-
-border-radius:50%;
-
-border:5px solid rgba(255,255,255,.3);
-
-box-shadow:0 0 40px rgba(255,255,255,.2);
-
-margin-bottom:35px;
-
-}
-
-.hero h1{
-
-font-family:"Cormorant Garamond",serif;
-
-font-size:78px;
-
-}
-
-.hero h2{
-
-font-weight:300;
-
-margin-top:15px;
-
-color:#c0c0c0;
-
-}
-
-.hero p{
-
-font-size:22px;
-
-max-width:700px;
-
-margin:35px auto;
-
-line-height:1.8;
-
-}
-
-.boton{
-
-display:inline-block;
-
-padding:18px 45px;
-
-border-radius:40px;
-
-background:#d6b06c;
-
-color:black;
-
-text-decoration:none;
-
-font-weight:bold;
-
-transition:.3s;
-
-}
-
-.boton:hover{
-
-transform:translateY(-5px);
-
-background:white;
-
-}
-
-.contenedor{
-
-width:90%;
-
-max-width:1100px;
-
-margin:auto;
-
-padding:100px 0;
-
-}
-
-.titulo{
-
-font-family:"Cormorant Garamond",serif;
-
-font-size:54px;
-
-margin-bottom:45px;
-
-text-align:center;
-
-}
-
-#bio p{
-
-font-size:20px;
-
-line-height:2;
-
-max-width:900px;
-
-margin:auto;
-
-text-align:center;
-
-}
-
-.grid{
-
-display:grid;
-
-grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-
-gap:35px;
-
-margin-top:40px;
-
-}
-
-.card{
-
-background:#151515;
-
-padding:35px;
-
-border-radius:15px;
-
-transition:.35s;
-
-border:1px solid rgba(255,255,255,.05);
-
-}
-
-.card:hover{
-
-transform:translateY(-10px);
-
-background:#1f1f1f;
-
-}
-
-.card h3{
-
-font-family:"Cormorant Garamond",serif;
-
-font-size:34px;
-
-margin-bottom:20px;
-
-}
-
-.card p{
-
-margin-bottom:30px;
-
-line-height:1.8;
-
-color:#bbb;
-
-}
-
-.card a{
-
-display:inline-block;
-
-padding:14px 28px;
-
-background:#d6b06c;
-
-border-radius:30px;
-
-color:black;
-
-font-weight:bold;
-
-text-decoration:none;
-
-}
-
-#contacto{
-
-text-align:center;
-
-background:#111;
-
-}
-
-#contacto p{
-
-margin:15px 0;
-
-font-size:20px;
-
-}
-
-footer{
-
-padding:35px;
-
-text-align:center;
-
-background:black;
-
-color:#888;
-
-}
-
-@media(max-width:768px){
-
-.hero h1{
-
-font-size:52px;
-
-}
-
-.hero img{
-
-width:170px;
-
-height:170px;
-
-}
-
-nav ul{
-
-display:none;
-
-}
-
-}
