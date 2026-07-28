@@ -269,6 +269,28 @@
       margin-top: 1.8rem;
     }
 
+    /* Redes sociales */
+    .socials {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1.8rem;
+      margin-top: 2.5rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--line);
+    }
+    .socials a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.78rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      transition: color 0.3s ease;
+    }
+    .socials a:hover {
+      color: var(--gold);
+    }
+
     footer {
       padding: 3rem 0 4rem;
       text-align: center;
@@ -289,6 +311,9 @@
       }
       .work-card {
         padding: 1.4rem 1.5rem;
+      }
+      .socials {
+        gap: 1.2rem;
       }
     }
   </style>
@@ -375,12 +400,11 @@
       </div>
     </section>
 
-    <!-- Comentarios (formulario que llega a tu correo) -->
+    <!-- Comentarios -->
     <section id="comentarios">
       <div class="container">
         <h2>Comentarios</h2>
         <form class="comment-form" action="https://formsubmit.co/felipedejesusgarciapatino@gmail.com" method="POST">
-          <!-- Configuración de FormSubmit -->
           <input type="hidden" name="_subject" value="Nuevo comentario en tu página de escritor">
           <input type="hidden" name="_captcha" value="false">
           <input type="hidden" name="_template" value="table">
@@ -414,6 +438,15 @@
         <a href="mailto:felipedejesusgarciapatino@gmail.com" class="contact-email">
           felipedejesusgarciapatino@gmail.com
         </a>
+
+        <!-- Redes sociales -->
+        <div class="socials">
+          <a href="https://www.instagram.com/felipeplein2026/" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.facebook.com/profile.php?id=61591803449103" target="_blank" rel="noopener">Facebook</a>
+          <a href="https://x.com/FelipePleibx" target="_blank" rel="noopener">X</a>
+          <a href="https://www.threads.com/@felipeplein2026" target="_blank" rel="noopener">Threads</a>
+          <a href="https://www.tumblr.com/blog/felipeplein" target="_blank" rel="noopener">Tumblr</a>
+        </div>
       </div>
     </section>
   </main>
