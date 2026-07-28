@@ -66,28 +66,12 @@
       border: 1px solid var(--line);
       margin: 0 auto 2.2rem;
       display: block;
-      filter: grayscale(30%) contrast(1.05);
+      filter: grayscale(25%) contrast(1.05);
       transition: filter 0.4s ease;
     }
 
     .portrait:hover {
       filter: grayscale(0%) contrast(1.1);
-    }
-
-    .portrait-placeholder {
-      width: 160px;
-      height: 160px;
-      border-radius: 50%;
-      border: 1px solid var(--line);
-      margin: 0 auto 2.2rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--paper);
-      color: var(--muted);
-      font-size: 0.75rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
     }
 
     h1 {
@@ -177,6 +161,9 @@
       border: 1px solid var(--line);
       padding: 1.8rem 2rem;
       transition: border-color 0.3s ease, transform 0.3s ease;
+      text-decoration: none;
+      color: inherit;
+      display: block;
     }
 
     .work-card:hover {
@@ -190,6 +177,11 @@
       font-weight: 600;
       color: var(--ink);
       margin-bottom: 0.4rem;
+      transition: color 0.3s ease;
+    }
+
+    .work-card:hover h3 {
+      color: var(--gold);
     }
 
     .work-card .type {
@@ -204,6 +196,21 @@
       font-size: 0.95rem;
       color: var(--muted);
       line-height: 1.65;
+    }
+
+    .work-card .read {
+      display: inline-block;
+      margin-top: 1rem;
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      opacity: 0.7;
+      transition: opacity 0.3s ease;
+    }
+
+    .work-card:hover .read {
+      opacity: 1;
     }
 
     .contact-block {
@@ -230,7 +237,6 @@
       border-color: var(--gold);
     }
 
-    /* Comentarios */
     #comentarios {
       background: var(--paper);
     }
@@ -239,11 +245,6 @@
       max-width: 780px;
       margin: 0 auto;
       padding: 0 1rem;
-    }
-
-    /* Estilo suave para que Disqus se integre mejor */
-    #disqus_thread iframe {
-      border-radius: 4px;
     }
 
     footer {
@@ -276,9 +277,7 @@
 
   <header>
     <div class="container">
-      <!-- Sustituye por tu foto real -->
-      <!-- <img src="fff.jpg" alt="Felipe P. / Gustavo Narváez" class="portrait"> -->
-      <div class="portrait-placeholder">Retrato</div>
+      <img src="fff.jpg" alt="Felipe P. / Gustavo Narváez" class="portrait">
 
       <h1>Felipe P.</h1>
       <p class="alias">/ Gustavo Narváez</p>
@@ -316,47 +315,60 @@
         <h2>Obras</h2>
         <div class="works-grid">
 
-          <article class="work-card">
+          <a href="FIESTA EN MINERAL DE LA LUZ.pdf" class="work-card" target="_blank">
             <h3>Fiesta en Mineral de la Luz</h3>
             <p class="type">Narrativa</p>
             <p>
               Un recorrido por la memoria y el ritual de un pueblo minero
               donde la luz y la sombra se celebran juntas.
             </p>
-          </article>
+            <span class="read">Leer PDF →</span>
+          </a>
 
-          <article class="work-card">
+          <a href="Altas y bajas - F_G.pdf" class="work-card" target="_blank">
             <h3>Altas y bajas</h3>
             <p class="type">Prosa / Ensayo</p>
             <p>
               Fragmentos que oscilan entre el ascenso y la caída,
               entre lo que se eleva y lo que regresa a tierra.
             </p>
-          </article>
+            <span class="read">Leer PDF →</span>
+          </a>
 
-          <article class="work-card">
+          <a href="Actuación 3.pdf" class="work-card" target="_blank">
             <h3>Actuación 3</h3>
             <p class="type">Texto dramático</p>
             <p>
               Una pieza donde el escenario se convierte en espejo
               y el espectador en cómplice del relato.
             </p>
-          </article>
+            <span class="read">Leer PDF →</span>
+          </a>
 
-          <article class="work-card">
-            <h3>FE / fel</h3>
-            <p class="type">Cuadernos</p>
+          <a href="FE.pdf" class="work-card" target="_blank">
+            <h3>FE</h3>
+            <p class="type">Cuaderno</p>
             <p>
               Notas, esbozos y destellos que acompañan el proceso
               de escritura y de vida.
             </p>
-          </article>
+            <span class="read">Leer PDF →</span>
+          </a>
+
+          <a href="fel.pdf" class="work-card" target="_blank">
+            <h3>fel</h3>
+            <p class="type">Cuaderno</p>
+            <p>
+              Fragmentos íntimos y continuaciones del cuaderno FE.
+            </p>
+            <span class="read">Leer PDF →</span>
+          </a>
 
         </div>
       </div>
     </section>
 
-    <!-- SECCIÓN DE COMENTARIOS -->
+    <!-- Comentarios -->
     <section id="comentarios">
       <div class="container">
         <h2>Comentarios</h2>
@@ -368,7 +380,9 @@
       <div class="container contact-block">
         <h2>Contacto</h2>
         <p>Para lecturas, colaboraciones o simplemente conversar.</p>
-        <a href="mailto:tu@correo.com" class="contact-email">tu@correo.com</a>
+        <a href="mailto:felipedejesusgarciapatino@gmail.com" class="contact-email">
+          felipedejesusgarciapatino@gmail.com
+        </a>
       </div>
     </section>
   </main>
@@ -379,7 +393,7 @@
     </div>
   </footer>
 
-  <!-- Disqus -->
+  <!-- Disqus (recuerda cambiar TU-SHORTNAME) -->
   <script>
     var disqus_config = function () {
       this.page.url = window.location.href;
@@ -388,7 +402,7 @@
 
     (function() {
       var d = document, s = d.createElement('script');
-      s.src = 'https://TU-SHORTNAME.disqus.com/embed.js';  // ← Cambia esto
+      s.src = 'https://TU-SHORTNAME.disqus.com/embed.js';
       s.setAttribute('data-timestamp', +new Date());
       (d.head || d.body).appendChild(s);
     })();
