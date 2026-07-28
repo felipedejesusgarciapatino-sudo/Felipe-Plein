@@ -17,17 +17,14 @@
       --gold-dim: #8a7348;
       --line: rgba(201, 168, 108, 0.25);
     }
-
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
-
     html {
       scroll-behavior: smooth;
     }
-
     body {
       background: var(--bg);
       color: var(--ink);
@@ -36,7 +33,6 @@
       line-height: 1.7;
       overflow-x: hidden;
     }
-
     body::before {
       content: "";
       position: fixed;
@@ -45,19 +41,16 @@
       pointer-events: none;
       z-index: 1000;
     }
-
     .container {
       max-width: 920px;
       margin: 0 auto;
       padding: 0 2rem;
     }
-
     header {
       padding: 5rem 0 4rem;
       text-align: center;
       position: relative;
     }
-
     .portrait {
       width: 160px;
       height: 160px;
@@ -69,11 +62,9 @@
       filter: grayscale(25%) contrast(1.05);
       transition: filter 0.4s ease;
     }
-
     .portrait:hover {
       filter: grayscale(0%) contrast(1.1);
     }
-
     h1 {
       font-family: 'Cormorant Garamond', Georgia, serif;
       font-weight: 600;
@@ -82,7 +73,6 @@
       color: var(--ink);
       margin-bottom: 0.4rem;
     }
-
     .alias {
       font-family: 'Cormorant Garamond', Georgia, serif;
       font-style: italic;
@@ -91,7 +81,6 @@
       letter-spacing: 0.06em;
       margin-bottom: 1.8rem;
     }
-
     .tagline {
       font-size: 0.95rem;
       color: var(--muted);
@@ -99,7 +88,6 @@
       margin: 0 auto;
       letter-spacing: 0.02em;
     }
-
     nav {
       display: flex;
       justify-content: center;
@@ -108,7 +96,6 @@
       padding-top: 1.5rem;
       border-top: 1px solid var(--line);
     }
-
     nav a {
       color: var(--muted);
       text-decoration: none;
@@ -117,16 +104,13 @@
       text-transform: uppercase;
       transition: color 0.3s ease;
     }
-
     nav a:hover {
       color: var(--gold);
     }
-
     section {
       padding: 5rem 0;
       border-top: 1px solid var(--line);
     }
-
     section h2 {
       font-family: 'Cormorant Garamond', Georgia, serif;
       font-weight: 600;
@@ -136,7 +120,6 @@
       margin-bottom: 2.5rem;
       text-align: center;
     }
-
     .about-text {
       font-family: 'Cormorant Garamond', Georgia, serif;
       font-size: 1.35rem;
@@ -146,16 +129,13 @@
       margin: 0 auto;
       text-align: center;
     }
-
     .about-text p + p {
       margin-top: 1.4rem;
     }
-
     .works-grid {
       display: grid;
       gap: 1.5rem;
     }
-
     .work-card {
       background: var(--paper);
       border: 1px solid var(--line);
@@ -165,12 +145,10 @@
       color: inherit;
       display: block;
     }
-
     .work-card:hover {
       border-color: var(--gold-dim);
       transform: translateY(-2px);
     }
-
     .work-card h3 {
       font-family: 'Cormorant Garamond', Georgia, serif;
       font-size: 1.45rem;
@@ -179,11 +157,9 @@
       margin-bottom: 0.4rem;
       transition: color 0.3s ease;
     }
-
     .work-card:hover h3 {
       color: var(--gold);
     }
-
     .work-card .type {
       font-size: 0.75rem;
       letter-spacing: 0.14em;
@@ -191,13 +167,11 @@
       color: var(--gold);
       margin-bottom: 0.9rem;
     }
-
     .work-card p {
       font-size: 0.95rem;
       color: var(--muted);
       line-height: 1.65;
     }
-
     .work-card .read {
       display: inline-block;
       margin-top: 1rem;
@@ -208,21 +182,17 @@
       opacity: 0.7;
       transition: opacity 0.3s ease;
     }
-
     .work-card:hover .read {
       opacity: 1;
     }
-
     .contact-block {
       text-align: center;
     }
-
     .contact-block p {
       color: var(--muted);
       margin-bottom: 1.5rem;
       font-size: 1rem;
     }
-
     .contact-email {
       font-family: 'Cormorant Garamond', Georgia, serif;
       font-size: 1.5rem;
@@ -232,19 +202,71 @@
       border-bottom: 1px solid transparent;
       transition: border-color 0.3s ease;
     }
-
     .contact-email:hover {
       border-color: var(--gold);
     }
 
-    #comentarios {
-      background: var(--paper);
-    }
-
-    #disqus_thread {
-      max-width: 780px;
+    /* Formulario de comentarios */
+    .comment-form {
+      max-width: 560px;
       margin: 0 auto;
-      padding: 0 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.4rem;
+    }
+    .comment-form label {
+      display: block;
+      font-size: 0.78rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.45rem;
+    }
+    .comment-form input,
+    .comment-form textarea {
+      width: 100%;
+      background: var(--bg);
+      border: 1px solid var(--line);
+      color: var(--ink);
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 1rem;
+      font-weight: 300;
+      padding: 0.9rem 1.1rem;
+      border-radius: 2px;
+      outline: none;
+      transition: border-color 0.3s ease;
+    }
+    .comment-form input:focus,
+    .comment-form textarea:focus {
+      border-color: var(--gold-dim);
+    }
+    .comment-form textarea {
+      min-height: 140px;
+      resize: vertical;
+      line-height: 1.6;
+    }
+    .comment-form button {
+      align-self: flex-start;
+      background: transparent;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      padding: 0.85rem 2.2rem;
+      cursor: pointer;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+    .comment-form button:hover {
+      background: var(--gold);
+      color: var(--bg);
+    }
+    .form-note {
+      font-size: 0.85rem;
+      color: var(--muted);
+      text-align: center;
+      margin-top: 1.8rem;
     }
 
     footer {
@@ -252,13 +274,11 @@
       text-align: center;
       border-top: 1px solid var(--line);
     }
-
     footer p {
       font-size: 0.75rem;
       color: var(--muted);
       letter-spacing: 0.1em;
     }
-
     @media (max-width: 600px) {
       nav {
         gap: 1.5rem;
@@ -274,15 +294,12 @@
   </style>
 </head>
 <body>
-
   <header>
     <div class="container">
       <img src="fff.jpg" alt="Felipe P. / Gustavo Narváez" class="portrait">
-
       <h1>Felipe P.</h1>
       <p class="alias">/ Gustavo Narváez</p>
       <p class="tagline">Escritor.</p>
-
       <nav>
         <a href="#sobre">Sobre mí</a>
         <a href="#obras">Obras</a>
@@ -291,7 +308,6 @@
       </nav>
     </div>
   </header>
-
   <main>
     <section id="sobre">
       <div class="container">
@@ -307,12 +323,10 @@
         </div>
       </div>
     </section>
-
     <section id="obras">
       <div class="container">
         <h2>Obras</h2>
         <div class="works-grid">
-
           <a href="FIESTA EN MINERAL DE LA LUZ.pdf" class="work-card" target="_blank">
             <h3>Fiesta en Mineral de la Luz</h3>
             <p class="type">Narrativa</p>
@@ -322,7 +336,6 @@
             </p>
             <span class="read">Leer PDF →</span>
           </a>
-
           <a href="Altas y bajas - F_G.pdf" class="work-card" target="_blank">
             <h3>Altas y bajas</h3>
             <p class="type">Prosa / Ensayo</p>
@@ -332,7 +345,6 @@
             </p>
             <span class="read">Leer PDF →</span>
           </a>
-
           <a href="Actuación 3.pdf" class="work-card" target="_blank">
             <h3>Actuación 3</h3>
             <p class="type">Texto dramático</p>
@@ -342,7 +354,6 @@
             </p>
             <span class="read">Leer PDF →</span>
           </a>
-
           <a href="FE.pdf" class="work-card" target="_blank">
             <h3>FE</h3>
             <p class="type">Cuaderno</p>
@@ -352,7 +363,6 @@
             </p>
             <span class="read">Leer PDF →</span>
           </a>
-
           <a href="fel.pdf" class="work-card" target="_blank">
             <h3>fel</h3>
             <p class="type">Cuaderno</p>
@@ -361,16 +371,39 @@
             </p>
             <span class="read">Leer PDF →</span>
           </a>
-
         </div>
       </div>
     </section>
 
-    <!-- Comentarios -->
+    <!-- Comentarios (formulario que llega a tu correo) -->
     <section id="comentarios">
       <div class="container">
         <h2>Comentarios</h2>
-        <div id="disqus_thread"></div>
+        <form class="comment-form" action="https://formsubmit.co/felipedejesusgarciapatino@gmail.com" method="POST">
+          <!-- Configuración de FormSubmit -->
+          <input type="hidden" name="_subject" value="Nuevo comentario en tu página de escritor">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_template" value="table">
+          <input type="text" name="_honey" style="display:none">
+
+          <div>
+            <label for="nombre">Nombre</label>
+            <input type="text" id="nombre" name="nombre" required placeholder="Tu nombre">
+          </div>
+
+          <div>
+            <label for="email">Correo electrónico</label>
+            <input type="email" id="email" name="email" required placeholder="tu@correo.com">
+          </div>
+
+          <div>
+            <label for="mensaje">Comentario</label>
+            <textarea id="mensaje" name="mensaje" required placeholder="Escribe aquí tu comentario..."></textarea>
+          </div>
+
+          <button type="submit">Enviar comentario</button>
+        </form>
+        <p class="form-note">El comentario llegará directamente a mi correo.</p>
       </div>
     </section>
 
@@ -384,30 +417,10 @@
       </div>
     </section>
   </main>
-
   <footer>
     <div class="container">
       <p>© 2026 Felipe P. / Gustavo Narváez</p>
     </div>
   </footer>
-
-  <!-- Disqus (recuerda cambiar TU-SHORTNAME) -->
-  <script>
-    var disqus_config = function () {
-      this.page.url = window.location.href;
-      this.page.identifier = 'felipe-p-gustavo-narvaez';
-    };
-
-    (function() {
-      var d = document, s = d.createElement('script');
-      s.src = 'https://TU-SHORTNAME.disqus.com/embed.js';
-      s.setAttribute('data-timestamp', +new Date());
-      (d.head || d.body).appendChild(s);
-    })();
-  </script>
-  <noscript>
-    Por favor activa JavaScript para ver los comentarios.
-  </noscript>
-
 </body>
 </html>
