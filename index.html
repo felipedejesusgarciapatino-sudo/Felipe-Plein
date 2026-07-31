@@ -45,11 +45,9 @@
       text-align: center;
       position: relative;
     }
-
-    /* Contenedor de la foto de perfil */
     .portrait-link {
-      display:inline-block;
-      text-decoration:none;
+      display: inline-block;
+      text-decoration: none;
     }
     .portrait-container {
       position: relative;
@@ -80,7 +78,6 @@
     .portrait-container:hover .portrait-alt {
       opacity: 1;
     }
-
     h1 {
       font-family: 'Cormorant Garamond', Georgia, serif;
       font-weight: 600;
@@ -201,8 +198,6 @@
     .work-card:hover .read {
       opacity: 1;
     }
-
-    /* Botón semioculto + estática total al hover */
     .hidden-work {
       position: relative;
       opacity: 0.52;
@@ -228,8 +223,6 @@
       z-index: 1;
       transition: opacity 0.25s ease;
     }
-
-    /* Al pasar el mouse: solo estática pura y total */
     .hidden-work:hover {
       opacity: 1;
       background-color: #000;
@@ -243,7 +236,6 @@
       mix-blend-mode: normal;
       animation: tv-static 0.11s steps(2) infinite;
     }
-
     @keyframes tv-static {
       0%   { transform: translate(0, 0); }
       25%  { transform: translate(-4%, 3%); }
@@ -251,7 +243,6 @@
       75%  { transform: translate(-2%, 4%); }
       100% { transform: translate(0, 0); }
     }
-
     .contact-block {
       text-align: center;
     }
@@ -272,7 +263,6 @@
     .contact-email:hover {
       border-color: var(--gold);
     }
-    /* Formulario de comentarios */
     .comment-form {
       max-width: 560px;
       margin: 0 auto;
@@ -334,7 +324,6 @@
       text-align: center;
       margin-top: 1.8rem;
     }
-    /* Redes sociales */
     .socials {
       display: flex;
       justify-content: center;
@@ -365,8 +354,6 @@
       color: var(--muted);
       letter-spacing: 0.1em;
     }
-
-    /* Pequeño botón circular flotante */
     .btn-circular {
       position: fixed;
       bottom: 2rem;
@@ -397,25 +384,12 @@
       height: 10px;
       fill: currentColor;
     }
-
     @media (max-width: 600px) {
-      nav {
-        gap: 1.5rem;
-        flex-wrap: wrap;
-      }
-      .about-text {
-        font-size: 1.2rem;
-      }
-      .work-card {
-        padding: 1.4rem 1.5rem;
-      }
-      .socials {
-        gap: 1.2rem;
-      }
-      .btn-circular {
-        bottom: 1.2rem;
-        right: 1.2rem;
-      }
+      nav { gap: 1.5rem; flex-wrap: wrap; }
+      .about-text { font-size: 1.2rem; }
+      .work-card { padding: 1.4rem 1.5rem; }
+      .socials { gap: 1.2rem; }
+      .btn-circular { bottom: 1.2rem; right: 1.2rem; }
     }
   </style>
 </head>
@@ -423,11 +397,11 @@
   <header>
     <div class="container">
       <a href="y.pdf" target="_blank" class="portrait-link">
-      <div class="portrait-container">
-        <img src="IMG-277.jpg" alt="Felipe P. / Gustavo Narváez" class="portrait">
-        <img src="n.png" alt="Felipe P. / Gustavo Narváez" class="portrait portrait-alt">
-      </div>
-    </a>
+        <div class="portrait-container">
+          <img src="IMG-277.jpg" alt="Felipe P. / Gustavo Narváez" class="portrait">
+          <img src="n.png" alt="Felipe P. / Gustavo Narváez" class="portrait portrait-alt">
+        </div>
+      </a>
       <h1>Felipe P.</h1>
       <p class="alias">/ Gustavo Narváez</p>
       <p class="tagline">Escritor, músico fugado del Conservatorio de Celaya, y vago.</p>
@@ -444,12 +418,8 @@
       <div class="container">
         <h2>Sobre mí</h2>
         <div class="about-text">
-          <p>
-            "In principio erat Verbum, et Verbum erat apud Deum, et Deus erat Verbum."
-          </p>
-          <p>
-            Me volví a acordar de ti!
-          </p>
+          <p>"In principio erat Verbum, et Verbum erat apud Deum, et Deus erat Verbum."</p>
+          <p>Me volví a acordar de ti!</p>
         </div>
       </div>
     </section>
@@ -460,68 +430,48 @@
           <a href="FIESTA EN MINERAL DE LA LUZ.pdf" class="work-card" target="_blank">
             <h3>Fiesta en Mineral de la Luz</h3>
             <p class="type">Poema</p>
-            <p>
-              Un recorrido por la memoria y el ritual de un pueblo minero
-              donde la luz y la sombra se celebran juntas.
-            </p>
-            <span class="read">Leer PDF →</span>
+            <p>Un recorrido por la memoria y el ritual de un pueblo minero donde la luz y la sombra se celebran juntas.</p>
+            <span class="read">Leer PDF &rarr;</span>
           </a>
           <a href="Altas y bajas - F_G.pdf" class="work-card" target="_blank">
             <h3>Altas y bajas</h3>
             <p class="type">Poema</p>
-            <p>
-              Fragmentos que oscilan entre el ascenso y la caída,
-              entre lo que se eleva y lo que regresa a tierra.
-            </p>
-            <span class="read">Leer PDF →</span>
+            <p>Fragmentos que oscilan entre el ascenso y la caída, entre lo que se eleva y lo que regresa a tierra.</p>
+            <span class="read">Leer PDF &rarr;</span>
           </a>
           <a href="t.pdf" class="work-card" target="_blank">
             <h3>Arrecife Alacranes</h3>
             <p class="type">Poema (Anexado, parte 2)</p>
-            <p>
-              Camino al arrecife norte del juicio, donde se navega entre sombras y mareos.
-            </p>
-            <span class="read">Leer PDF →</span>
+            <p>Camino al arrecife norte del juicio, donde se navega entre sombras y mareos.</p>
+            <span class="read">Leer PDF &rarr;</span>
           </a>
           <a href="z.pdf" class="work-card" target="_blank">
             <h3>Actuación 3</h3>
             <p class="type">Mi Juicio de Amparo Indirecto, por derecho propio</p>
-            <p>
-              
-            </p>
-            <span class="read">Leer PDF →</span>
+            <p></p>
+            <span class="read">Leer PDF &rarr;</span>
           </a>
           <a href="g.pdf" class="work-card" target="_blank">
             <h3>FE</h3>
             <p class="type">Cuaderno</p>
-            <p>
-              Notas, esbozos y destellos que acompañan el proceso
-              de escritura y de vida.
-            </p>
-            <span class="read">Leer PDF →</span>
+            <p>Notas, esbozos y destellos que acompañan el proceso de escritura y de vida.</p>
+            <span class="read">Leer PDF &rarr;</span>
           </a>
           <a href="Gerardo Szae___Gustavo Narváez (1)-16-19.pdf" class="work-card" target="_blank">
             <h3>Sobre cómo (NO) robar un vochito</h3>
             <p class="type">Texto</p>
-            <p>
-              Humor sobre la expropiación de un pequeño Volkswagen.
-            </p>
-            <span class="read">Leer PDF →</span>
+            <p>Humor sobre la expropiación de un pequeño Volkswagen.</p>
+            <span class="read">Leer PDF &rarr;</span>
           </a>
-
-          <!-- Botón con estática total al hover -->
           <a href="mat1.pdf" class="work-card hidden-work" target="_blank">
             <h3>Ménage à trois — Primera parte</h3>
             <p class="type">Texto</p>
-            <p>
-              
-            </p>
-            <span class="read">Leer PDF →</span>
+            <p></p>
+            <span class="read">Leer PDF &rarr;</span>
           </a>
         </div>
       </div>
     </section>
-    <!-- Comentarios -->
     <section id="comentarios">
       <div class="container">
         <h2>Comentarios</h2>
@@ -554,7 +504,6 @@
         <a href="mailto:felipedejesusgarciapatino@gmail.com" class="contact-email">
           felipedejesusgarciapatino@gmail.com
         </a>
-        <!-- Redes sociales -->
         <div class="socials">
           <a href="https://www.instagram.com/felipeplein2026/" target="_blank" rel="noopener">Instagram</a>
           <a href="https://www.facebook.com/profile.php?id=61591803449103" target="_blank" rel="noopener">Facebook</a>
@@ -570,8 +519,6 @@
       <p>© 2026 Felipe P. / Gustavo Narváez</p>
     </div>
   </footer>
-
-  <!-- Pequeño botón circular -->
   <a href="https://www.youtube.com/watch?v=JWOWieTbUxQ" target="_blank" rel="noopener" class="btn-circular" title="Ver en YouTube">
     <svg viewBox="0 0 24 24">
       <path d="M8 5v14l11-7z"/>
