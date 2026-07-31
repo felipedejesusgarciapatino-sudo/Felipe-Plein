@@ -365,6 +365,39 @@
       color: var(--muted);
       letter-spacing: 0.1em;
     }
+
+    /* Pequeño botón circular flotante */
+    .btn-circular {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      z-index: 1001;
+      transition: border-color 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+      opacity: 0.7;
+    }
+    .btn-circular:hover {
+      opacity: 1;
+      border-color: var(--gold);
+      color: var(--gold);
+      transform: scale(1.1);
+      box-shadow: 0 0 10px rgba(201, 168, 108, 0.2);
+    }
+    .btn-circular svg {
+      width: 10px;
+      height: 10px;
+      fill: currentColor;
+    }
+
     @media (max-width: 600px) {
       nav {
         gap: 1.5rem;
@@ -378,6 +411,10 @@
       }
       .socials {
         gap: 1.2rem;
+      }
+      .btn-circular {
+        bottom: 1.2rem;
+        right: 1.2rem;
       }
     }
   </style>
@@ -442,7 +479,7 @@
             <h3>Actuación 3</h3>
             <p class="type">Mi Juicio de Amparo Indirecto, por derecho propio</p>
             <p>
-             
+              
             </p>
             <span class="read">Leer PDF →</span>
           </a>
@@ -525,5 +562,12 @@
       <p>© 2026 Felipe P. / Gustavo Narváez</p>
     </div>
   </footer>
+
+  <!-- Pequeño botón circular -->
+  <a href="https://www.youtube.com/watch?v=lqraus0ktCY&list=RDlqraus0ktCY&start_radio=1&t=1461s" target="_blank" rel="noopener" class="btn-circular" title="Ver en YouTube">
+    <svg viewBox="0 0 24 24">
+      <path d="M8 5v14l11-7z"/>
+    </svg>
+  </a>
 </body>
 </html>
