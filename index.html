@@ -45,20 +45,38 @@
       text-align: center;
       position: relative;
     }
+
+    /* Contenedor de la foto de perfil */
+    .portrait-container {
+      position: relative;
+      width: 160px;
+      height: 160px;
+      margin: 0 auto 2.2rem;
+    }
     .portrait {
       width: 160px;
       height: 160px;
       border-radius: 50%;
       object-fit: cover;
       border: 1px solid var(--line);
-      margin: 0 auto 2.2rem;
       display: block;
       filter: grayscale(25%) contrast(1.05);
-      transition: filter 0.4s ease;
+      transition: filter 0.4s ease, opacity 0.4s ease;
     }
-    .portrait:hover {
+    .portrait-alt {
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0;
       filter: grayscale(0%) contrast(1.1);
     }
+    .portrait-container:hover .portrait {
+      opacity: 0;
+    }
+    .portrait-container:hover .portrait-alt {
+      opacity: 1;
+    }
+
     h1 {
       font-family: 'Cormorant Garamond', Georgia, serif;
       font-weight: 600;
@@ -354,7 +372,10 @@
 <body>
   <header>
     <div class="container">
-      <img src="IMG-277.jpg" alt="Felipe P. / Gustavo Narváez" class="portrait">
+      <div class="portrait-container">
+        <img src="IMG-277.jpg" alt="Felipe P. / Gustavo Narváez" class="portrait">
+        <img src="n.png" alt="Felipe P. / Gustavo Narváez" class="portrait portrait-alt">
+      </div>
       <h1>Felipe P.</h1>
       <p class="alias">/ Gustavo Narváez</p>
       <p class="tagline">Escritor, músico fugado del Conservatorio de Celaya, y vago.</p>
