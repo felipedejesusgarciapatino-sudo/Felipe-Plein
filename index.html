@@ -38,25 +38,26 @@
     .container {
       max-width: 920px;
       margin: 0 auto;
-      padding: 0 1.5rem;
+      padding: 0 2rem;
     }
     header {
-      padding: 4rem 0 3rem;
+      padding: 5rem 0 4rem;
       text-align: center;
       position: relative;
     }
-
-    /* Foto de perfil (clickeable → y.pdf) */
+    .portrait-link {
+      display: inline-block;
+      text-decoration: none;
+    }
     .portrait-container {
       position: relative;
-      width: 150px;
-      height: 150px;
-      margin: 0 auto 1.8rem;
-      display: block;
+      width: 160px;
+      height: 160px;
+      margin: 0 auto 2.2rem;
     }
     .portrait {
-      width: 150px;
-      height: 150px;
+      width: 160px;
+      height: 160px;
       border-radius: 50%;
       object-fit: cover;
       border: 1px solid var(--line);
@@ -77,85 +78,81 @@
     .portrait-container:hover .portrait-alt {
       opacity: 1;
     }
-
     h1 {
       font-family: 'Cormorant Garamond', Georgia, serif;
       font-weight: 600;
-      font-size: clamp(2.1rem, 7vw, 3.4rem);
+      font-size: clamp(2.4rem, 6vw, 3.6rem);
       letter-spacing: 0.04em;
       color: var(--ink);
-      margin-bottom: 0.35rem;
+      margin-bottom: 0.4rem;
     }
     .alias {
       font-family: 'Cormorant Garamond', Georgia, serif;
       font-style: italic;
-      font-size: 1.15rem;
+      font-size: 1.25rem;
       color: var(--gold);
       letter-spacing: 0.06em;
-      margin-bottom: 1.4rem;
+      margin-bottom: 1.8rem;
     }
     .tagline {
-      font-size: 0.92rem;
+      font-size: 0.95rem;
       color: var(--muted);
       max-width: 480px;
       margin: 0 auto;
       letter-spacing: 0.02em;
-      padding: 0 0.5rem;
     }
     nav {
       display: flex;
       justify-content: center;
-      flex-wrap: wrap;
-      gap: 1.2rem 1.8rem;
-      margin-top: 2.5rem;
-      padding-top: 1.4rem;
+      gap: 2.5rem;
+      margin-top: 3rem;
+      padding-top: 1.5rem;
       border-top: 1px solid var(--line);
     }
     nav a {
       color: var(--muted);
       text-decoration: none;
-      font-size: 0.78rem;
-      letter-spacing: 0.16em;
+      font-size: 0.8rem;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
       transition: color 0.3s ease;
-      padding: 0.3rem 0;
     }
     nav a:hover {
       color: var(--gold);
     }
     section {
-      padding: 3.5rem 0;
+      padding: 5rem 0;
       border-top: 1px solid var(--line);
     }
     section h2 {
       font-family: 'Cormorant Garamond', Georgia, serif;
       font-weight: 600;
-      font-size: 1.65rem;
+      font-size: 1.8rem;
       letter-spacing: 0.06em;
       color: var(--gold);
-      margin-bottom: 2rem;
+      margin-bottom: 2.5rem;
       text-align: center;
     }
     .about-text {
       font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: 1.25rem;
-      line-height: 1.8;
+      font-size: 1.35rem;
+      line-height: 1.85;
       color: var(--ink);
       max-width: 640px;
       margin: 0 auto;
       text-align: center;
     }
     .about-text p + p {
-      margin-top: 1.3rem;
+      margin-top: 1.4rem;
     }
     .works-grid {
       display: grid;
-      gap: 1.2rem;
+      gap: 1.5rem;
     }
     .work-card {
       background: var(--paper);
       border: 1px solid var(--line);
-      padding: 1.5rem 1.4rem;
+      padding: 1.8rem 2rem;
       transition: border-color 0.3s ease, transform 0.3s ease;
       text-decoration: none;
       color: inherit;
@@ -167,31 +164,31 @@
     }
     .work-card h3 {
       font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: 1.35rem;
+      font-size: 1.45rem;
       font-weight: 600;
       color: var(--ink);
-      margin-bottom: 0.35rem;
+      margin-bottom: 0.4rem;
       transition: color 0.3s ease;
     }
     .work-card:hover h3 {
       color: var(--gold);
     }
     .work-card .type {
-      font-size: 0.72rem;
+      font-size: 0.75rem;
       letter-spacing: 0.14em;
       text-transform: uppercase;
       color: var(--gold);
-      margin-bottom: 0.8rem;
+      margin-bottom: 0.9rem;
     }
     .work-card p {
-      font-size: 0.93rem;
+      font-size: 0.95rem;
       color: var(--muted);
-      line-height: 1.6;
+      line-height: 1.65;
     }
     .work-card .read {
       display: inline-block;
-      margin-top: 0.9rem;
-      font-size: 0.76rem;
+      margin-top: 1rem;
+      font-size: 0.78rem;
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--gold);
@@ -201,15 +198,13 @@
     .work-card:hover .read {
       opacity: 1;
     }
-
-    /* Botón semioculto + estática total al hover */
     .hidden-work {
       position: relative;
       opacity: 0.52;
       overflow: hidden;
       background-color: #0c0c0c;
       transition: opacity 0.35s ease, border-color 0.3s ease, transform 0.3s ease;
-      margin-top: 0.3rem;
+      margin-top: 0.5rem;
     }
     .hidden-work::before {
       content: "";
@@ -248,44 +243,40 @@
       75%  { transform: translate(-2%, 4%); }
       100% { transform: translate(0, 0); }
     }
-
     .contact-block {
       text-align: center;
     }
     .contact-block p {
       color: var(--muted);
-      margin-bottom: 1.3rem;
-      font-size: 0.98rem;
+      margin-bottom: 1.5rem;
+      font-size: 1rem;
     }
     .contact-email {
       font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: 1.35rem;
+      font-size: 1.5rem;
       color: var(--gold);
       text-decoration: none;
       letter-spacing: 0.04em;
       border-bottom: 1px solid transparent;
       transition: border-color 0.3s ease;
-      word-break: break-all;
     }
     .contact-email:hover {
       border-color: var(--gold);
     }
-
-    /* Formulario */
     .comment-form {
       max-width: 560px;
       margin: 0 auto;
       display: flex;
       flex-direction: column;
-      gap: 1.3rem;
+      gap: 1.4rem;
     }
     .comment-form label {
       display: block;
-      font-size: 0.76rem;
+      font-size: 0.78rem;
       letter-spacing: 0.14em;
       text-transform: uppercase;
       color: var(--muted);
-      margin-bottom: 0.4rem;
+      margin-bottom: 0.45rem;
     }
     .comment-form input,
     .comment-form textarea {
@@ -296,7 +287,7 @@
       font-family: 'Inter', system-ui, sans-serif;
       font-size: 1rem;
       font-weight: 300;
-      padding: 0.9rem 1rem;
+      padding: 0.9rem 1.1rem;
       border-radius: 2px;
       outline: none;
       transition: border-color 0.3s ease;
@@ -306,7 +297,7 @@
       border-color: var(--gold-dim);
     }
     .comment-form textarea {
-      min-height: 130px;
+      min-height: 140px;
       resize: vertical;
       line-height: 1.6;
     }
@@ -319,7 +310,7 @@
       font-size: 0.8rem;
       letter-spacing: 0.16em;
       text-transform: uppercase;
-      padding: 0.85rem 2rem;
+      padding: 0.85rem 2.2rem;
       cursor: pointer;
       transition: background 0.3s ease, color 0.3s ease;
     }
@@ -328,135 +319,88 @@
       color: var(--bg);
     }
     .form-note {
-      font-size: 0.84rem;
+      font-size: 0.85rem;
       color: var(--muted);
       text-align: center;
-      margin-top: 1.6rem;
+      margin-top: 1.8rem;
     }
-
-    /* Redes */
     .socials {
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
-      gap: 1.1rem 1.5rem;
-      margin-top: 2.2rem;
-      padding-top: 1.8rem;
+      gap: 1.8rem;
+      margin-top: 2.5rem;
+      padding-top: 2rem;
       border-top: 1px solid var(--line);
     }
     .socials a {
       color: var(--muted);
       text-decoration: none;
-      font-size: 0.76rem;
-      letter-spacing: 0.13em;
+      font-size: 0.78rem;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
       transition: color 0.3s ease;
-      padding: 0.25rem 0;
     }
     .socials a:hover {
       color: var(--gold);
     }
-
     footer {
-      padding: 2.5rem 0 3.5rem;
+      padding: 3rem 0 4rem;
       text-align: center;
       border-top: 1px solid var(--line);
     }
     footer p {
-      font-size: 0.74rem;
+      font-size: 0.75rem;
       color: var(--muted);
       letter-spacing: 0.1em;
     }
-
-    /* ========== MOBILE ========== */
-    @media (max-width: 600px) {
-      .container {
-        padding: 0 1.15rem;
-      }
-      header {
-        padding: 3rem 0 2.2rem;
-      }
-      .portrait-container,
-      .portrait,
-      .portrait-alt {
-        width: 130px;
-        height: 130px;
-      }
-      .portrait-container {
-        margin-bottom: 1.5rem;
-      }
-      h1 {
-        font-size: 2rem;
-      }
-      .alias {
-        font-size: 1.05rem;
-        margin-bottom: 1.1rem;
-      }
-      .tagline {
-        font-size: 0.88rem;
-      }
-      nav {
-        gap: 0.9rem 1.3rem;
-        margin-top: 2rem;
-        padding-top: 1.2rem;
-      }
-      nav a {
-        font-size: 0.72rem;
-      }
-      section {
-        padding: 2.8rem 0;
-      }
-      section h2 {
-        font-size: 1.45rem;
-        margin-bottom: 1.6rem;
-      }
-      .about-text {
-        font-size: 1.15rem;
-      }
-      .work-card {
-        padding: 1.3rem 1.15rem;
-      }
-      .work-card h3 {
-        font-size: 1.25rem;
-      }
-      .contact-email {
-        font-size: 1.15rem;
-      }
-      .comment-form button {
-        width: 100%;
-        text-align: center;
-      }
-      .socials {
-        gap: 0.9rem 1.2rem;
-      }
-      footer {
-        padding: 2rem 0 3rem;
-      }
+    .btn-circular {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      z-index: 1001;
+      transition: border-color 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+      opacity: 0.7;
     }
-
-    @media (max-width: 400px) {
-      .portrait-container,
-      .portrait,
-      .portrait-alt {
-        width: 115px;
-        height: 115px;
-      }
-      h1 {
-        font-size: 1.85rem;
-      }
-      nav {
-        gap: 0.7rem 1rem;
-      }
+    .btn-circular:hover {
+      opacity: 1;
+      border-color: var(--gold);
+      color: var(--gold);
+      transform: scale(1.1);
+      box-shadow: 0 0 10px rgba(201, 168, 108, 0.2);
+    }
+    .btn-circular svg {
+      width: 10px;
+      height: 10px;
+      fill: currentColor;
+    }
+    @media (max-width: 600px) {
+      nav { gap: 1.5rem; flex-wrap: wrap; }
+      .about-text { font-size: 1.2rem; }
+      .work-card { padding: 1.4rem 1.5rem; }
+      .socials { gap: 1.2rem; }
+      .btn-circular { bottom: 1.2rem; right: 1.2rem; }
     }
   </style>
 </head>
 <body>
   <header>
     <div class="container">
-      <!-- Foto de perfil clickeable → abre y.pdf -->
-      <a href="y.pdf" target="_blank" class="portrait-container" title="Abrir PDF">
-        <img src="IMG-277.jpg" alt="Felipe P. / Gustavo Narváez" class="portrait">
-        <img src="n.png" alt="Felipe P. / Gustavo Narváez" class="portrait portrait-alt">
+      <a href="y.pdf" target="_blank" class="portrait-link">
+        <div class="portrait-container">
+          <img src="IMG-277.jpg" alt="Felipe P. / Gustavo Narváez" class="portrait">
+          <img src="n.png" alt="Felipe P. / Gustavo Narváez" class="portrait portrait-alt">
+        </div>
       </a>
       <h1>Felipe P.</h1>
       <p class="alias">/ Gustavo Narváez</p>
@@ -474,12 +418,8 @@
       <div class="container">
         <h2>Sobre mí</h2>
         <div class="about-text">
-          <p>
-            "In principio erat Verbum, et Verbum erat apud Deum, et Deus erat Verbum."
-          </p>
-          <p>
-            Me volví a acordar de ti!
-          </p>
+          <p>"In principio erat Verbum, et Verbum erat apud Deum, et Deus erat Verbum."</p>
+          <p>Me volví a acordar de ti!</p>
         </div>
       </div>
     </section>
@@ -490,56 +430,48 @@
           <a href="FIESTA EN MINERAL DE LA LUZ.pdf" class="work-card" target="_blank">
             <h3>Fiesta en Mineral de la Luz</h3>
             <p class="type">Poema</p>
-            <p>
-              Un recorrido por la memoria y el ritual de un pueblo minero
-              donde la luz y la sombra se celebran juntas.
-            </p>
-            <span class="read">Leer PDF →</span>
+            <p>Un recorrido por la memoria y el ritual de un pueblo minero donde la luz y la sombra se celebran juntas.</p>
+            <span class="read">Leer PDF &rarr;</span>
           </a>
           <a href="Altas y bajas - F_G.pdf" class="work-card" target="_blank">
             <h3>Altas y bajas</h3>
             <p class="type">Poema</p>
-            <p>
-              Fragmentos que oscilan entre el ascenso y la caída,
-              entre lo que se eleva y lo que regresa a tierra.
-            </p>
-            <span class="read">Leer PDF →</span>
+            <p>Fragmentos que oscilan entre el ascenso y la caída, entre lo que se eleva y lo que regresa a tierra.</p>
+            <span class="read">Leer PDF &rarr;</span>
+          </a>
+          <a href="t.pdf" class="work-card" target="_blank">
+            <h3>Arrecife Alacranes</h3>
+            <p class="type">Poema (Anexado, parte 2)</p>
+            <p>Camino al arrecife norte del juicio, donde se navega entre sombras y mareos.</p>
+            <span class="read">Leer PDF &rarr;</span>
           </a>
           <a href="z.pdf" class="work-card" target="_blank">
             <h3>Actuación 3</h3>
             <p class="type">Mi Juicio de Amparo Indirecto, por derecho propio</p>
             <p></p>
-            <span class="read">Leer PDF →</span>
+            <span class="read">Leer PDF &rarr;</span>
           </a>
-          <a href="FE.pdf" class="work-card" target="_blank">
+          <a href="g.pdf" class="work-card" target="_blank">
             <h3>FE</h3>
             <p class="type">Cuaderno</p>
-            <p>
-              Notas, esbozos y destellos que acompañan el proceso
-              de escritura y de vida.
-            </p>
-            <span class="read">Leer PDF →</span>
+            <p>Notas, esbozos y destellos que acompañan el proceso de escritura y de vida.</p>
+            <span class="read">Leer PDF &rarr;</span>
           </a>
           <a href="Gerardo Szae___Gustavo Narváez (1)-16-19.pdf" class="work-card" target="_blank">
             <h3>Sobre cómo (NO) robar un vochito</h3>
             <p class="type">Texto</p>
-            <p>
-              Humor sobre la expropiación de un pequeño Volkswagen.
-            </p>
-            <span class="read">Leer PDF →</span>
+            <p>Humor sobre la expropiación de un pequeño Volkswagen.</p>
+            <span class="read">Leer PDF &rarr;</span>
           </a>
-
-          <!-- Botón con estática total al hover -->
           <a href="mat1.pdf" class="work-card hidden-work" target="_blank">
             <h3>Ménage à trois — Primera parte</h3>
             <p class="type">Texto</p>
             <p></p>
-            <span class="read">Leer PDF →</span>
+            <span class="read">Leer PDF &rarr;</span>
           </a>
         </div>
       </div>
     </section>
-
     <section id="comentarios">
       <div class="container">
         <h2>Comentarios</h2>
@@ -565,7 +497,6 @@
         <p class="form-note">El comentario llegará directamente a mi correo.</p>
       </div>
     </section>
-
     <section id="contacto">
       <div class="container contact-block">
         <h2>Contacto</h2>
@@ -588,5 +519,10 @@
       <p>© 2026 Felipe P. / Gustavo Narváez</p>
     </div>
   </footer>
+  <a href="https://www.youtube.com/watch?v=JWOWieTbUxQ" target="_blank" rel="noopener" class="btn-circular" title="Ver en YouTube">
+    <svg viewBox="0 0 24 24">
+      <path d="M8 5v14l11-7z"/>
+    </svg>
+  </a>
 </body>
 </html>
