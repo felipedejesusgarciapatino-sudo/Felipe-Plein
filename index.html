@@ -318,7 +318,8 @@
     }
 
     /* Capa 1: Estática en movimiento constante */
-    .hidden-work::before {
+    .hidden-work::before,
+    .gt-image-container::before {
       content: "";
       position: absolute;
       inset: -50%;
@@ -326,20 +327,21 @@
       height: 200%;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.85'/%3E%3C/svg%3E");
       pointer-events: none;
-      z-index: 0;
+      z-index: 2;
       opacity: 0.35;
       animation: staticNoise 0.12s steps(2) infinite;
     }
 
     /* Capa 2: Efecto Harris Shutter en el contenedor */
-    .hidden-work::after {
+    .hidden-work::after,
+    .gt-image-container::after {
       content: "";
       position: absolute;
       inset: 0;
       background: linear-gradient(90deg, rgba(255, 0, 85, 0.2), rgba(0, 255, 100, 0.2), rgba(0, 240, 255, 0.2));
       mix-blend-mode: color-dodge;
       pointer-events: none;
-      z-index: 0;
+      z-index: 3;
       opacity: 0.8;
       animation: harrisShift 1.5s ease-in-out infinite alternate;
     }
@@ -349,9 +351,67 @@
       z-index: 1;
     }
 
-    /* Efecto Harris / Aberración cromática en el título */
     .hidden-work h3 {
       animation: harrisGlitch 0.35s infinite;
+    }
+
+    /* --- CONTENEDOR Y TRANSICIÓN DE LA IMAGEN DEL PAYASITO (GT) --- */
+    .bottom-image-container {
+      text-align: center;
+      padding: 2rem 0 4rem;
+    }
+
+    .gt-image-container {
+      display: inline-block;
+      position: relative;
+      overflow: hidden;
+      max-width: 100%;
+      border: 1px solid var(--line);
+      box-shadow: var(--glow-cyan);
+      cursor: pointer;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .gt-image-container img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      transition: opacity 0.4s ease, filter 0.4s ease, transform 0.4s ease;
+    }
+
+    .gt-img-normal {
+      position: relative;
+      z-index: 1;
+    }
+
+    .gt-img-scary {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      z-index: 1;
+      filter: contrast(1.5) brightness(0.7) saturate(2) drop-shadow(0 0 15px rgba(255, 0, 0, 0.8));
+    }
+
+    /* Efectos al pasar el cursor (Hover) sobre la imagen */
+    .gt-image-container:hover,
+    .gt-image-container:active {
+      border-color: var(--neon-magenta);
+      box-shadow: var(--glow-pink);
+    }
+
+    .gt-image-container:hover .gt-img-normal,
+    .gt-image-container:active .gt-img-normal {
+      opacity: 0;
+    }
+
+    .gt-image-container:hover .gt-img-scary,
+    .gt-image-container:active .gt-img-scary {
+      opacity: 1;
+      transform: scale(1.03);
     }
 
     .contact-block {
@@ -495,18 +555,6 @@
       font-size: 0.8rem;
       color: var(--muted);
       letter-spacing: 0.1em;
-    }
-
-    .bottom-image-container {
-      text-align: center;
-      padding: 2rem 0 4rem;
-    }
-
-    .bottom-image-container img {
-      max-width: 100%;
-      height: auto;
-      border: 1px solid var(--line);
-      box-shadow: var(--glow-cyan);
     }
 
     .btn-circular {
@@ -691,7 +739,11 @@ Meine Macht bin Ich selbst und bin durch sie mein Eigentum
 
   <div class="bottom-image-container">
     <div class="container">
-      <img src="gt.png" alt="Imagen final GT">
+      <div class="gt-image-container">
+        <img src="gt.png" alt="Imagen final GT" class="gt-img-normal">
+        <!-- Reemplaza gt_sangriento.png con la ruta de tu imagen de terror/sangrienta -->
+        <img src="gt_sangriento.png" alt="Imagen sangrienta GT" class="gt-img-scary">
+      </div>
     </div>
   </div>
 
