@@ -6,106 +6,144 @@
   <title>Felipe P. / Gustavo Narváez — Escritor</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #0f0e0c;
-      --paper: #1a1814;
-      --ink: #e8e0d5;
-      --muted: #a89f91;
-      --gold: #c9a86c;
-      --gold-dim: #8a7348;
-      --line: rgba(201, 168, 108, 0.25);
+      --bg: #05050a;
+      --paper: #0b0c16;
+      --ink: #00f0ff;
+      --muted: #8a99ad;
+      --neon-cyan: #00f0ff;
+      --neon-magenta: #ff0055;
+      --neon-yellow: #fffe00;
+      --line: rgba(0, 240, 255, 0.3);
+      --glow-cyan: 0 0 10px rgba(0, 240, 255, 0.6);
+      --glow-pink: 0 0 10px rgba(ff, 0, 85, 0.6);
     }
+
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
+
     body {
       background: var(--bg);
       color: var(--ink);
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      font-weight: 300;
-      line-height: 1.7;
+      font-family: 'Share Tech Mono', monospace;
+      font-weight: 400;
+      line-height: 1.6;
       overflow-x: hidden;
       width: 100%;
+      position: relative;
     }
+
+    /* Fondo con rejilla Cyberpunk y líneas scanline CRT */
     body::before {
       content: "";
       position: fixed;
       inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      background: 
+        linear-gradient(rgba(18, 16, 26, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
+        linear-gradient(90deg, rgba(255, 0, 85, 0.03), rgba(0, 240, 255, 0.03));
+      background-size: 100% 4px, 6px 100%;
       pointer-events: none;
       z-index: 1000;
     }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at 50% 30%, rgba(0, 240, 255, 0.05), transparent 70%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
     .container {
       width: 100%;
       max-width: 920px;
       margin: 0 auto;
       padding: 0 1.5rem;
     }
+
     header {
       padding: 4rem 0 3rem;
       text-align: center;
       position: relative;
     }
+
     .portrait-link {
       display: inline-block;
       text-decoration: none;
       -webkit-tap-highlight-color: transparent;
     }
+
     .portrait-container {
       position: relative;
       width: 150px;
       height: 150px;
       margin: 0 auto 2rem;
+      border: 2px solid var(--neon-cyan);
+      box-shadow: var(--glow-cyan);
+      clip-path: polygon(10% 0, 100% 0, 100% 90%, 90% 100%, 0 100%, 0 10%);
     }
+
     .portrait {
       width: 100%;
       height: 100%;
-      border-radius: 50%;
       object-fit: cover;
-      border: 1px solid var(--line);
       display: block;
-      filter: grayscale(25%) contrast(1.05);
+      filter: grayscale(100%) contrast(1.2) hue-rotate(180deg);
       transition: filter 0.4s ease, opacity 0.4s ease;
     }
+
     .portrait-alt {
       position: absolute;
       top: 0;
       left: 0;
       opacity: 0;
-      filter: grayscale(0%) contrast(1.1);
+      filter: contrast(1.3) saturate(1.8) drop-shadow(0 0 5px var(--neon-magenta));
     }
+
     .portrait-container:hover .portrait,
     .portrait-container:active .portrait {
       opacity: 0;
     }
+
     .portrait-container:hover .portrait-alt,
     .portrait-container:active .portrait-alt {
       opacity: 1;
     }
+
     h1 {
-      font-family: 'Cormorant Garamond', Georgia, serif;
-      font-weight: 600;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 900;
       font-size: clamp(2.2rem, 7vw, 3.6rem);
-      letter-spacing: 0.04em;
-      color: var(--ink);
-      margin-bottom: 0.4rem;
+      letter-spacing: 0.08em;
+      color: #fff;
+      text-transform: uppercase;
+      text-shadow: 2px 2px 0px var(--neon-magenta), -2px -2px 0px var(--neon-cyan);
+      margin-bottom: 0.2rem;
     }
+
     .alias {
-      font-family: 'Cormorant Garamond', Georgia, serif;
-      font-style: italic;
+      font-family: 'Share Tech Mono', monospace;
       font-size: 1.2rem;
-      color: var(--gold);
-      letter-spacing: 0.06em;
+      color: var(--neon-yellow);
+      letter-spacing: 0.1em;
       margin-bottom: 1.5rem;
+      text-shadow: 0 0 8px rgba(255, 254, 0, 0.5);
     }
+
     .tagline {
       font-size: 0.95rem;
       color: var(--muted);
-      max-width: 480px;
+      max-width: 520px;
       margin: 0 auto;
-      letter-spacing: 0.02em;
+      letter-spacing: 0.05em;
+      border-left: 3px solid var(--neon-magenta);
+      padding-left: 1rem;
+      text-align: left;
     }
+
     nav {
       display: flex;
       justify-content: center;
@@ -113,103 +151,146 @@
       flex-wrap: wrap;
       margin-top: 2.5rem;
       padding-top: 1.5rem;
-      border-top: 1px solid var(--line);
+      border-top: 1px dashed var(--line);
     }
+
     nav a {
-      color: var(--muted);
+      color: var(--neon-cyan);
       text-decoration: none;
-      font-size: 0.8rem;
+      font-size: 0.85rem;
       letter-spacing: 0.15em;
       text-transform: uppercase;
-      transition: color 0.3s ease;
-      padding: 0.2rem;
+      transition: all 0.3s ease;
+      padding: 0.4rem 0.8rem;
+      background: rgba(0, 240, 255, 0.05);
+      border: 1px solid var(--line);
+      clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
     }
+
     nav a:hover, nav a:active {
-      color: var(--gold);
+      color: #000;
+      background: var(--neon-cyan);
+      box-shadow: var(--glow-cyan);
+      font-weight: bold;
     }
+
     section {
       padding: 4rem 0;
       border-top: 1px solid var(--line);
+      position: relative;
     }
+
     section h2 {
-      font-family: 'Cormorant Garamond', Georgia, serif;
-      font-weight: 600;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
       font-size: 1.8rem;
-      letter-spacing: 0.06em;
-      color: var(--gold);
+      letter-spacing: 0.1em;
+      color: var(--neon-magenta);
       margin-bottom: 2rem;
       text-align: center;
+      text-transform: uppercase;
+      text-shadow: var(--glow-pink);
     }
+
+    section h2::before {
+      content: "// ";
+      color: var(--neon-yellow);
+    }
+
     .about-text {
-      font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: 1.25rem;
+      font-size: 1.1rem;
       line-height: 1.8;
-      color: var(--ink);
+      color: #e0e6ed;
       max-width: 640px;
       margin: 0 auto;
       text-align: center;
+      background: var(--paper);
+      padding: 2rem;
+      border: 1px solid var(--line);
+      box-shadow: inset 0 0 15px rgba(0,0,0,0.8);
     }
+
     .about-text p + p {
       margin-top: 1.2rem;
     }
+
     .works-grid {
       display: flex;
       flex-direction: column;
       gap: 1.25rem;
     }
+
     .work-card {
       background: var(--paper);
       border: 1px solid var(--line);
+      border-left: 4px solid var(--neon-cyan);
       padding: 1.5rem 1.8rem;
-      transition: border-color 0.3s ease, transform 0.3s ease;
+      transition: all 0.3s ease;
       text-decoration: none;
       color: inherit;
       display: block;
-      border-radius: 4px;
+      position: relative;
+      clip-path: polygon(0 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%);
       -webkit-tap-highlight-color: transparent;
     }
+
     .work-card:hover, .work-card:active {
-      border-color: var(--gold-dim);
-      transform: translateY(-2px);
+      border-color: var(--neon-magenta);
+      border-left: 4px solid var(--neon-yellow);
+      transform: translateX(5px);
+      box-shadow: 0 0 15px rgba(255, 0, 85, 0.2);
     }
+
     .work-card h3 {
-      font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: 1.4rem;
-      font-weight: 600;
-      color: var(--ink);
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #fff;
       margin-bottom: 0.3rem;
       transition: color 0.3s ease;
     }
+
     .work-card:hover h3, .work-card:active h3 {
-      color: var(--gold);
+      color: var(--neon-cyan);
     }
+
     .work-card .type {
       font-size: 0.75rem;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.15em;
       text-transform: uppercase;
-      color: var(--gold);
+      color: var(--neon-yellow);
       margin-bottom: 0.8rem;
     }
+
     .work-card p {
       font-size: 0.95rem;
       color: var(--muted);
       line-height: 1.6;
     }
+
     .work-card .read {
       display: inline-block;
       margin-top: 1rem;
-      font-size: 0.78rem;
-      letter-spacing: 0.12em;
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
       text-transform: uppercase;
-      color: var(--gold);
-      opacity: 0.85;
+      color: var(--neon-cyan);
+      font-weight: bold;
     }
+
+    .work-card:hover .read {
+      color: var(--neon-magenta);
+      text-shadow: var(--glow-pink);
+    }
+
     .hidden-work {
       position: relative;
-      opacity: 0.7;
+      opacity: 0.6;
       overflow: hidden;
-      background-color: #0c0c0c;
+      background-color: #040408;
+      border-left-color: var(--neon-magenta);
     }
+
     .hidden-work::before {
       content: "";
       position: absolute;
@@ -219,77 +300,114 @@
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='5' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.85'/%3E%3C/svg%3E");
       pointer-events: none;
       z-index: 0;
-      opacity: 0.5;
+      opacity: 0.2;
     }
+
     .hidden-work > * {
       position: relative;
       z-index: 1;
     }
+
     .contact-block {
       text-align: center;
     }
+
     .contact-block p {
       color: var(--muted);
       margin-bottom: 1.5rem;
       font-size: 0.95rem;
     }
+
     .contact-email {
-      font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: 1.35rem;
-      color: var(--gold);
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 1.25rem;
+      color: var(--neon-cyan);
       text-decoration: none;
       word-break: break-word;
-      border-bottom: 1px solid transparent;
+      border-bottom: 1px solid var(--neon-cyan);
+      padding-bottom: 2px;
+      transition: all 0.3s ease;
     }
+
+    .contact-email:hover {
+      color: var(--neon-yellow);
+      border-color: var(--neon-yellow);
+      text-shadow: 0 0 8px var(--neon-yellow);
+    }
+
     .comment-form {
       max-width: 560px;
       margin: 0 auto;
       display: flex;
       flex-direction: column;
       gap: 1.2rem;
+      background: var(--paper);
+      padding: 2rem;
+      border: 1px solid var(--line);
     }
+
     .comment-form label {
       display: block;
-      font-size: 0.75rem;
+      font-size: 0.8rem;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: var(--muted);
+      color: var(--neon-yellow);
       margin-bottom: 0.4rem;
     }
+
     .comment-form input,
     .comment-form textarea {
       width: 100%;
       background: var(--bg);
       border: 1px solid var(--line);
-      color: var(--ink);
-      font-family: 'Inter', system-ui, sans-serif;
+      color: #fff;
+      font-family: 'Share Tech Mono', monospace;
       font-size: 0.95rem;
       padding: 0.8rem 1rem;
-      border-radius: 2px;
       outline: none;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
     }
+
+    .comment-form input:focus,
+    .comment-form textarea:focus {
+      border-color: var(--neon-cyan);
+      box-shadow: var(--glow-cyan);
+    }
+
     .comment-form textarea {
       min-height: 120px;
       resize: vertical;
     }
+
     .comment-form button {
       align-self: flex-start;
-      background: transparent;
-      border: 1px solid var(--gold);
-      color: var(--gold);
-      font-family: 'Inter', system-ui, sans-serif;
-      font-size: 0.8rem;
+      background: var(--neon-cyan);
+      border: none;
+      color: #000;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      font-size: 0.85rem;
       letter-spacing: 0.14em;
       text-transform: uppercase;
       padding: 0.8rem 2rem;
       cursor: pointer;
+      transition: all 0.3s ease;
+      clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
     }
+
+    .comment-form button:hover {
+      background: var(--neon-magenta);
+      color: #fff;
+      box-shadow: var(--glow-pink);
+    }
+
     .form-note {
       font-size: 0.8rem;
       color: var(--muted);
       text-align: center;
       margin-top: 1.5rem;
     }
+
     .socials {
       display: flex;
       justify-content: center;
@@ -297,43 +415,64 @@
       gap: 1.2rem;
       margin-top: 2rem;
       padding-top: 1.8rem;
-      border-top: 1px solid var(--line);
+      border-top: 1px dashed var(--line);
     }
+
     .socials a {
       color: var(--muted);
       text-decoration: none;
-      font-size: 0.75rem;
+      font-size: 0.8rem;
       letter-spacing: 0.12em;
       text-transform: uppercase;
+      transition: color 0.3s ease;
     }
+
+    .socials a:hover {
+      color: var(--neon-cyan);
+      text-shadow: var(--glow-cyan);
+    }
+
     footer {
       padding: 2.5rem 0 3.5rem;
       text-align: center;
       border-top: 1px solid var(--line);
+      background: rgba(5, 5, 10, 0.8);
     }
+
     footer p {
-      font-size: 0.75rem;
+      font-size: 0.8rem;
       color: var(--muted);
+      letter-spacing: 0.1em;
     }
+
     .btn-circular {
       position: fixed;
       bottom: 1.5rem;
       right: 1.5rem;
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
+      width: 40px;
+      height: 40px;
       background: var(--paper);
-      border: 1px solid var(--line);
-      color: var(--gold);
+      border: 1px solid var(--neon-magenta);
+      color: var(--neon-magenta);
       display: flex;
       align-items: center;
       justify-content: center;
       text-decoration: none;
       z-index: 1001;
+      box-shadow: var(--glow-pink);
+      clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+      transition: all 0.3s ease;
     }
+
+    .btn-circular:hover {
+      background: var(--neon-magenta);
+      color: #fff;
+      transform: scale(1.1);
+    }
+
     .btn-circular svg {
-      width: 12px;
-      height: 12px;
+      width: 14px;
+      height: 14px;
       fill: currentColor;
     }
   </style>
