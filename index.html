@@ -68,6 +68,7 @@
       -webkit-tap-highlight-color: transparent;
     }
 
+    /* Imagen de portada con efectos Harris y estática */
     .portrait-container {
       position: relative;
       width: 150px;
@@ -76,6 +77,32 @@
       border: 2px solid var(--neon-cyan);
       box-shadow: var(--glow-cyan);
       clip-path: polygon(10% 0, 100% 0, 100% 90%, 90% 100%, 0 100%, 0 10%);
+      overflow: hidden;
+    }
+
+    .portrait-container::before {
+      content: "";
+      position: absolute;
+      inset: -50%;
+      width: 200%;
+      height: 200%;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.85'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 2;
+      opacity: 0.35;
+      animation: staticNoise 0.12s steps(2) infinite;
+    }
+
+    .portrait-container::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(255, 0, 85, 0.2), rgba(0, 255, 100, 0.2), rgba(0, 240, 255, 0.2));
+      mix-blend-mode: color-dodge;
+      pointer-events: none;
+      z-index: 3;
+      opacity: 0.8;
+      animation: harrisShift 1.5s ease-in-out infinite alternate;
     }
 
     .portrait {
@@ -85,6 +112,8 @@
       display: block;
       filter: grayscale(100%) contrast(1.2) hue-rotate(180deg);
       transition: filter 0.4s ease, opacity 0.4s ease;
+      position: relative;
+      z-index: 1;
     }
 
     .portrait-alt {
@@ -92,6 +121,7 @@
       top: 0;
       left: 0;
       opacity: 0;
+      z-index: 1;
       filter: contrast(1.3) saturate(1.8) drop-shadow(0 0 5px var(--neon-magenta));
     }
 
@@ -105,6 +135,7 @@
       opacity: 1;
     }
 
+    /* Nombre Felipe P. con efecto glitch Harris */
     h1 {
       font-family: 'Orbitron', sans-serif;
       font-weight: 900;
@@ -112,8 +143,8 @@
       letter-spacing: 0.08em;
       color: #fff;
       text-transform: uppercase;
-      text-shadow: 2px 2px 0px var(--neon-magenta), -2px -2px 0px var(--neon-cyan);
       margin-bottom: 0.2rem;
+      animation: harrisGlitch 0.35s infinite;
     }
 
     .alias {
@@ -414,6 +445,58 @@
       transform: scale(1.03);
     }
 
+    /* --- REPRODUCTOR MODAL INTEGRADO --- */
+    .video-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 2000;
+      background: rgba(5, 5, 10, 0.9);
+      backdrop-filter: blur(8px);
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+
+    .video-modal.active {
+      display: flex;
+    }
+
+    .video-modal-content {
+      position: relative;
+      width: 100%;
+      max-width: 800px;
+      aspect-ratio: 16 / 9;
+      border: 2px solid var(--neon-cyan);
+      box-shadow: var(--glow-cyan);
+      background: #000;
+    }
+
+    .video-modal-content iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .close-video-btn {
+      position: absolute;
+      top: -40px;
+      right: 0;
+      background: transparent;
+      border: none;
+      color: var(--neon-magenta);
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: color 0.3s ease;
+      text-shadow: var(--glow-pink);
+    }
+
+    .close-video-btn:hover {
+      color: var(--neon-yellow);
+    }
+
     .contact-block {
       text-align: center;
       background: var(--paper);
@@ -628,49 +711,49 @@ Meine Macht bin Ich selbst und bin durch sie mein Eigentum
       <div class="container">
         <h2>Obras</h2>
         <div class="works-grid">
-          <a href="FIESTA EN MINERAL DE LA LUZ.pdf" class="work-card" target="_blank">
+          <a href="FIESTA EN MINERAL DE LA LUZ.pdf" class="work-card hidden-work" target="_blank">
             <h3>Fiesta en Mineral de la Luz</h3>
             <p class="type">Poema</p>
             <p>Locura y amor</p>
             <span class="read">Leer PDF &rarr;</span>
           </a>
 
-          <a href="Altas y bajas - F_G.pdf" class="work-card" target="_blank">
+          <a href="Altas y bajas - F_G.pdf" class="work-card hidden-work" target="_blank">
             <h3>Altas y bajas</h3>
             <p class="type">Poema</p>
             <p>Fragmentos.</p>
             <span class="read">Leer PDF &rarr;</span>
           </a>
 
-          <a href="t.pdf" class="work-card" target="_blank">
+          <a href="t.pdf" class="work-card hidden-work" target="_blank">
             <h3>Arrecife Alacranes</h3>
             <p class="type">Poema (Anexado, parte 2)</p>
             <p>Camino al arrecife sur del juicio.</p>
             <span class="read">Leer PDF &rarr;</span>
           </a>
 
-          <a href="41.pdf" class="work-card" target="_blank">
+          <a href="41.pdf" class="work-card hidden-work" target="_blank">
             <h3>¿Quién es Alejandro Garrigós Rojas?</h3>
             <p class="type">Recuerdo</p>
             <p></p>
             <span class="read">Leer PDF &rarr;</span>
           </a>
 
-          <a href="z.pdf" class="work-card" target="_blank">
+          <a href="z.pdf" class="work-card hidden-work" target="_blank">
             <h3>Actuación 3</h3>
             <p class="type">Mi Juicio de Amparo Indirecto, por derecho propio</p>
             <p></p>
             <span class="read">Leer PDF &rarr;</span>
           </a>
 
-          <a href="g.pdf" class="work-card" target="_blank">
+          <a href="g.pdf" class="work-card hidden-work" target="_blank">
             <h3>FE</h3>
             <p class="type">Cuaderno</p>
             <p>Notas.</p>
             <span class="read">Leer PDF &rarr;</span>
           </a>
 
-          <a href="Gerardo Szae___Gustavo Narváez (1)-16-19.pdf" class="work-card" target="_blank">
+          <a href="Gerardo Szae___Gustavo Narváez (1)-16-19.pdf" class="work-card hidden-work" target="_blank">
             <h3>Sobre cómo (NO) robar un vochito</h3>
             <p class="type">Texto</p>
             <p>Humor sobre la expropiación de un pequeño Volkswagen.</p>
@@ -739,11 +822,18 @@ Meine Macht bin Ich selbst und bin durch sie mein Eigentum
 
   <div class="bottom-image-container">
     <div class="container">
-      <div class="gt-image-container">
+      <div class="gt-image-container" onclick="openVideo()">
         <img src="gt.png" alt="Imagen final GT" class="gt-img-normal">
-        <!-- Reemplaza gt_sangriento.png con la ruta de tu imagen de terror/sangrienta -->
         <img src="gt_sangriento.png" alt="Imagen sangrienta GT" class="gt-img-scary">
       </div>
+    </div>
+  </div>
+
+  <!-- Modal del video incorporado -->
+  <div id="videoModal" class="video-modal" onclick="closeVideoOnBackdrop(event)">
+    <div class="video-modal-content">
+      <button class="close-video-btn" onclick="closeVideo()">&times; CERRAR</button>
+      <iframe id="youtubeIframe" allow="autoplay; encrypted-media" allowfullscreen></iframe>
     </div>
   </div>
 
@@ -752,5 +842,32 @@ Meine Macht bin Ich selbst und bin durch sie mein Eigentum
       <path d="M8 5v14l11-7z"/>
     </svg>
   </a>
+
+  <script>
+    const videoModal = document.getElementById('videoModal');
+    const iframe = document.getElementById('youtubeIframe');
+
+    function openVideo() {
+      iframe.src = "https://www.youtube.com/embed/aDurnlQu6Ak?autoplay=1";
+      videoModal.classList.add('active');
+    }
+
+    function closeVideo() {
+      videoModal.classList.remove('active');
+      iframe.src = "";
+    }
+
+    function closeVideoOnBackdrop(event) {
+      if (event.target === videoModal) {
+        closeVideo();
+      }
+    }
+
+    document.addEventListener('keydown', function(event) {
+      if (event.key === "Escape" && videoModal.classList.contains('active')) {
+        closeVideo();
+      }
+    });
+  </script>
 </body>
 </html>
