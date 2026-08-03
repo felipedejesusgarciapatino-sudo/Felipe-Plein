@@ -3,21 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Horror UI - Dark & Bloody</title>
+  <title>Portal de Terror - Dark & Bloody</title>
   
   <!-- Tipografías Cuadradas y Angulares -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@700;900&family=Metal+Mania&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,400;0,700;1,900&family=Metal+Mania&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --bg-black: #030303;
-      --card-bg: rgba(10, 4, 4, 0.92);
-      --blood-red: #800000;
+      --bg-black: #050202;
+      --card-bg: rgba(12, 5, 5, 0.95);
+      --blood-red: #7a0000;
       --bright-blood: #b80000;
       --gore-glow: #ff0000;
-      --text-gray: #b0b0b0;
+      --text-gray: #aaaaaa;
+      --border-color: rgba(184, 0, 0, 0.4);
     }
 
     * {
@@ -32,89 +33,79 @@
       font-family: 'Chakra Petch', sans-serif;
       min-height: 100vh;
       display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-      /* Textura de viñeta oscura con grano */
-      background-image: 
-        radial-gradient(circle at 50% 50%, rgba(128, 0, 0, 0.12) 0%, rgba(0, 0, 0, 0.98) 85%),
-        repeating-linear-gradient(0deg, rgba(0,0,0,0.3) 0px, rgba(0,0,0,0.3) 1px, transparent 1px, transparent 2px);
+      flex-direction: column;
       overflow-x: hidden;
+      /* Fondo con grano y viñeta */
+      background-image: 
+        radial-gradient(circle at 50% 30%, rgba(120, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0.95) 85%),
+        repeating-linear-gradient(0deg, rgba(0,0,0,0.4) 0px, rgba(0,0,0,0.4) 1px, transparent 1px, transparent 2px);
     }
 
-    /* Tarjeta principal con recortes angulares */
-    .horror-card {
-      max-width: 750px;
+    /* --- NAVEGACIÓN --- */
+    .navbar {
       width: 100%;
-      background: var(--card-bg);
-      border: 2px solid var(--blood-red);
-      box-shadow: 0 0 30px rgba(128, 0, 0, 0.35), inset 0 0 20px rgba(0, 0, 0, 0.95);
-      padding: clamp(20px, 5vw, 50px);
-      text-align: center;
-      position: relative;
-      /* Esquinas cortadas (estilo industrial/afilado) */
-      clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%);
-    }
-
-    /* Título principal agudo y gótico */
-    .title {
-      font-family: 'Metal Mania', 'Chakra Petch', cursive;
-      font-size: clamp(2.2rem, 6vw, 4.2rem);
-      color: #f0f0f0;
-      text-transform: uppercase;
-      letter-spacing: 4px;
-      text-shadow: 
-        0 0 12px var(--gore-glow),
-        3px 4px 0px var(--blood-red);
-      margin-bottom: 10px;
-      line-height: 1.1;
-    }
-
-    .subtitle {
-      font-size: clamp(0.85rem, 2vw, 1.1rem);
-      color: var(--text-gray);
-      text-transform: uppercase;
-      letter-spacing: 3px;
-      margin-bottom: 25px;
-      border-bottom: 1px solid rgba(128, 0, 0, 0.5);
-      padding-bottom: 15px;
-    }
-
-    .content {
-      font-size: clamp(0.95rem, 1.8vw, 1.1rem);
-      line-height: 1.6;
-      color: #888;
-      margin-bottom: 40px;
-      font-weight: 700;
-    }
-
-    /* Contenedor de Botones */
-    .btn-container {
+      padding: 20px 40px;
       display: flex;
-      justify-content: center;
-      gap: 25px;
-      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid var(--blood-red);
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(5px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
 
-    /* Botón Sangriento */
+    .brand-logo {
+      font-family: 'Metal Mania', cursive;
+      font-size: 1.8rem;
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      text-shadow: 0 0 10px var(--gore-glow);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-gray);
+      text-decoration: none;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 0.9rem;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: var(--gore-glow);
+    }
+
+    /* --- ESTILO DE BOTONES SANGRIENTOS --- */
     .bloody-btn {
       position: relative;
       background: #080808;
       color: #e0e0e0;
       font-family: 'Chakra Petch', sans-serif;
       font-weight: 900;
-      font-size: 1.05rem;
+      font-size: 1rem;
       text-transform: uppercase;
       letter-spacing: 3px;
-      padding: 18px 36px;
+      padding: 16px 32px;
       border: 2px solid var(--blood-red);
       cursor: pointer;
       outline: none;
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
       transition: color 0.3s, border-color 0.3s;
-      border-radius: 0; /* Forma estrictamente cuadrada */
+      border-radius: 0; /* Formato rigurosamente cuadrado */
     }
 
-    /* Capa de llenado de sangre */
     .bloody-btn::before {
       content: '';
       position: absolute;
@@ -127,7 +118,7 @@
       transition: height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    /* Gotas de sangre derramadas abajo (Clip-Path Visceral) */
+    /* Derramamiento de sangre al pasar el cursor */
     .bloody-btn::after {
       content: '';
       position: absolute;
@@ -136,7 +127,6 @@
       width: 100%;
       height: 0;
       background: var(--bright-blood);
-      /* Renderizado de picos/chorros de sangre derramada */
       clip-path: polygon(
         0% 0%, 100% 0%, 
         95% 80%, 88% 30%, 80% 100%, 
@@ -153,10 +143,8 @@
     .bloody-btn span {
       position: relative;
       z-index: 1;
-      transition: text-shadow 0.3s;
     }
 
-    /* HOVER: EFECTO SANGRIENTO */
     .bloody-btn:hover {
       color: #000;
       border-color: var(--gore-glow);
@@ -167,60 +155,203 @@
       height: 100%;
     }
 
-    /* Se activa el derramamiento inferior */
     .bloody-btn:hover::after {
-      height: 28px;
+      height: 26px;
       opacity: 1;
       transform: translateY(100%);
     }
 
-    .bloody-btn:hover span {
-      text-shadow: 0 0 3px rgba(255, 255, 255, 0.8);
+    /* --- HERO SECTION --- */
+    .hero {
+      padding: 80px 20px;
+      text-align: center;
+      max-width: 900px;
+      margin: 0 auto;
     }
 
-    /* RESPONSIVO (Móviles y Tabletas) */
-    @media (max-width: 600px) {
-      .horror-card {
-        clip-path: none; /* Mejor renderizado en pantallas pequeñas */
-        border-radius: 0;
+    .main-title {
+      font-family: 'Metal Mania', cursive;
+      font-size: clamp(2.8rem, 8vw, 5.5rem);
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 5px;
+      text-shadow: 0 0 15px var(--gore-glow), 4px 5px 0px var(--blood-red);
+      line-height: 1;
+      margin-bottom: 20px;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(1rem, 2.5vw, 1.3rem);
+      color: var(--text-gray);
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      margin-bottom: 30px;
+    }
+
+    .cta-container {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-top: 30px;
+    }
+
+    /* --- SECCIÓN DE CONTENIDO PRINCIPAL --- */
+    .main-content {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 20px;
+      flex: 1;
+    }
+
+    .section-title {
+      font-family: 'Chakra Petch', sans-serif;
+      font-size: 1.8rem;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      border-left: 5px solid var(--bright-blood);
+      padding-left: 15px;
+      margin-bottom: 30px;
+      color: #fff;
+    }
+
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+    }
+
+    /* Tarjetas de Contenido Angulares */
+    .horror-box {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      padding: 30px;
+      position: relative;
+      clip-path: polygon(0 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%);
+      transition: border-color 0.3s, transform 0.3s;
+    }
+
+    .horror-box:hover {
+      border-color: var(--gore-glow);
+      transform: translateY(-5px);
+    }
+
+    .horror-box h3 {
+      font-size: 1.3rem;
+      color: #fff;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .horror-box p {
+      color: #888;
+      line-height: 1.6;
+      font-size: 0.95rem;
+    }
+
+    /* --- FOOTER --- */
+    footer {
+      border-top: 1px solid var(--border-color);
+      text-align: center;
+      padding: 30px;
+      color: #555;
+      font-size: 0.85rem;
+      letter-spacing: 2px;
+      margin-top: 60px;
+    }
+
+    /* --- RESPONSIVIDAD (MÓVILES) --- */
+    @media (max-width: 768px) {
+      .navbar {
+        flex-direction: column;
+        gap: 15px;
+        padding: 15px 20px;
       }
 
-      .btn-container {
+      .cta-container {
         flex-direction: column;
         width: 100%;
       }
 
       .bloody-btn {
         width: 100%;
-        padding: 16px 20px;
       }
 
-      .bloody-btn:hover::after {
-        height: 22px; /* Reducción ligera para móvil */
+      .horror-box {
+        clip-path: none; /* Mejor rendimiento visual en pantallas pequeñas */
       }
     }
   </style>
 </head>
 <body>
 
-  <main class="horror-card">
-    <h1 class="title">NO HAY SALIDA</h1>
-    <p class="subtitle">SISTEMA INFECTADO // PROTOCOLO DE TERROR</p>
-    
-    <p class="content">
-      El aire se vuelve pesado y el silencio consume todo a tu alrededor.
-      Pasa el cursor sobre la elección antes de que sea demasiado tarde.
-    </p>
+  <!-- BARRA DE NAVEGACIÓN -->
+  <nav class="navbar">
+    <div class="brand-logo"></div>
+    <ul class="nav-links">
+      <li><a href="#archivo">Archiv</a></li>
+      <li><a href="#camaras"></a></li>
+      <li><a href="#protocolo">Protocolo</a></li>
+    </ul>
+  </nav>
 
-    <div class="btn-container">
-      <button class="bloody-btn">
-        <span>ENTRAR</span>
-      </button>
-      <button class="bloody-btn">
-        <span>ESCAPAR</span>
+  <!-- SECCIÓN PRINCIPAL -->
+  <header class="hero">
+    <h1 class="main-title">!</h1>
+    <p class="hero-subtitle">! //</p>
+    
+    <!-- ACCIONES DE NAVEGACIÓN FUNCIONALES -->
+    <div class="cta-container">
+      <!-- Opción A: Enlaces directos a otras URLs o secciones -->
+      <a href="https://google.com" target="_blank" class="bloody-btn">
+        <span>INICIAR SESIÓN</span>
+      </a>
+      
+      <!-- Opción B: Ejecución por JavaScript -->
+      <button class="bloody-btn" id="btn-escapar">
+        <span>CERRAR CONEXIÓN</span>
       </button>
     </div>
+  </header>
+
+  <!-- SECCIÓN DE CONTENIDO DE LA PÁGINA -->
+  <main class="main-content">
+    <h2 class="section-title">REGISTROS DISPONIBLES</h2>
+
+    <div class="grid-container">
+      <article class="horror-box">
+        <h3>REGISTRO #091</h3>
+        <p>.</p>
+      </article>
+
+      <article class="horror-box">
+        <h3></h3>
+        <p></p>
+      </article>
+
+      <article class="horror-box">
+        <h3></h3>
+        <p>.</p>
+      </article>
+    </div>
   </main>
+
+  <!-- PIE DE PÁGINA -->
+  <footer>
+    <p>&copy; 2026 TERMINAL DE ACCESO DIRECTO. TODOS LOS DERECHOS INFECTADOS.</p>
+  </footer>
+
+  <!-- SCRIPT PARA MANEJO DE ACCIONES EN BOTONES -->
+  <script>
+    // Evento funcional para el botón de "CERRAR CONEXIÓN"
+    document.getElementById('btn-escapar').addEventListener('click', () => {
+      const confirmar = confirm('¿Estás seguro de que quieres cerrar la conexión antes de que sea tarde?');
+      if (confirmar) {
+        window.location.href = 'about:blank'; // Redirige a página en blanco
+      }
+    });
+  </script>
 
 </body>
 </html>
