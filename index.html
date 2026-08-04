@@ -34,15 +34,19 @@
 
     .container {
       width: 100%;
-      max-width: 760px;
+      max-width: 800px;
       margin: 0 auto;
-      padding: 0 1.5rem;
+      padding: 0 1.25rem;
     }
 
     /* HEADER */
     header {
-      padding: 5rem 0 3rem;
+      padding: 3.5rem 0 2rem;
       text-align: center;
+    }
+
+    @media (min-width: 768px) {
+      header { padding: 5rem 0 3rem; }
     }
 
     .portrait-link {
@@ -53,18 +57,24 @@
 
     .portrait-container {
       position: relative;
-      width: 130px;
-      height: 130px;
-      margin: 0 auto 2rem;
+      width: 120px;
+      height: 120px;
+      margin: 0 auto 1.5rem;
       border-radius: 50%;
       overflow: hidden;
       border: 1px solid var(--border-hover);
       transition: border-color 0.4s ease;
     }
 
-    .portrait-container:hover {
-      border-color: var(--accent);
+    @media (min-width: 768px) {
+      .portrait-container {
+        width: 140px;
+        height: 140px;
+        margin-bottom: 2rem;
+      }
     }
+
+    .portrait-container:hover { border-color: var(--accent); }
 
     .portrait {
       width: 100%;
@@ -87,19 +97,15 @@
     }
 
     .portrait-container:hover .portrait,
-    .portrait-container:active .portrait {
-      opacity: 0;
-    }
+    .portrait-container:active .portrait { opacity: 0; }
 
     .portrait-container:hover .portrait-alt,
-    .portrait-container:active .portrait-alt {
-      opacity: 1;
-    }
+    .portrait-container:active .portrait-alt { opacity: 1; }
 
     h1 {
       font-family: 'Cormorant Garamond', serif;
       font-weight: 600;
-      font-size: clamp(2.4rem, 6vw, 3.5rem);
+      font-size: clamp(2.2rem, 7vw, 3.5rem);
       letter-spacing: 0.02em;
       color: #ffffff;
       margin-bottom: 0.1rem;
@@ -108,13 +114,13 @@
     .alias {
       font-family: 'Cormorant Garamond', serif;
       font-style: italic;
-      font-size: 1.25rem;
+      font-size: clamp(1.1rem, 3.5vw, 1.35rem);
       color: var(--text-muted);
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.2rem;
     }
 
     .tagline {
-      font-size: 0.95rem;
+      font-size: clamp(0.85rem, 2.5vw, 0.95rem);
       color: var(--text-muted);
       max-width: 480px;
       margin: 0 auto;
@@ -125,45 +131,52 @@
     nav {
       display: flex;
       justify-content: center;
-      gap: 2rem;
+      gap: 1.2rem;
       flex-wrap: wrap;
-      margin-top: 3rem;
-      padding-top: 2rem;
+      margin-top: 2rem;
+      padding-top: 1.5rem;
       border-top: 1px solid var(--border);
+    }
+
+    @media (min-width: 768px) {
+      nav { gap: 2rem; margin-top: 3rem; padding-top: 2rem; }
     }
 
     nav a {
       color: var(--text-muted);
       text-decoration: none;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       letter-spacing: 0.08em;
       text-transform: uppercase;
+      padding: 0.3rem 0;
       transition: color 0.3s ease;
     }
 
-    nav a:hover, nav a:active {
-      color: var(--accent);
-    }
+    nav a:hover, nav a:active { color: var(--accent); }
 
     /* SECCIONES */
     section {
-      padding: 4rem 0;
+      padding: 3rem 0;
       border-top: 1px solid var(--border);
+    }
+
+    @media (min-width: 768px) {
+      section { padding: 4rem 0; }
     }
 
     section h2 {
       font-family: 'Cormorant Garamond', serif;
       font-weight: 400;
-      font-size: 2rem;
+      font-size: clamp(1.75rem, 5vw, 2.2rem);
       letter-spacing: 0.03em;
       color: #ffffff;
-      margin-bottom: 2.5rem;
+      margin-bottom: 2rem;
       text-align: center;
     }
 
     .about-text {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.25rem;
+      font-size: clamp(1.1rem, 3.5vw, 1.25rem);
       line-height: 1.8;
       color: #d1d1d6;
       max-width: 600px;
@@ -172,26 +185,32 @@
       font-style: italic;
     }
 
-    .about-text p + p {
-      margin-top: 1.5rem;
+    .about-text p + p { margin-top: 1.5rem; }
+
+    /* OBRAS (Grid Adaptable) */
+    .works-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
     }
 
-    /* OBRAS */
-    .works-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 1.25rem;
+    @media (min-width: 600px) {
+      .works-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
 
     .work-card {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 4px;
-      padding: 1.8rem;
+      padding: 1.5rem;
       transition: all 0.3s ease;
       text-decoration: none;
       color: inherit;
-      display: block;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
       -webkit-tap-highlight-color: transparent;
     }
 
@@ -202,16 +221,14 @@
 
     .work-card h3 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.5rem;
+      font-size: 1.4rem;
       font-weight: 600;
       color: #ffffff;
       margin-bottom: 0.2rem;
       transition: color 0.3s ease;
     }
 
-    .work-card:hover h3 {
-      color: var(--accent);
-    }
+    .work-card:hover h3 { color: var(--accent); }
 
     .work-card .type {
       font-size: 0.75rem;
@@ -222,28 +239,26 @@
     }
 
     .work-card p {
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       color: var(--text-muted);
       line-height: 1.5;
     }
 
     .work-card .read {
       display: inline-block;
-      margin-top: 1rem;
+      margin-top: 1.2rem;
       font-size: 0.8rem;
       letter-spacing: 0.05em;
       color: var(--text-main);
       transition: color 0.3s ease;
     }
 
-    .work-card:hover .read {
-      color: var(--accent);
-    }
+    .work-card:hover .read { color: var(--accent); }
 
     /* IMAGEN GT */
     .bottom-image-container {
       text-align: center;
-      padding: 3rem 0 4rem;
+      padding: 2.5rem 0 3.5rem;
     }
 
     .gt-image-container {
@@ -282,14 +297,10 @@
       filter: grayscale(20%);
     }
 
-    .gt-image-container:hover {
-      border-color: var(--border-hover);
-    }
+    .gt-image-container:hover { border-color: var(--border-hover); }
 
     .gt-image-container:hover .gt-img-normal,
-    .gt-image-container:active .gt-img-normal {
-      opacity: 0;
-    }
+    .gt-image-container:active .gt-img-normal { opacity: 0; }
 
     .gt-image-container:hover .gt-img-scary,
     .gt-image-container:active .gt-img-scary {
@@ -303,16 +314,14 @@
       position: fixed;
       inset: 0;
       z-index: 2000;
-      background: rgba(0, 0, 0, 0.85);
+      background: rgba(0, 0, 0, 0.88);
       backdrop-filter: blur(5px);
       align-items: center;
       justify-content: center;
-      padding: 1.5rem;
+      padding: 1rem;
     }
 
-    .video-modal.active {
-      display: flex;
-    }
+    .video-modal.active { display: flex; }
 
     .video-modal-content {
       position: relative;
@@ -331,26 +340,23 @@
 
     .close-video-btn {
       position: absolute;
-      top: -35px;
+      top: -38px;
       right: 0;
       background: transparent;
       border: none;
-      color: var(--text-muted);
+      color: var(--text-main);
       font-family: 'Inter', sans-serif;
       font-size: 0.85rem;
       letter-spacing: 0.08em;
       cursor: pointer;
+      padding: 5px 10px;
       transition: color 0.3s ease;
     }
 
-    .close-video-btn:hover {
-      color: #ffffff;
-    }
+    .close-video-btn:hover { color: var(--accent); }
 
     /* CONTACTO Y FORMULARIO */
-    .contact-block {
-      text-align: center;
-    }
+    .contact-block { text-align: center; }
 
     .contact-block p {
       color: var(--text-muted);
@@ -359,10 +365,10 @@
     }
 
     .contact-email {
-      font-size: 1.1rem;
+      font-size: clamp(0.95rem, 3.5vw, 1.1rem);
       color: var(--text-main);
       text-decoration: none;
-      word-break: break-word;
+      word-break: break-all;
       border-bottom: 1px solid var(--border-hover);
       padding-bottom: 2px;
       transition: all 0.3s ease;
@@ -378,7 +384,7 @@
       margin: 0 auto;
       display: flex;
       flex-direction: column;
-      gap: 1.5rem;
+      gap: 1.25rem;
     }
 
     .comment-form label {
@@ -390,6 +396,7 @@
       margin-bottom: 0.5rem;
     }
 
+    /* 16px font-size previene zoom automático en safari móvil */
     .comment-form input,
     .comment-form textarea {
       width: 100%;
@@ -398,16 +405,14 @@
       border-radius: 4px;
       color: #fff;
       font-family: 'Inter', sans-serif;
-      font-size: 0.9rem;
+      font-size: 16px;
       padding: 0.8rem 1rem;
       outline: none;
       transition: border-color 0.3s ease;
     }
 
     .comment-form input:focus,
-    .comment-form textarea:focus {
-      border-color: var(--border-hover);
-    }
+    .comment-form textarea:focus { border-color: var(--border-hover); }
 
     .comment-form textarea {
       min-height: 120px;
@@ -415,7 +420,7 @@
     }
 
     .comment-form button {
-      align-self: center;
+      width: 100%;
       background: transparent;
       border: 1px solid var(--border-hover);
       border-radius: 4px;
@@ -424,9 +429,13 @@
       font-size: 0.8rem;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      padding: 0.8rem 2rem;
+      padding: 0.9rem 2rem;
       cursor: pointer;
       transition: all 0.3s ease;
+    }
+
+    @media (min-width: 600px) {
+      .comment-form button { width: auto; align-self: center; }
     }
 
     .comment-form button:hover {
@@ -438,14 +447,14 @@
       font-size: 0.8rem;
       color: var(--text-muted);
       text-align: center;
-      margin-top: 1.5rem;
+      margin-top: 1.2rem;
     }
 
     .socials {
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
-      gap: 1.5rem;
+      gap: 1rem 1.5rem;
       margin-top: 2.5rem;
       padding-top: 2rem;
       border-top: 1px dashed var(--border);
@@ -457,16 +466,15 @@
       font-size: 0.8rem;
       letter-spacing: 0.08em;
       text-transform: uppercase;
+      padding: 0.2rem 0;
       transition: color 0.3s ease;
     }
 
-    .socials a:hover {
-      color: var(--text-main);
-    }
+    .socials a:hover { color: var(--text-main); }
 
     /* FOOTER Y BOTÓN FLOTANTE */
     footer {
-      padding: 3rem 0;
+      padding: 2.5rem 0;
       text-align: center;
       border-top: 1px solid var(--border);
     }
@@ -479,12 +487,12 @@
 
     .btn-circular {
       position: fixed;
-      bottom: 1.8rem;
-      right: 1.8rem;
-      width: 42px;
-      height: 42px;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      width: 44px;
+      height: 44px;
       background: var(--surface);
-      border: 1px solid var(--border);
+      border: 1px solid var(--border-hover);
       border-radius: 50%;
       color: var(--text-muted);
       display: flex;
@@ -493,17 +501,18 @@
       text-decoration: none;
       z-index: 1001;
       transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
     }
 
     .btn-circular:hover {
       border-color: var(--accent);
       color: var(--accent);
-      transform: scale(1.05);
+      transform: scale(1.08);
     }
 
     .btn-circular svg {
-      width: 14px;
-      height: 14px;
+      width: 16px;
+      height: 16px;
       fill: currentColor;
     }
   </style>
@@ -545,58 +554,74 @@
         <h2>Obras</h2>
         <div class="works-grid">
           <a href="FIESTA EN MINERAL DE LA LUZ.pdf" class="work-card" target="_blank">
-            <h3>Fiesta en Mineral de la Luz</h3>
-            <p class="type">Poema</p>
-            <p>Locura y amor</p>
+            <div>
+              <h3>Fiesta en Mineral de la Luz</h3>
+              <p class="type">Poema</p>
+              <p>Locura y amor</p>
+            </div>
             <span class="read">Leer PDF &rarr;</span>
           </a>
 
           <a href="Altas y bajas - F_G.pdf" class="work-card" target="_blank">
-            <h3>Altas y bajas</h3>
-            <p class="type">Poema</p>
-            <p>Fragmentos.</p>
+            <div>
+              <h3>Altas y bajas</h3>
+              <p class="type">Poema</p>
+              <p>Fragmentos.</p>
+            </div>
             <span class="read">Leer PDF &rarr;</span>
           </a>
 
           <a href="t.pdf" class="work-card" target="_blank">
-            <h3>Arrecife Alacranes</h3>
-            <p class="type">Poema (Anexado, parte 2)</p>
-            <p>Camino al arrecife sur del juicio.</p>
+            <div>
+              <h3>Arrecife Alacranes</h3>
+              <p class="type">Poema (Anexado, parte 2)</p>
+              <p>Camino al arrecife sur del juicio.</p>
+            </div>
             <span class="read">Leer PDF &rarr;</span>
           </a>
 
           <a href="41.pdf" class="work-card" target="_blank">
-            <h3>¿Quién es Alejandro Garrigós Rojas?</h3>
-            <p class="type">Recuerdo</p>
-            <p></p>
+            <div>
+              <h3>¿Quién es Alejandro Garrigós Rojas?</h3>
+              <p class="type">Recuerdo</p>
+              <p></p>
+            </div>
             <span class="read">Leer PDF &rarr;</span>
           </a>
 
           <a href="z.pdf" class="work-card" target="_blank">
-            <h3>Actuación 3</h3>
-            <p class="type">Mi Juicio de Amparo Indirecto, por derecho propio</p>
-            <p></p>
+            <div>
+              <h3>Actuación 3</h3>
+              <p class="type">Mi Juicio de Amparo Indirecto, por derecho propio</p>
+              <p></p>
+            </div>
             <span class="read">Leer PDF &rarr;</span>
           </a>
 
           <a href="g.pdf" class="work-card" target="_blank">
-            <h3>FE</h3>
-            <p class="type">Cuaderno</p>
-            <p>Notas.</p>
+            <div>
+              <h3>FE</h3>
+              <p class="type">Cuaderno</p>
+              <p>Notas.</p>
+            </div>
             <span class="read">Leer PDF &rarr;</span>
           </a>
 
           <a href="Gerardo Szae___Gustavo Narváez (1)-16-19.pdf" class="work-card" target="_blank">
-            <h3>Sobre cómo (NO) robar un vochito</h3>
-            <p class="type">Texto</p>
-            <p>Humor sobre la expropiación de un pequeño Volkswagen.</p>
+            <div>
+              <h3>Sobre cómo (NO) robar un vochito</h3>
+              <p class="type">Texto</p>
+              <p>Humor sobre la expropiación de un pequeño Volkswagen.</p>
+            </div>
             <span class="read">Leer PDF &rarr;</span>
           </a>
 
           <a href="mat1.pdf" class="work-card" target="_blank">
-            <h3>Ménage à trois — Primera parte</h3>
-            <p class="type">Texto</p>
-            <p></p>
+            <div>
+              <h3>Ménage à trois — Primera parte</h3>
+              <p class="type">Texto</p>
+              <p></p>
+            </div>
             <span class="read">Leer PDF &rarr;</span>
           </a>
         </div>
