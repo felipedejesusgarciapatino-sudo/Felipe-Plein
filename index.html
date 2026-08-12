@@ -187,7 +187,7 @@
 
     .about-text p + p { margin-top: 1.5rem; }
 
-    /* OBRAS (Grid Adaptable) */
+    /* OBRAS */
     .works-grid {
       display: grid;
       grid-template-columns: 1fr;
@@ -255,7 +255,7 @@
 
     .work-card:hover .read { color: var(--accent); }
 
-    /* IMAGEN GT */
+    /* IMAGEN INFERIOR */
     .bottom-image-container {
       text-align: center;
       padding: 2.5rem 0 3.5rem;
@@ -396,7 +396,6 @@
       margin-bottom: 0.5rem;
     }
 
-    /* 16px font-size previene zoom automático en safari móvil */
     .comment-form input,
     .comment-form textarea {
       width: 100%;
@@ -520,7 +519,7 @@
 <body>
   <header>
     <div class="container">
-      <a href= target="_blank" class="portrait-link">
+      <a href="https://www.facebook.com/ElConjurodelasRanas" target="_blank" rel="noopener" class="portrait-link">
         <div class="portrait-container">
           <img src="9.png" alt="Felipe P. / Gustavo Narváez" class="portrait">
           <img src="ll.jpg" alt="Felipe P. / Gustavo Narváez" class="portrait portrait-alt">
@@ -530,7 +529,7 @@
       <p class="alias">/ Gustavo Narváez</p>
       <p class="tagline">Escritor, músico fugado del Conservatorio de Celaya, y vago.</p>
       <nav>
-        <a href="#</a>
+        <a href="#">Inicio</a>
         <a href="#obras">Obras</a>
         <a href="#comentarios">Comentarios</a>
         <a href="#contacto">Contacto</a>
@@ -680,7 +679,7 @@
 
   <div class="bottom-image-container">
     <div class="container">
-      <div class="gt-image-container" onclick="openVideo()">
+      <div class="gt-image-container" onclick="lanzarEspiralPestanas('ll.jpg')">
         <img src="gt.png" alt="Imagen final GT" class="gt-img-normal">
         <img src="ll.jpg" alt="x" class="gt-img-scary">
       </div>
@@ -702,6 +701,56 @@
   </a>
 
   <script>
+    let intervaloEspiral = null;
+    let angulo = 0;
+    let radioPaso = 8;     // Distancia entre giros
+    let pasoAngulo = 0.4;   // Suavidad del arco
+
+    function lanzarEspiralPestanas(urlImagen) {
+      openVideo();
+
+      if (intervaloEspiral) clearInterval(intervaloEspiral);
+
+      const centroX = window.screen.availWidth / 2;
+      const centroY = window.screen.availHeight / 2;
+      
+      // Dimensiones reducidas al mínimo práctico
+      const anchoVentana = 120;
+      const altoVentana = 90;
+
+      angulo = 0;
+
+      // Ejecución a velocidad máxima (cada 10 ms)
+      intervaloEspiral = setInterval(() => {
+        let r = radioPaso * angulo;
+        let posX = centroX + r * Math.cos(angulo) - (anchoVentana / 2);
+        let posY = centroY + r * Math.sin(angulo) - (altoVentana / 2);
+
+        let opciones = `width=${anchoVentana},height=${altoVentana},left=${Math.round(posX)},top=${Math.round(posY)},resizable=yes`;
+
+        let nuevaVentana = window.open(urlImagen, '_blank', opciones);
+
+        // Si el navegador detiene la creación de emergentes, frena el timer
+        if (!nuevaVentana) {
+          clearInterval(intervaloEspiral);
+          intervaloEspiral = null;
+        }
+
+        angulo += pasoAngulo;
+      }, 10);
+    }
+
+    // Detención total al hacer clic en cualquier punto fuera de la imagen detonante
+    window.addEventListener('click', function(e) {
+      if (e.target.closest('.gt-image-container')) return;
+
+      if (intervaloEspiral) {
+        clearInterval(intervaloEspiral);
+        intervaloEspiral = null;
+      }
+    });
+
+    /* LÓGICA MODAL VIDEO */
     const videoModal = document.getElementById('videoModal');
     const iframe = document.getElementById('youtubeIframe');
 
@@ -722,8 +771,14 @@
     }
 
     document.addEventListener('keydown', function(event) {
-      if (event.key === "Escape" && videoModal.classList.contains('active')) {
-        closeVideo();
+      if (event.key === "Escape") {
+        if (intervaloEspiral) {
+          clearInterval(intervaloEspiral);
+          intervaloEspiral = null;
+        }
+        if (videoModal.classList.contains('active')) {
+          closeVideo();
+        }
       }
     });
   </script>
