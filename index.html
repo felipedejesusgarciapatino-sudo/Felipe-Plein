@@ -308,6 +308,54 @@
       transform: scale(1.02);
     }
 
+    /* CONTENEDOR EFECTO ESPIRAL EN PANTALLA */
+    #overlayEspiral {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9999;
+      overflow: hidden;
+    }
+
+    .mini-ventana {
+      position: absolute;
+      width: 120px;
+      height: 90px;
+      background: #000;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.8);
+      border-radius: 4px;
+      overflow: hidden;
+      animation: popIn 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    }
+
+    .mini-ventana-bar {
+      height: 14px;
+      background: #222;
+      border-bottom: 1px solid #333;
+      display: flex;
+      align-items: center;
+      padding: 0 4px;
+    }
+
+    .mini-ventana-dot {
+      width: 6px;
+      height: 6px;
+      background: #ff5f56;
+      border-radius: 50%;
+    }
+
+    .mini-ventana img {
+      width: 100%;
+      height: calc(100% - 14px);
+      object-fit: cover;
+    }
+
+    @keyframes popIn {
+      0% { transform: scale(0) rotate(-20deg); opacity: 0; }
+      100% { transform: scale(1) rotate(0deg); opacity: 1; }
+    }
+
     /* MODAL VIDEO */
     .video-modal {
       display: none;
@@ -517,6 +565,9 @@
   </style>
 </head>
 <body>
+  <!-- Contenedor para el efecto de ventanas simuladas -->
+  <div id="overlayEspiral"></div>
+
   <header>
     <div class="container">
       <a href="https://www.facebook.com/ElConjurodelasRanas" target="_blank" rel="noopener" class="portrait-link">
@@ -679,7 +730,7 @@
 
   <div class="bottom-image-container">
     <div class="container">
-      <div class="gt-image-container" onclick="lanzarEspiralPestanas('ll.jpg')">
+      <div class="gt-image-container" onclick="lanzarEspiralDOM('ll.jpg')">
         <img src="gt.png" alt="Imagen final GT" class="gt-img-normal">
         <img src="ll.jpg" alt="x" class="gt-img-scary">
       </div>
@@ -703,51 +754,66 @@
   <script>
     let intervaloEspiral = null;
     let angulo = 0;
-    let radioPaso = 8;     // Distancia entre giros
-    let pasoAngulo = 0.4;   // Suavidad del arco
+    let radioPaso = 10;
+    let pasoAngulo = 0.35;
+    const overlay = document.getElementById('overlayEspiral');
 
-    function lanzarEspiralPestanas(urlImagen) {
+    function lanzarEspiralDOM(urlImagen) {
       openVideo();
+      detenerEspiral();
 
-      if (intervaloEspiral) clearInterval(intervaloEspiral);
-
-      const centroX = window.screen.availWidth / 2;
-      const centroY = window.screen.availHeight / 2;
-      
-      // Dimensiones reducidas al mínimo práctico
+      const centroX = window.innerWidth / 2;
+      const centroY = window.innerHeight / 2;
       const anchoVentana = 120;
       const altoVentana = 90;
 
       angulo = 0;
 
-      // Ejecución a velocidad máxima (cada 10 ms)
+      // Dispara pequeñas ventanas simuladas a máxima velocidad sin bloqueo
       intervaloEspiral = setInterval(() => {
         let r = radioPaso * angulo;
         let posX = centroX + r * Math.cos(angulo) - (anchoVentana / 2);
         let posY = centroY + r * Math.sin(angulo) - (altoVentana / 2);
 
-        let opciones = `width=${anchoVentana},height=${altoVentana},left=${Math.round(posX)},top=${Math.round(posY)},resizable=yes`;
-
-        let nuevaVentana = window.open(urlImagen, '_blank', opciones);
-
-        // Si el navegador detiene la creación de emergentes, frena el timer
-        if (!nuevaVentana) {
-          clearInterval(intervaloEspiral);
-          intervaloEspiral = null;
+        // Si la espiral sale de los bordes visibles, reinicia el ciclo
+        if (
+          posX < -anchoVentana || posX > window.innerWidth ||
+          posY < -altoVentana || posY > window.innerHeight
+        ) {
+          angulo = 0;
+          r = 0;
+          posX = centroX - (anchoVentana / 2);
+          posY = centroY - (altoVentana / 2);
         }
 
+        const win = document.createElement('div');
+        win.className = 'mini-ventana';
+        win.style.left = `${Math.round(posX)}px`;
+        win.style.top = `${Math.round(posY)}px`;
+        win.innerHTML = `
+          <div class="mini-ventana-bar">
+            <div class="mini-ventana-dot"></div>
+          </div>
+          <img src="${urlImagen}" alt="Popup">
+        `;
+
+        overlay.appendChild(win);
         angulo += pasoAngulo;
-      }, 10);
+      }, 15);
     }
 
-    // Detención total al hacer clic en cualquier punto fuera de la imagen detonante
-    window.addEventListener('click', function(e) {
-      if (e.target.closest('.gt-image-container')) return;
-
+    function detenerEspiral() {
       if (intervaloEspiral) {
         clearInterval(intervaloEspiral);
         intervaloEspiral = null;
       }
+      overlay.innerHTML = '';
+    }
+
+    // Detener la ráfaga e ilustrar limpieza con cualquier clic en la página
+    window.addEventListener('click', function(e) {
+      if (e.target.closest('.gt-image-container')) return;
+      detenerEspiral();
     });
 
     /* LÓGICA MODAL VIDEO */
@@ -772,10 +838,7 @@
 
     document.addEventListener('keydown', function(event) {
       if (event.key === "Escape") {
-        if (intervaloEspiral) {
-          clearInterval(intervaloEspiral);
-          intervaloEspiral = null;
-        }
+        detenerEspiral();
         if (videoModal.classList.contains('active')) {
           closeVideo();
         }
