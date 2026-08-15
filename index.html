@@ -1,616 +1,598 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>Gran Amo Alquimista Adivinador</title>
-
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      height: 100vh;
-      background: #090612;
-      color: #eee;
-      font-family: Georgia, "Times New Roman", serif;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-    }
-
-    /* =========================
-       FONDO MÁGICO
-       ========================= */
-
-    #magia {
-      position: relative;
-      height: 45vh;
-      min-height: 280px;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background:
-        radial-gradient(
-          circle at center,
-          #26163d 0%,
-          #130b20 45%,
-          #090612 75%
-        );
-    }
-
-    /* Estrellas */
-
-    #magia::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-
-      background-image:
-        radial-gradient(circle, rgba(255,255,255,.9) 1px, transparent 1px),
-        radial-gradient(circle, rgba(180,150,255,.7) 1px, transparent 1px);
-
-      background-size: 90px 90px, 130px 130px;
-      background-position: 10px 20px, 50px 70px;
-
-      opacity: .45;
-      animation: estrellas 8s linear infinite;
-    }
-
-    @keyframes estrellas {
-      from {
-        transform: translateY(0);
-      }
-
-      to {
-        transform: translateY(-90px);
-      }
-    }
-
-    /* Círculo mágico */
-
-    .circulo-magico {
-      position: relative;
-      width: 240px;
-      height: 240px;
-      border: 2px solid rgba(211, 178, 255, .75);
-      border-radius: 50%;
-
-      box-shadow:
-        0 0 15px rgba(180, 120, 255, .5),
-        0 0 40px rgba(120, 60, 200, .35),
-        inset 0 0 25px rgba(180, 120, 255, .2);
-
-      animation: girar 25s linear infinite;
-    }
-
-    .circulo-magico::before {
-      content: "";
-
-      position: absolute;
-      inset: 20px;
-
-      border: 1px solid rgba(255,255,255,.55);
-      border-radius: 50%;
-
-      box-shadow:
-        0 0 15px rgba(200,150,255,.5);
-    }
-
-    .circulo-magico::after {
-      content: "";
-
-      position: absolute;
-      inset: 55px;
-
-      border: 1px solid rgba(255,255,255,.45);
-      border-radius: 50%;
-    }
-
-    @keyframes girar {
-      from {
-        transform: rotate(0deg);
-      }
-
-      to {
-        transform: rotate(360deg);
-      }
-    }
-
-    /* Triángulo alquímico */
-
-    .triangulo {
-      position: absolute;
-      width: 130px;
-      height: 130px;
-
-      left: 50%;
-      top: 50%;
-
-      transform: translate(-50%, -50%) rotate(30deg);
-
-      border-left: 2px solid rgba(220,190,255,.8);
-      border-right: 2px solid rgba(220,190,255,.8);
-      border-bottom: 2px solid rgba(220,190,255,.8);
-
-      clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
-    }
-
-    /* Símbolos */
-
-    .simbolo {
-      position: absolute;
-      color: rgba(230,210,255,.9);
-      font-size: 25px;
-      text-shadow:
-        0 0 8px #a66cff,
-        0 0 20px #7b35d1;
-      animation: pulsar 2.5s ease-in-out infinite;
-    }
-
-    .s1 {
-      top: 18px;
-      left: 50%;
-      transform: translateX(-50%);
-    }
-
-    .s2 {
-      bottom: 18px;
-      left: 50%;
-      transform: translateX(-50%);
-    }
-
-    .s3 {
-      left: 20px;
-      top: 50%;
-      transform: translateY(-50%);
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ouija</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at center, #342719 0%, #17100a 55%, #080604 100%);
+  color: #e8d7ad;
+  font-family: Georgia, "Times New Roman", serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-x: hidden;
+}
+
+/* TÍTULO */
+
+h1 {
+  margin: 18px 0 4px;
+  font-size: 28px;
+  letter-spacing: 5px;
+  text-align: center;
+  text-shadow:
+    0 0 8px #c59b52,
+    0 0 20px #704d1d;
+}
+
+.subtitulo {
+  margin-bottom: 15px;
+  color: #a99168;
+  font-size: 14px;
+  text-align: center;
+}
+
+/* TABLERO */
+
+#tablero {
+  position: relative;
+  width: min(94vw, 850px);
+  aspect-ratio: 1.45 / 1;
+
+  background:
+    radial-gradient(
+      ellipse at center,
+      #80613a 0%,
+      #604725 55%,
+      #3a2816 100%
+    );
+
+  border: 12px solid #21160c;
+  border-radius: 25px;
+
+  box-shadow:
+    0 0 0 3px #76552d,
+    0 0 35px rgba(0,0,0,.8),
+    inset 0 0 50px rgba(0,0,0,.6);
+
+  overflow: hidden;
+}
+
+/* TEXTURA */
+
+#tablero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent 0px,
+      rgba(255,255,255,.025) 2px,
+      transparent 4px
+    );
+
+  pointer-events: none;
+}
+
+/* TEXTO DEL TABLERO */
+
+.texto {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+
+  color: #e5d0a1;
+
+  text-shadow:
+    1px 1px 2px #24170b,
+    0 0 5px rgba(0,0,0,.5);
+}
+
+.si {
+  top: 6%;
+  left: 25%;
+  width: 50%;
+  font-size: clamp(25px, 5vw, 45px);
+}
 
-    .s4 {
-      right: 20px;
-      top: 50%;
-      transform: translateY(-50%);
-    }
+.no {
+  top: 6%;
+  right: 6%;
+  width: 18%;
+  font-size: clamp(25px, 5vw, 45px);
+}
 
-    @keyframes pulsar {
-      0%, 100% {
-        opacity: .55;
-        text-shadow:
-          0 0 5px #a66cff;
-      }
+.hola {
+  top: 22%;
+  left: 0;
+  font-size: clamp(15px, 2.5vw, 25px);
+  letter-spacing: 5px;
+}
 
-      50% {
-        opacity: 1;
-        text-shadow:
-          0 0 10px #c28cff,
-          0 0 25px #8d43e8;
-      }
-    }
+.adios {
+  bottom: 6%;
+  left: 0;
+  font-size: clamp(20px, 4vw, 38px);
+  letter-spacing: 4px;
+}
 
-    /* Texto superior */
+/* LETRAS */
 
-    .titulo-magico {
-      position: absolute;
-      bottom: 15px;
-      left: 0;
-      right: 0;
-      text-align: center;
+.letras {
+  position: absolute;
 
-      font-size: 18px;
-      letter-spacing: 2px;
+  left: 8%;
+  right: 8%;
+  top: 35%;
 
-      color: #d8c0ff;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
 
-      text-shadow:
-        0 0 8px #7d43b8;
-    }
+  text-align: center;
+}
 
-    /* =========================
-       CHAT
-       ========================= */
+.letra {
+  font-size: clamp(19px, 3.5vw, 35px);
+  padding: 5px;
 
-    #chat {
-      flex: 1;
-      overflow-y: auto;
-      padding: 20px;
+  color: #e6d1a4;
 
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
+  text-shadow:
+    1px 1px 2px #201409;
+}
 
-      background: #0d0915;
-    }
+/* NÚMEROS */
 
-    .mensaje {
-      max-width: 80%;
-      padding: 11px 15px;
+.numeros {
+  position: absolute;
 
-      border-radius: 14px;
+  left: 20%;
+  right: 20%;
+  bottom: 20%;
 
-      line-height: 1.4;
-      white-space: pre-wrap;
-      word-wrap: break-word;
-    }
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
 
-    .usuario {
-      align-self: flex-end;
+  text-align: center;
+}
 
-      background: #29222f;
-      color: #fff;
-    }
+.numero {
+  font-size: clamp(18px, 3vw, 30px);
+}
 
-    .ia {
-      align-self: flex-start;
+/* SÍMBOLO CENTRAL */
 
-      background: #17111f;
-      color: #e5d5ff;
+.simbolo {
+  position: absolute;
 
-      border: 1px solid #322342;
+  left: 50%;
+  top: 51%;
 
-      box-shadow:
-        0 0 10px rgba(120,70,180,.15);
-    }
+  transform: translate(-50%, -50%);
 
-    /* =========================
-       BARRA
-       ========================= */
+  font-size: clamp(35px, 7vw, 70px);
 
-    #barra {
-      display: flex;
+  color: #d7bd82;
 
-      padding: 12px;
+  opacity: .8;
 
-      border-top: 1px solid #302538;
+  text-shadow:
+    0 0 10px #d0a95d,
+    0 0 25px rgba(0,0,0,.8);
+}
 
-      background: #0d0915;
-    }
+/* PLANCHETTE */
 
-    #entrada {
-      flex: 1;
+#planchette {
+  position: absolute;
 
-      resize: none;
+  width: 95px;
+  height: 115px;
 
-      height: 48px;
+  background:
+    radial-gradient(
+      circle at 40% 30%,
+      #d8c18e,
+      #8d7040 70%,
+      #55401f
+    );
 
-      border: 1px solid #49355d;
-      border-radius: 12px;
+  clip-path: polygon(
+    50% 0%,
+    100% 75%,
+    50% 100%,
+    0% 75%
+  );
 
-      padding: 12px 14px;
+  border: 3px solid #3b2915;
 
-      outline: none;
+  box-shadow:
+    0 0 15px rgba(0,0,0,.8);
 
-      font: inherit;
+  left: 50%;
+  top: 50%;
 
-      background: #17111f;
-      color: white;
-    }
+  transform: translate(-50%, -50%);
 
-    #entrada::placeholder {
-      color: #a995b9;
-    }
+  transition:
+    left 1.1s ease-in-out,
+    top 1.1s ease-in-out;
 
-    #entrada:focus {
-      border-color: #9165b7;
+  z-index: 5;
+}
 
-      box-shadow:
-        0 0 10px rgba(140,90,190,.25);
-    }
+#planchette::after {
+  content: "";
 
-    #enviar {
-      margin-left: 8px;
+  position: absolute;
 
-      width: 80px;
+  width: 28px;
+  height: 28px;
 
-      border: none;
-      border-radius: 12px;
+  border-radius: 50%;
 
-      background: #5c3380;
-      color: white;
+  background: rgba(35,20,10,.75);
 
-      cursor: pointer;
+  left: 50%;
+  top: 43%;
 
-      font-family: inherit;
+  transform: translate(-50%, -50%);
+}
 
-      transition: .2s;
-    }
+/* CONTROLES */
 
-    #enviar:hover {
-      background: #7544a0;
+#controles {
+  width: min(94vw, 850px);
 
-      box-shadow:
-        0 0 12px rgba(150,90,220,.4);
-    }
+  margin-top: 15px;
 
-    #enviar:disabled {
-      opacity: .5;
-      cursor: default;
-    }
+  display: flex;
+  gap: 8px;
+}
 
-    /* =========================
-       MÓVIL
-       ========================= */
+#pregunta {
+  flex: 1;
 
-    @media (max-width: 600px) {
+  height: 48px;
 
-      #magia {
-        height: 35vh;
-        min-height: 230px;
-      }
+  border: 1px solid #80643b;
+  border-radius: 10px;
 
-      .circulo-magico {
-        width: 190px;
-        height: 190px;
-      }
+  background: #17100a;
+  color: #eee0bd;
 
-      .triangulo {
-        width: 105px;
-        height: 105px;
-      }
+  padding: 0 15px;
 
-      .titulo-magico {
-        font-size: 14px;
-      }
-    }
-  </style>
+  font-family: inherit;
+  font-size: 16px;
+
+  outline: none;
+}
+
+#pregunta::placeholder {
+  color: #8f7a59;
+}
+
+#pregunta:focus {
+  border-color: #c4a568;
+}
+
+button {
+  border: 1px solid #9b7940;
+  border-radius: 10px;
+
+  padding: 0 20px;
+
+  background: #382615;
+  color: #e8d5ac;
+
+  font-family: inherit;
+  font-size: 15px;
+
+  cursor: pointer;
+}
+
+button:hover {
+  background: #52391e;
+}
+
+button:disabled {
+  opacity: .5;
+}
+
+/* RESPUESTA */
+
+#respuesta {
+  min-height: 55px;
+
+  width: min(94vw, 850px);
+
+  margin: 12px 0 20px;
+
+  padding: 15px;
+
+  text-align: center;
+
+  border: 1px solid #5e4727;
+  border-radius: 10px;
+
+  background: rgba(12,8,4,.7);
+
+  color: #e8d4a8;
+
+  font-size: 18px;
+
+  opacity: 0;
+
+  transition: opacity .5s;
+}
+
+#respuesta.visible {
+  opacity: 1;
+}
+
+@media (max-width: 600px) {
+
+  #tablero {
+    border-width: 7px;
+  }
+
+  #planchette {
+    width: 65px;
+    height: 78px;
+  }
+
+  #controles {
+    flex-direction: column;
+  }
+
+  button {
+    height: 45px;
+  }
+}
+</style>
 </head>
 
 <body>
 
-  <!-- =========================
-       ZONA MÁGICA
-       ========================= -->
+<h1>☽ OUIJA ☾</h1>
 
-  <section id="magia">
+<div class="subtitulo">
+  Haz una pregunta y mueve la planchette
+</div>
 
-    <div class="circulo-magico">
+<div id="tablero">
 
-      <div class="triangulo"></div>
+  <div class="texto si">SÍ</div>
 
-      <div class="simbolo s1">☿</div>
-      <div class="simbolo s2">☉</div>
-      <div class="simbolo s3">☾</div>
-      <div class="simbolo s4">✦</div>
+  <div class="texto no">NO</div>
 
-    </div>
+  <div class="texto hola">
+    HOLA
+  </div>
 
-    <div class="titulo-magico">
-      ✦ GRAN AMO ALQUIMISTA ADIVINADOR ✦
-    </div>
+  <div class="texto adios">
+    ADIÓS
+  </div>
 
-  </section>
+  <div class="letras">
+    <div class="letra">A</div>
+    <div class="letra">B</div>
+    <div class="letra">C</div>
+    <div class="letra">D</div>
+    <div class="letra">E</div>
+    <div class="letra">F</div>
+    <div class="letra">G</div>
 
+    <div class="letra">H</div>
+    <div class="letra">I</div>
+    <div class="letra">J</div>
+    <div class="letra">K</div>
+    <div class="letra">L</div>
+    <div class="letra">M</div>
+    <div class="letra">N</div>
 
-  <!-- =========================
-       CHAT
-       ========================= -->
+    <div class="letra">O</div>
+    <div class="letra">P</div>
+    <div class="letra">Q</div>
+    <div class="letra">R</div>
+    <div class="letra">S</div>
+    <div class="letra">T</div>
+    <div class="letra">U</div>
 
-  <main id="chat"></main>
+    <div class="letra">V</div>
+    <div class="letra">W</div>
+    <div class="letra">X</div>
+    <div class="letra">Y</div>
+    <div class="letra">Z</div>
+  </div>
 
+  <div class="numeros">
+    <div class="numero">1</div>
+    <div class="numero">2</div>
+    <div class="numero">3</div>
+    <div class="numero">4</div>
+    <div class="numero">5</div>
 
-  <!-- =========================
-       BARRA DE PREGUNTA
-       ========================= -->
+    <div class="numero">6</div>
+    <div class="numero">7</div>
+    <div class="numero">8</div>
+    <div class="numero">9</div>
+    <div class="numero">0</div>
+  </div>
 
-  <form id="barra">
+  <div class="simbolo">☥</div>
 
-    <textarea
-      id="entrada"
-      placeholder="Haz tu pregunta al Gran Amo Alquimista Adivinador..."
-      spellcheck="true"
-    ></textarea>
+  <div id="planchette"></div>
 
-    <button id="enviar" type="submit">
-      Consultar
-    </button>
+</div>
 
-  </form>
+<div id="controles">
 
+  <input
+    id="pregunta"
+    type="text"
+    placeholder="Haz tu pregunta a la Ouija..."
+  >
 
-  <script>
+  <button id="consultar">
+    CONSULTAR
+  </button>
 
-    const chat = document.getElementById("chat");
-    const barra = document.getElementById("barra");
-    const entrada = document.getElementById("entrada");
-    const enviar = document.getElementById("enviar");
+</div>
 
+<div id="respuesta"></div>
 
-    /* =========================
-       RESPUESTAS
-       ========================= */
 
-    const respuestas = [
+<script>
 
-      "Sí.",
+const tablero = document.getElementById("tablero");
+const planchette = document.getElementById("planchette");
+const pregunta = document.getElementById("pregunta");
+const consultar = document.getElementById("consultar");
+const respuesta = document.getElementById("respuesta");
 
-      "No.",
 
-      "Quizá.",
+const respuestas = [
 
-      "Más tarde.",
+  "SÍ",
 
-      "Definitivamente sí.",
+  "NO",
 
-      "Definitivamente no.",
+  "QUIZÁ",
 
-      "Todo apunta a que sí.",
+  "PREGUNTA DE NUEVO",
 
-      "No cuentes con ello.",
+  "NO HAY RESPUESTA",
 
-      "Las estrellas dicen que sí.",
+  "LAS FUERZAS DICEN QUE SÍ",
 
-      "Las estrellas dicen que no.",
+  "LAS FUERZAS DICEN QUE NO",
 
-      "Los astros permanecen en silencio.",
+  "MÁS TARDE",
 
-      "Es posible.",
+  "EL DESTINO ES INCIERTO",
 
-      "Probablemente.",
+  "SÍ, PERO TEN CUIDADO",
 
-      "No puedo asegurarlo.",
+  "NO PARECE PROBABLE",
 
-      "Pregunta de nuevo.",
+  "TODO APUNTA A QUE SÍ",
 
-      "El destino aún no está decidido.",
+  "TODO APUNTA A QUE NO"
 
-      "Puede que sí.",
+];
 
-      "Puede que no.",
 
-      "Sin duda.",
+function moverPlanchette() {
 
-      "No parece probable.",
+  const ancho = tablero.clientWidth;
+  const alto = tablero.clientHeight;
 
-      "Hay buenas posibilidades.",
+  const x =
+    15 +
+    Math.random() * (ancho - 30);
 
-      "El Gran Amo ha consultado los astros... sí.",
+  const y =
+    15 +
+    Math.random() * (alto - 30);
 
-      "El Gran Amo ha consultado los astros... no.",
+  planchette.style.left = x + "px";
+  planchette.style.top = y + "px";
 
-      "Las fuerzas alquímicas favorecen tu pregunta.",
+}
 
-      "Las fuerzas alquímicas no favorecen tu pregunta.",
 
-      "El futuro está envuelto en misterio.",
+function obtenerRespuesta() {
 
-      "Una señal favorable se aproxima.",
+  const indice =
+    Math.floor(
+      Math.random() * respuestas.length
+    );
 
-      "No es el momento.",
+  return respuestas[indice];
 
-      "El destino te sonríe.",
+}
 
-      "El destino todavía duda."
 
-    ];
+consultar.addEventListener("click", () => {
 
+  if (!pregunta.value.trim()) {
 
-    /* =========================
-       AGREGAR MENSAJE
-       ========================= */
+    respuesta.textContent =
+      "Primero haz una pregunta...";
 
-    function agregarMensaje(texto, clase) {
+    respuesta.classList.add("visible");
 
-      const mensaje = document.createElement("div");
+    return;
+  }
 
-      mensaje.className = `mensaje ${clase}`;
 
-      mensaje.textContent = texto;
+  consultar.disabled = true;
 
-      chat.appendChild(mensaje);
+  respuesta.classList.remove("visible");
 
-      chat.scrollTop = chat.scrollHeight;
+  respuesta.textContent =
+    "La planchette está buscando una respuesta...";
 
-      return mensaje;
-    }
 
+  let movimientos = 0;
 
-    /* =========================
-       RESPUESTA ALEATORIA
-       ========================= */
+  const intervalo = setInterval(() => {
 
-    function respuestaAleatoria() {
+    moverPlanchette();
 
-      const indice =
-        Math.floor(Math.random() * respuestas.length);
+    movimientos++;
 
-      return respuestas[indice];
+    if (movimientos >= 6) {
 
-    }
-
-
-    /* =========================
-       ENVIAR PREGUNTA
-       ========================= */
-
-    barra.addEventListener("submit", (event) => {
-
-      event.preventDefault();
-
-      const texto = entrada.value.trim();
-
-      if (!texto || enviar.disabled) {
-        return;
-      }
-
-
-      // Mostrar pregunta
-
-      agregarMensaje(
-        texto,
-        "usuario"
-      );
-
-
-      // Vaciar entrada
-
-      entrada.value = "";
-
-
-      // Desactivar botón
-
-      enviar.disabled = true;
-
-
-      // Mostrar que está pensando
-
-      const indicador = agregarMensaje(
-        "✦ El Gran Amo consulta los astros...",
-        "ia"
-      );
-
-
-      // Esperar un momento
+      clearInterval(intervalo);
 
       setTimeout(() => {
 
-        indicador.textContent =
-          respuestaAleatoria();
+        respuesta.textContent =
+          "✦ " + obtenerRespuesta() + " ✦";
 
-        enviar.disabled = false;
+        respuesta.classList.add("visible");
 
-        entrada.focus();
+        consultar.disabled = false;
 
       }, 1000);
 
-    });
+    }
+
+  }, 900);
+
+});
 
 
-    /* =========================
-       ENTER PARA ENVIAR
-       ========================= */
+pregunta.addEventListener("keydown", (event) => {
 
-    entrada.addEventListener("keydown", (event) => {
+  if (event.key === "Enter") {
 
-      if (
-        event.key === "Enter" &&
-        !event.shiftKey
-      ) {
+    event.preventDefault();
 
-        event.preventDefault();
+    consultar.click();
 
-        barra.requestSubmit();
+  }
 
-      }
-
-    });
+});
 
 
-    /* =========================
-       MENSAJE INICIAL
-       ========================= */
-
-    agregarMensaje(
-      "🔮 Bienvenido, mortal. Haz tu pregunta al Gran Amo Alquimista Adivinador y el destino revelará su respuesta...",
-      "ia"
-    );
-
-
-    entrada.focus();
-
-  </script>
+</script>
 
 </body>
 </html>
