@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chat</title>
+
+  <title>Gran Amo Alquimista Adivinador</title>
 
   <style>
     * {
@@ -13,26 +14,223 @@
     body {
       margin: 0;
       height: 100vh;
-      background: #ffffff;
-      color: #111111;
-      font-family: Arial, sans-serif;
+      background: #090612;
+      color: #eee;
+      font-family: Georgia, "Times New Roman", serif;
       display: flex;
       flex-direction: column;
+      overflow: hidden;
     }
+
+    /* =========================
+       FONDO MÁGICO
+       ========================= */
+
+    #magia {
+      position: relative;
+      height: 45vh;
+      min-height: 280px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background:
+        radial-gradient(
+          circle at center,
+          #26163d 0%,
+          #130b20 45%,
+          #090612 75%
+        );
+    }
+
+    /* Estrellas */
+
+    #magia::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+
+      background-image:
+        radial-gradient(circle, rgba(255,255,255,.9) 1px, transparent 1px),
+        radial-gradient(circle, rgba(180,150,255,.7) 1px, transparent 1px);
+
+      background-size: 90px 90px, 130px 130px;
+      background-position: 10px 20px, 50px 70px;
+
+      opacity: .45;
+      animation: estrellas 8s linear infinite;
+    }
+
+    @keyframes estrellas {
+      from {
+        transform: translateY(0);
+      }
+
+      to {
+        transform: translateY(-90px);
+      }
+    }
+
+    /* Círculo mágico */
+
+    .circulo-magico {
+      position: relative;
+      width: 240px;
+      height: 240px;
+      border: 2px solid rgba(211, 178, 255, .75);
+      border-radius: 50%;
+
+      box-shadow:
+        0 0 15px rgba(180, 120, 255, .5),
+        0 0 40px rgba(120, 60, 200, .35),
+        inset 0 0 25px rgba(180, 120, 255, .2);
+
+      animation: girar 25s linear infinite;
+    }
+
+    .circulo-magico::before {
+      content: "";
+
+      position: absolute;
+      inset: 20px;
+
+      border: 1px solid rgba(255,255,255,.55);
+      border-radius: 50%;
+
+      box-shadow:
+        0 0 15px rgba(200,150,255,.5);
+    }
+
+    .circulo-magico::after {
+      content: "";
+
+      position: absolute;
+      inset: 55px;
+
+      border: 1px solid rgba(255,255,255,.45);
+      border-radius: 50%;
+    }
+
+    @keyframes girar {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* Triángulo alquímico */
+
+    .triangulo {
+      position: absolute;
+      width: 130px;
+      height: 130px;
+
+      left: 50%;
+      top: 50%;
+
+      transform: translate(-50%, -50%) rotate(30deg);
+
+      border-left: 2px solid rgba(220,190,255,.8);
+      border-right: 2px solid rgba(220,190,255,.8);
+      border-bottom: 2px solid rgba(220,190,255,.8);
+
+      clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+    }
+
+    /* Símbolos */
+
+    .simbolo {
+      position: absolute;
+      color: rgba(230,210,255,.9);
+      font-size: 25px;
+      text-shadow:
+        0 0 8px #a66cff,
+        0 0 20px #7b35d1;
+      animation: pulsar 2.5s ease-in-out infinite;
+    }
+
+    .s1 {
+      top: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .s2 {
+      bottom: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .s3 {
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .s4 {
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    @keyframes pulsar {
+      0%, 100% {
+        opacity: .55;
+        text-shadow:
+          0 0 5px #a66cff;
+      }
+
+      50% {
+        opacity: 1;
+        text-shadow:
+          0 0 10px #c28cff,
+          0 0 25px #8d43e8;
+      }
+    }
+
+    /* Texto superior */
+
+    .titulo-magico {
+      position: absolute;
+      bottom: 15px;
+      left: 0;
+      right: 0;
+      text-align: center;
+
+      font-size: 18px;
+      letter-spacing: 2px;
+
+      color: #d8c0ff;
+
+      text-shadow:
+        0 0 8px #7d43b8;
+    }
+
+    /* =========================
+       CHAT
+       ========================= */
 
     #chat {
       flex: 1;
       overflow-y: auto;
       padding: 20px;
+
       display: flex;
       flex-direction: column;
       gap: 12px;
+
+      background: #0d0915;
     }
 
     .mensaje {
       max-width: 80%;
-      padding: 10px 14px;
+      padding: 11px 15px;
+
       border-radius: 14px;
+
       line-height: 1.4;
       white-space: pre-wrap;
       word-wrap: break-word;
@@ -40,137 +238,379 @@
 
     .usuario {
       align-self: flex-end;
-      background: #eeeeee;
+
+      background: #29222f;
+      color: #fff;
     }
 
     .ia {
       align-self: flex-start;
-      background: #f7f7f7;
+
+      background: #17111f;
+      color: #e5d5ff;
+
+      border: 1px solid #322342;
+
+      box-shadow:
+        0 0 10px rgba(120,70,180,.15);
     }
+
+    /* =========================
+       BARRA
+       ========================= */
 
     #barra {
       display: flex;
+
       padding: 12px;
-      border-top: 1px solid #dddddd;
-      background: #ffffff;
+
+      border-top: 1px solid #302538;
+
+      background: #0d0915;
     }
 
     #entrada {
       flex: 1;
+
       resize: none;
-      height: 44px;
-      border: 1px solid #cccccc;
+
+      height: 48px;
+
+      border: 1px solid #49355d;
       border-radius: 12px;
-      padding: 11px 14px;
+
+      padding: 12px 14px;
+
       outline: none;
+
       font: inherit;
+
+      background: #17111f;
+      color: white;
+    }
+
+    #entrada::placeholder {
+      color: #a995b9;
     }
 
     #entrada:focus {
-      border-color: #999999;
+      border-color: #9165b7;
+
+      box-shadow:
+        0 0 10px rgba(140,90,190,.25);
     }
 
     #enviar {
       margin-left: 8px;
-      width: 70px;
+
+      width: 80px;
+
       border: none;
       border-radius: 12px;
-      background: #111111;
+
+      background: #5c3380;
       color: white;
+
       cursor: pointer;
+
+      font-family: inherit;
+
+      transition: .2s;
     }
 
     #enviar:hover {
-      background: #333333;
+      background: #7544a0;
+
+      box-shadow:
+        0 0 12px rgba(150,90,220,.4);
     }
 
     #enviar:disabled {
-      opacity: 0.5;
+      opacity: .5;
       cursor: default;
+    }
+
+    /* =========================
+       MÓVIL
+       ========================= */
+
+    @media (max-width: 600px) {
+
+      #magia {
+        height: 35vh;
+        min-height: 230px;
+      }
+
+      .circulo-magico {
+        width: 190px;
+        height: 190px;
+      }
+
+      .triangulo {
+        width: 105px;
+        height: 105px;
+      }
+
+      .titulo-magico {
+        font-size: 14px;
+      }
     }
   </style>
 </head>
 
 <body>
 
+  <!-- =========================
+       ZONA MÁGICA
+       ========================= -->
+
+  <section id="magia">
+
+    <div class="circulo-magico">
+
+      <div class="triangulo"></div>
+
+      <div class="simbolo s1">☿</div>
+      <div class="simbolo s2">☉</div>
+      <div class="simbolo s3">☾</div>
+      <div class="simbolo s4">✦</div>
+
+    </div>
+
+    <div class="titulo-magico">
+      ✦ GRAN AMO ALQUIMISTA ADIVINADOR ✦
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       CHAT
+       ========================= -->
+
   <main id="chat"></main>
 
+
+  <!-- =========================
+       BARRA DE PREGUNTA
+       ========================= -->
+
   <form id="barra">
+
     <textarea
       id="entrada"
-      placeholder="Escribe un mensaje..."
-      autocomplete="off"
+      placeholder="Haz tu pregunta al Gran Amo Alquimista Adivinador..."
       spellcheck="true"
     ></textarea>
 
-    <button id="enviar" type="submit">Enviar</button>
+    <button id="enviar" type="submit">
+      Consultar
+    </button>
+
   </form>
 
+
   <script>
+
     const chat = document.getElementById("chat");
     const barra = document.getElementById("barra");
     const entrada = document.getElementById("entrada");
     const enviar = document.getElementById("enviar");
 
+
+    /* =========================
+       RESPUESTAS
+       ========================= */
+
+    const respuestas = [
+
+      "Sí.",
+
+      "No.",
+
+      "Quizá.",
+
+      "Más tarde.",
+
+      "Definitivamente sí.",
+
+      "Definitivamente no.",
+
+      "Todo apunta a que sí.",
+
+      "No cuentes con ello.",
+
+      "Las estrellas dicen que sí.",
+
+      "Las estrellas dicen que no.",
+
+      "Los astros permanecen en silencio.",
+
+      "Es posible.",
+
+      "Probablemente.",
+
+      "No puedo asegurarlo.",
+
+      "Pregunta de nuevo.",
+
+      "El destino aún no está decidido.",
+
+      "Puede que sí.",
+
+      "Puede que no.",
+
+      "Sin duda.",
+
+      "No parece probable.",
+
+      "Hay buenas posibilidades.",
+
+      "El Gran Amo ha consultado los astros... sí.",
+
+      "El Gran Amo ha consultado los astros... no.",
+
+      "Las fuerzas alquímicas favorecen tu pregunta.",
+
+      "Las fuerzas alquímicas no favorecen tu pregunta.",
+
+      "El futuro está envuelto en misterio.",
+
+      "Una señal favorable se aproxima.",
+
+      "No es el momento.",
+
+      "El destino te sonríe.",
+
+      "El destino todavía duda."
+
+    ];
+
+
+    /* =========================
+       AGREGAR MENSAJE
+       ========================= */
+
     function agregarMensaje(texto, clase) {
+
       const mensaje = document.createElement("div");
+
       mensaje.className = `mensaje ${clase}`;
+
       mensaje.textContent = texto;
+
       chat.appendChild(mensaje);
+
       chat.scrollTop = chat.scrollHeight;
+
       return mensaje;
     }
 
-    barra.addEventListener("submit", async (event) => {
+
+    /* =========================
+       RESPUESTA ALEATORIA
+       ========================= */
+
+    function respuestaAleatoria() {
+
+      const indice =
+        Math.floor(Math.random() * respuestas.length);
+
+      return respuestas[indice];
+
+    }
+
+
+    /* =========================
+       ENVIAR PREGUNTA
+       ========================= */
+
+    barra.addEventListener("submit", (event) => {
+
       event.preventDefault();
 
       const texto = entrada.value.trim();
 
-      if (!texto || enviar.disabled) return;
+      if (!texto || enviar.disabled) {
+        return;
+      }
 
-      agregarMensaje(texto, "usuario");
+
+      // Mostrar pregunta
+
+      agregarMensaje(
+        texto,
+        "usuario"
+      );
+
+
+      // Vaciar entrada
 
       entrada.value = "";
+
+
+      // Desactivar botón
+
       enviar.disabled = true;
 
-      const indicador = agregarMensaje("...", "ia");
 
-      try {
-        const respuesta = await fetch("/chat", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            message: texto
-          })
-        });
+      // Mostrar que está pensando
 
-        if (!respuesta.ok) {
-          throw new Error("Error del servidor");
-        }
+      const indicador = agregarMensaje(
+        "✦ El Gran Amo consulta los astros...",
+        "ia"
+      );
 
-        const datos = await respuesta.json();
 
-        indicador.textContent = datos.reply || "Sin respuesta.";
-      } catch (error) {
-        indicador.textContent = "No se pudo obtener una respuesta.";
-        console.error(error);
-      } finally {
+      // Esperar un momento
+
+      setTimeout(() => {
+
+        indicador.textContent =
+          respuestaAleatoria();
+
         enviar.disabled = false;
+
         entrada.focus();
-      }
+
+      }, 1000);
+
     });
+
+
+    /* =========================
+       ENTER PARA ENVIAR
+       ========================= */
 
     entrada.addEventListener("keydown", (event) => {
-      if (event.key === "Enter" && !event.shiftKey) {
+
+      if (
+        event.key === "Enter" &&
+        !event.shiftKey
+      ) {
+
         event.preventDefault();
+
         barra.requestSubmit();
+
       }
+
     });
 
+
+    /* =========================
+       MENSAJE INICIAL
+       ========================= */
+
+    agregarMensaje(
+      "🔮 Bienvenido, mortal. Haz tu pregunta al Gran Amo Alquimista Adivinador y el destino revelará su respuesta...",
+      "ia"
+    );
+
+
     entrada.focus();
+
   </script>
 
 </body>
-</html>  
+</html>
