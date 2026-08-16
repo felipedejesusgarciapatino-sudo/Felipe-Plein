@@ -1,598 +1,877 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ouija</title>
-
-<style>
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  min-height: 100vh;
-  background:
-    radial-gradient(circle at center, #342719 0%, #17100a 55%, #080604 100%);
-  color: #e8d7ad;
-  font-family: Georgia, "Times New Roman", serif;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  overflow-x: hidden;
-}
-
-/* TÍTULO */
-
-h1 {
-  margin: 18px 0 4px;
-  font-size: 28px;
-  letter-spacing: 5px;
-  text-align: center;
-  text-shadow:
-    0 0 8px #c59b52,
-    0 0 20px #704d1d;
-}
-
-.subtitulo {
-  margin-bottom: 15px;
-  color: #a99168;
-  font-size: 14px;
-  text-align: center;
-}
-
-/* TABLERO */
-
-#tablero {
-  position: relative;
-  width: min(94vw, 850px);
-  aspect-ratio: 1.45 / 1;
-
-  background:
-    radial-gradient(
-      ellipse at center,
-      #80613a 0%,
-      #604725 55%,
-      #3a2816 100%
-    );
-
-  border: 12px solid #21160c;
-  border-radius: 25px;
-
-  box-shadow:
-    0 0 0 3px #76552d,
-    0 0 35px rgba(0,0,0,.8),
-    inset 0 0 50px rgba(0,0,0,.6);
-
-  overflow: hidden;
-}
-
-/* TEXTURA */
-
-#tablero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-
-  background:
-    repeating-linear-gradient(
-      0deg,
-      transparent 0px,
-      rgba(255,255,255,.025) 2px,
-      transparent 4px
-    );
-
-  pointer-events: none;
-}
-
-/* TEXTO DEL TABLERO */
-
-.texto {
-  position: absolute;
-  width: 100%;
-  text-align: center;
-
-  color: #e5d0a1;
-
-  text-shadow:
-    1px 1px 2px #24170b,
-    0 0 5px rgba(0,0,0,.5);
-}
-
-.si {
-  top: 6%;
-  left: 25%;
-  width: 50%;
-  font-size: clamp(25px, 5vw, 45px);
-}
-
-.no {
-  top: 6%;
-  right: 6%;
-  width: 18%;
-  font-size: clamp(25px, 5vw, 45px);
-}
-
-.hola {
-  top: 22%;
-  left: 0;
-  font-size: clamp(15px, 2.5vw, 25px);
-  letter-spacing: 5px;
-}
-
-.adios {
-  bottom: 6%;
-  left: 0;
-  font-size: clamp(20px, 4vw, 38px);
-  letter-spacing: 4px;
-}
-
-/* LETRAS */
-
-.letras {
-  position: absolute;
-
-  left: 8%;
-  right: 8%;
-  top: 35%;
-
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 5px;
-
-  text-align: center;
-}
-
-.letra {
-  font-size: clamp(19px, 3.5vw, 35px);
-  padding: 5px;
-
-  color: #e6d1a4;
-
-  text-shadow:
-    1px 1px 2px #201409;
-}
-
-/* NÚMEROS */
-
-.numeros {
-  position: absolute;
-
-  left: 20%;
-  right: 20%;
-  bottom: 20%;
-
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-
-  text-align: center;
-}
-
-.numero {
-  font-size: clamp(18px, 3vw, 30px);
-}
-
-/* SÍMBOLO CENTRAL */
-
-.simbolo {
-  position: absolute;
-
-  left: 50%;
-  top: 51%;
-
-  transform: translate(-50%, -50%);
-
-  font-size: clamp(35px, 7vw, 70px);
-
-  color: #d7bd82;
-
-  opacity: .8;
-
-  text-shadow:
-    0 0 10px #d0a95d,
-    0 0 25px rgba(0,0,0,.8);
-}
-
-/* PLANCHETTE */
-
-#planchette {
-  position: absolute;
-
-  width: 95px;
-  height: 115px;
-
-  background:
-    radial-gradient(
-      circle at 40% 30%,
-      #d8c18e,
-      #8d7040 70%,
-      #55401f
-    );
-
-  clip-path: polygon(
-    50% 0%,
-    100% 75%,
-    50% 100%,
-    0% 75%
-  );
-
-  border: 3px solid #3b2915;
-
-  box-shadow:
-    0 0 15px rgba(0,0,0,.8);
-
-  left: 50%;
-  top: 50%;
-
-  transform: translate(-50%, -50%);
-
-  transition:
-    left 1.1s ease-in-out,
-    top 1.1s ease-in-out;
-
-  z-index: 5;
-}
-
-#planchette::after {
-  content: "";
-
-  position: absolute;
-
-  width: 28px;
-  height: 28px;
-
-  border-radius: 50%;
-
-  background: rgba(35,20,10,.75);
-
-  left: 50%;
-  top: 43%;
-
-  transform: translate(-50%, -50%);
-}
-
-/* CONTROLES */
-
-#controles {
-  width: min(94vw, 850px);
-
-  margin-top: 15px;
-
-  display: flex;
-  gap: 8px;
-}
-
-#pregunta {
-  flex: 1;
-
-  height: 48px;
-
-  border: 1px solid #80643b;
-  border-radius: 10px;
-
-  background: #17100a;
-  color: #eee0bd;
-
-  padding: 0 15px;
-
-  font-family: inherit;
-  font-size: 16px;
-
-  outline: none;
-}
-
-#pregunta::placeholder {
-  color: #8f7a59;
-}
-
-#pregunta:focus {
-  border-color: #c4a568;
-}
-
-button {
-  border: 1px solid #9b7940;
-  border-radius: 10px;
-
-  padding: 0 20px;
-
-  background: #382615;
-  color: #e8d5ac;
-
-  font-family: inherit;
-  font-size: 15px;
-
-  cursor: pointer;
-}
-
-button:hover {
-  background: #52391e;
-}
-
-button:disabled {
-  opacity: .5;
-}
-
-/* RESPUESTA */
-
-#respuesta {
-  min-height: 55px;
-
-  width: min(94vw, 850px);
-
-  margin: 12px 0 20px;
-
-  padding: 15px;
-
-  text-align: center;
-
-  border: 1px solid #5e4727;
-  border-radius: 10px;
-
-  background: rgba(12,8,4,.7);
-
-  color: #e8d4a8;
-
-  font-size: 18px;
-
-  opacity: 0;
-
-  transition: opacity .5s;
-}
-
-#respuesta.visible {
-  opacity: 1;
-}
-
-@media (max-width: 600px) {
-
-  #tablero {
-    border-width: 7px;
-  }
-
-  #planchette {
-    width: 65px;
-    height: 78px;
-  }
-
-  #controles {
-    flex-direction: column;
-  }
-
-  button {
-    height: 45px;
-  }
-}
-</style>
-</head>
-
-<body>
-
-<h1>☽ OUIJA ☾</h1>
-
-<div class="subtitulo">
-  Haz una pregunta y mueve la planchette
-</div>
-
-<div id="tablero">
-
-  <div class="texto si">SÍ</div>
-
-  <div class="texto no">NO</div>
-
-  <div class="texto hola">
-    HOLA
-  </div>
-
-  <div class="texto adios">
-    ADIÓS
-  </div>
-
-  <div class="letras">
-    <div class="letra">A</div>
-    <div class="letra">B</div>
-    <div class="letra">C</div>
-    <div class="letra">D</div>
-    <div class="letra">E</div>
-    <div class="letra">F</div>
-    <div class="letra">G</div>
-
-    <div class="letra">H</div>
-    <div class="letra">I</div>
-    <div class="letra">J</div>
-    <div class="letra">K</div>
-    <div class="letra">L</div>
-    <div class="letra">M</div>
-    <div class="letra">N</div>
-
-    <div class="letra">O</div>
-    <div class="letra">P</div>
-    <div class="letra">Q</div>
-    <div class="letra">R</div>
-    <div class="letra">S</div>
-    <div class="letra">T</div>
-    <div class="letra">U</div>
-
-    <div class="letra">V</div>
-    <div class="letra">W</div>
-    <div class="letra">X</div>
-    <div class="letra">Y</div>
-    <div class="letra">Z</div>
-  </div>
-
-  <div class="numeros">
-    <div class="numero">1</div>
-    <div class="numero">2</div>
-    <div class="numero">3</div>
-    <div class="numero">4</div>
-    <div class="numero">5</div>
-
-    <div class="numero">6</div>
-    <div class="numero">7</div>
-    <div class="numero">8</div>
-    <div class="numero">9</div>
-    <div class="numero">0</div>
-  </div>
-
-  <div class="simbolo">☥</div>
-
-  <div id="planchette"></div>
-
-</div>
-
-<div id="controles">
-
-  <input
-    id="pregunta"
-    type="text"
-    placeholder="Haz tu pregunta a la Ouija..."
-  >
-
-  <button id="consultar">
-    CONSULTAR
-  </button>
-
-</div>
-
-<div id="respuesta"></div>
-
-
-<script>
-
-const tablero = document.getElementById("tablero");
-const planchette = document.getElementById("planchette");
-const pregunta = document.getElementById("pregunta");
-const consultar = document.getElementById("consultar");
-const respuesta = document.getElementById("respuesta");
-
-
-const respuestas = [
-
-  "SÍ",
-
-  "NO",
-
-  "QUIZÁ",
-
-  "PREGUNTA DE NUEVO",
-
-  "NO HAY RESPUESTA",
-
-  "LAS FUERZAS DICEN QUE SÍ",
-
-  "LAS FUERZAS DICEN QUE NO",
-
-  "MÁS TARDE",
-
-  "EL DESTINO ES INCIERTO",
-
-  "SÍ, PERO TEN CUIDADO",
-
-  "NO PARECE PROBABLE",
-
-  "TODO APUNTA A QUE SÍ",
-
-  "TODO APUNTA A QUE NO"
-
-];
-
-
-function moverPlanchette() {
-
-  const ancho = tablero.clientWidth;
-  const alto = tablero.clientHeight;
-
-  const x =
-    15 +
-    Math.random() * (ancho - 30);
-
-  const y =
-    15 +
-    Math.random() * (alto - 30);
-
-  planchette.style.left = x + "px";
-  planchette.style.top = y + "px";
-
-}
-
-
-function obtenerRespuesta() {
-
-  const indice =
-    Math.floor(
-      Math.random() * respuestas.length
-    );
-
-  return respuestas[indice];
-
-}
-
-
-consultar.addEventListener("click", () => {
-
-  if (!pregunta.value.trim()) {
-
-    respuesta.textContent =
-      "Primero haz una pregunta...";
-
-    respuesta.classList.add("visible");
-
-    return;
-  }
-
-
-  consultar.disabled = true;
-
-  respuesta.classList.remove("visible");
-
-  respuesta.textContent =
-    "La planchette está buscando una respuesta...";
-
-
-  let movimientos = 0;
-
-  const intervalo = setInterval(() => {
-
-    moverPlanchette();
-
-    movimientos++;
-
-    if (movimientos >= 6) {
-
-      clearInterval(intervalo);
-
-      setTimeout(() => {
-
-        respuesta.textContent =
-          "✦ " + obtenerRespuesta() + " ✦";
-
-        respuesta.classList.add("visible");
-
-        consultar.disabled = false;
-
-      }, 1000);
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Felipe P. / Gustavo Narváez — Escritor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0d0d0e;
+      --surface: #141416;
+      --border: rgba(255, 255, 255, 0.08);
+      --border-hover: rgba(255, 255, 255, 0.25);
+      --text-main: #e4e4e7;
+      --text-muted: #8e8e93;
+      --accent: #d4af37;
+      --accent-hover: #f1d77e;
     }
 
-  }, 900);
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
 
-});
+    body {
+      background-color: var(--bg);
+      color: var(--text-main);
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+      width: 100%;
+    }
 
+    .container {
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 1.25rem;
+    }
 
-pregunta.addEventListener("keydown", (event) => {
+    /* HEADER */
+    header {
+      padding: 3.5rem 0 2rem;
+      text-align: center;
+    }
 
-  if (event.key === "Enter") {
+    @media (min-width: 768px) {
+      header { padding: 5rem 0 3rem; }
+    }
 
-    event.preventDefault();
+    .portrait-link {
+      display: inline-block;
+      text-decoration: none;
+      -webkit-tap-highlight-color: transparent;
+    }
 
-    consultar.click();
+    .portrait-container {
+      position: relative;
+      width: 120px;
+      height: 120px;
+      margin: 0 auto 1.5rem;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 1px solid var(--border-hover);
+      transition: border-color 0.4s ease;
+    }
 
-  }
+    @media (min-width: 768px) {
+      .portrait-container {
+        width: 140px;
+        height: 140px;
+        margin-bottom: 2rem;
+      }
+    }
 
-});
+    .portrait-container:hover { border-color: var(--accent); }
 
+    .portrait {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: grayscale(100%);
+      transition: opacity 0.5s ease;
+      position: relative;
+      z-index: 1;
+    }
 
-</script>
+    .portrait-alt {
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      z-index: 1;
+      filter: grayscale(30%);
+    }
 
+    .portrait-container:hover .portrait,
+    .portrait-container:active .portrait { opacity: 0; }
+
+    .portrait-container:hover .portrait-alt,
+    .portrait-container:active .portrait-alt { opacity: 1; }
+
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      font-size: clamp(2.2rem, 7vw, 3.5rem);
+      letter-spacing: 0.02em;
+      color: #ffffff;
+      margin-bottom: 0.1rem;
+    }
+
+    .alias {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: clamp(1.1rem, 3.5vw, 1.35rem);
+      color: var(--text-muted);
+      margin-bottom: 1.2rem;
+    }
+
+    .tagline {
+      font-size: clamp(0.85rem, 2.5vw, 0.95rem);
+      color: var(--text-muted);
+      max-width: 480px;
+      margin: 0 auto;
+      letter-spacing: 0.01em;
+      text-align: center;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+    }
+
+    @media (min-width: 768px) {
+      nav { gap: 2rem; margin-top: 3rem; padding-top: 2rem; }
+    }
+
+    nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.3rem 0;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover, nav a:active { color: var(--accent); }
+
+    /* SECCIONES */
+    section {
+      padding: 3rem 0;
+      border-top: 1px solid var(--border);
+    }
+
+    @media (min-width: 768px) {
+      section { padding: 4rem 0; }
+    }
+
+    section h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 400;
+      font-size: clamp(1.75rem, 5vw, 2.2rem);
+      letter-spacing: 0.03em;
+      color: #ffffff;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .about-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.1rem, 3.5vw, 1.25rem);
+      line-height: 1.8;
+      color: #d1d1d6;
+      max-width: 600px;
+      margin: 0 auto;
+      text-align: center;
+      font-style: italic;
+    }
+
+    .about-text p + p { margin-top: 1.5rem; }
+
+    /* OBRAS */
+    .works-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+    }
+
+    @media (min-width: 600px) {
+      .works-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .work-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1.5rem;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .work-card:hover, .work-card:active {
+      border-color: var(--border-hover);
+      transform: translateY(-2px);
+    }
+
+    .work-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: #ffffff;
+      margin-bottom: 0.2rem;
+      transition: color 0.3s ease;
+    }
+
+    .work-card:hover h3 { color: var(--accent); }
+
+    .work-card .type {
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.6rem;
+    }
+
+    .work-card p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .work-card .read {
+      display: inline-block;
+      margin-top: 1.2rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.05em;
+      color: var(--text-main);
+      transition: color 0.3s ease;
+    }
+
+    .work-card:hover .read { color: var(--accent); }
+
+    /* IMAGEN INFERIOR */
+    .bottom-image-container {
+      text-align: center;
+      padding: 2.5rem 0 3.5rem;
+    }
+
+    .gt-image-container {
+      display: inline-block;
+      position: relative;
+      overflow: hidden;
+      max-width: 100%;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: border-color 0.3s ease;
+    }
+
+    .gt-image-container img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .gt-img-normal {
+      position: relative;
+      z-index: 1;
+      filter: grayscale(100%);
+    }
+
+    .gt-img-scary {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      z-index: 1;
+      filter: grayscale(20%);
+    }
+
+    .gt-image-container:hover { border-color: var(--border-hover); }
+
+    .gt-image-container:hover .gt-img-normal,
+    .gt-image-container:active .gt-img-normal { opacity: 0; }
+
+    .gt-image-container:hover .gt-img-scary,
+    .gt-image-container:active .gt-img-scary {
+      opacity: 1;
+      transform: scale(1.02);
+    }
+
+    /* CONTENEDOR EFECTO ESPIRAL EN PANTALLA */
+    #overlayEspiral {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9999;
+      overflow: hidden;
+    }
+
+    .mini-ventana {
+      position: absolute;
+      width: 120px;
+      height: 90px;
+      background: #000;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.8);
+      border-radius: 4px;
+      overflow: hidden;
+      animation: popIn 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    }
+
+    .mini-ventana-bar {
+      height: 14px;
+      background: #222;
+      border-bottom: 1px solid #333;
+      display: flex;
+      align-items: center;
+      padding: 0 4px;
+    }
+
+    .mini-ventana-dot {
+      width: 6px;
+      height: 6px;
+      background: #ff5f56;
+      border-radius: 50%;
+    }
+
+    .mini-ventana img {
+      width: 100%;
+      height: calc(100% - 14px);
+      object-fit: cover;
+    }
+
+    @keyframes popIn {
+      0% { transform: scale(0) rotate(-20deg); opacity: 0; }
+      100% { transform: scale(1) rotate(0deg); opacity: 1; }
+    }
+
+    /* MODAL VIDEO */
+    .video-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 2000;
+      background: rgba(0, 0, 0, 0.88);
+      backdrop-filter: blur(5px);
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .video-modal.active { display: flex; }
+
+    .video-modal-content {
+      position: relative;
+      width: 100%;
+      max-width: 800px;
+      aspect-ratio: 16 / 9;
+      border: 1px solid var(--border-hover);
+      background: #000;
+    }
+
+    .video-modal-content iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .close-video-btn {
+      position: absolute;
+      top: -38px;
+      right: 0;
+      background: transparent;
+      border: none;
+      color: var(--text-main);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      padding: 5px 10px;
+      transition: color 0.3s ease;
+    }
+
+    .close-video-btn:hover { color: var(--accent); }
+
+    /* CONTACTO Y FORMULARIO */
+    .contact-block { text-align: center; }
+
+    .contact-block p {
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+      font-size: 0.95rem;
+    }
+
+    .contact-email {
+      font-size: clamp(0.95rem, 3.5vw, 1.1rem);
+      color: var(--text-main);
+      text-decoration: none;
+      word-break: break-all;
+      border-bottom: 1px solid var(--border-hover);
+      padding-bottom: 2px;
+      transition: all 0.3s ease;
+    }
+
+    .contact-email:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .comment-form {
+      max-width: 520px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .comment-form label {
+      display: block;
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .comment-form input,
+    .comment-form textarea {
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      padding: 0.8rem 1rem;
+      outline: none;
+      transition: border-color 0.3s ease;
+    }
+
+    .comment-form input:focus,
+    .comment-form textarea:focus { border-color: var(--border-hover); }
+
+    .comment-form textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .comment-form button {
+      width: 100%;
+      background: transparent;
+      border: 1px solid var(--border-hover);
+      border-radius: 4px;
+      color: var(--text-main);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.9rem 2rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    @media (min-width: 600px) {
+      .comment-form button { width: auto; align-self: center; }
+    }
+
+    .comment-form button:hover {
+      background: var(--text-main);
+      color: var(--bg);
+    }
+
+    .form-note {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-align: center;
+      margin-top: 1.2rem;
+    }
+
+    .socials {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1rem 1.5rem;
+      margin-top: 2.5rem;
+      padding-top: 2rem;
+      border-top: 1px dashed var(--border);
+    }
+
+    .socials a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.2rem 0;
+      transition: color 0.3s ease;
+    }
+
+    .socials a:hover { color: var(--text-main); }
+
+    /* FOOTER Y BOTÓN FLOTANTE */
+    footer {
+      padding: 2.5rem 0;
+      text-align: center;
+      border-top: 1px solid var(--border);
+    }
+
+    footer p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+    }
+
+    .btn-circular {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      width: 44px;
+      height: 44px;
+      background: var(--surface);
+      border: 1px solid var(--border-hover);
+      border-radius: 50%;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      z-index: 1001;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    }
+
+    .btn-circular:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: scale(1.08);
+    }
+
+    .btn-circular svg {
+      width: 16px;
+      height: 16px;
+      fill: currentColor;
+    }
+  </style>
+</head>
+<body>
+  <!-- Contenedor para el efecto de ventanas simuladas -->
+  <div id="overlayEspiral"></div>
+
+  <header>
+    <div class="container">
+      <a href="https://www.facebook.com/ElConjurodelasRanas" target="_blank" rel="noopener" class="portrait-link">
+        <div class="portrait-container">
+          <img src="9.png" alt="Felipe P. / Gustavo Narváez" class="portrait">
+          <img src="ll.jpg" alt="Felipe P. / Gustavo Narváez" class="portrait portrait-alt">
+        </div>
+      </a>
+      <h1>Felipe P.</h1>
+      <p class="alias">/ Gustavo Narváez</p>
+      <p class="tagline">Escritor, músico fugado del Conservatorio de Celaya, y vago.</p>
+      <nav>
+        <a href="#">Inicio</a>
+        <a href="#obras">Obras</a>
+        <a href="#comentarios">Comentarios</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section id="sobre">
+      <div class="container">
+        <h2></h2>
+        <div class="about-text">
+          <p>!</p>
+          <p>Todo en esta página (NO) sucedió en la realidad.<br>!</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="obras">
+      <div class="container">
+        <h2>Obras</h2>
+        <div class="works-grid">
+          <a href="FIESTA EN MINERAL DE LA LUZ.pdf" class="work-card" target="_blank">
+            <div>
+              <h3>Fiesta en Mineral de la Luz</h3>
+              <p class="type">Poema</p>
+              <p>Locura y amor</p>
+            </div>
+            <span class="read">Leer PDF &rarr;</span>
+          </a>
+
+          <a href="Altas y bajas - F_G.pdf" class="work-card" target="_blank">
+            <div>
+              <h3>Altas y bajas</h3>
+              <p class="type">Poema</p>
+              <p>Fragmentos.</p>
+            </div>
+            <span class="read">Leer PDF &rarr;</span>
+          </a>
+
+          <a href="t.pdf" class="work-card" target="_blank">
+            <div>
+              <h3>Arrecife Alacranes</h3>
+              <p class="type">Poema (Anexado, parte 2)</p>
+              <p>Camino al arrecife sur del juicio.</p>
+            </div>
+            <span class="read">Leer PDF &rarr;</span>
+          </a>
+
+          <a href="41.pdf" class="work-card" target="_blank">
+            <div>
+              <h3>¿Quién fue Alejandro Garrigós Rojas?</h3>
+              <p class="type">Recuerdo</p>
+              <p></p>
+            </div>
+            <span class="read">Leer PDF &rarr;</span>
+          </a>
+
+          <a href="z.pdf" class="work-card" target="_blank">
+            <div>
+              <h3>Actuación 3</h3>
+              <p class="type">Mi Juicio de Amparo Indirecto, por derecho propio</p>
+              <p></p>
+            </div>
+            <span class="read">Leer PDF &rarr;</span>
+          </a>
+
+          <a href="g.pdf" class="work-card" target="_blank">
+            <div>
+              <h3>FE</h3>
+              <p class="type">Cuaderno</p>
+              <p>Notas.</p>
+            </div>
+            <span class="read">Leer PDF &rarr;</span>
+          </a>
+
+          <a href="Gerardo Szae___Gustavo Narváez (1)-16-19.pdf" class="work-card" target="_blank">
+            <div>
+              <h3>Sobre cómo (NO) robar un vochito</h3>
+              <p class="type">Texto</p>
+              <p>Humor sobre la expropiación de un pequeño Volkswagen.</p>
+            </div>
+            <span class="read">Leer PDF &rarr;</span>
+          </a>
+
+          <a href="ss.pdf" class="work-card" target="_blank">
+            <div>
+              <h3>Nada</h3>
+              <p class="type">Texto</p>
+              <p> </p>
+            </div>
+            <span class="read">Leer PDF &rarr;</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section id="comentarios">
+      <div class="container">
+        <h2>Comentarios</h2>
+        <form class="comment-form" action="https://formsubmit.co/felipedejesusgarciapatino@gmail.com" method="POST">
+          <input type="hidden" name="_subject" value="Nuevo comentario">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_template" value="table">
+          <input type="text" name="_honey" style="display:none">
+          <div>
+            <label for="nombre">Nombre</label>
+            <input type="text" id="nombre" name="nombre" required placeholder="Tu nombre">
+          </div>
+          <div>
+            <label for="email">Correo electrónico</label>
+            <input type="email" id="email" name="email" required placeholder="tu@correo.com">
+          </div>
+          <div>
+            <label for="mensaje">Comentario</label>
+            <textarea id="mensaje" name="mensaje" required placeholder="Escribe aquí tu comentario..."></textarea>
+          </div>
+          <button type="submit">Enviar comentario</button>
+        </form>
+        <p class="form-note">El comentario llegará directamente a mi correo.</p>
+      </div>
+    </section>
+
+    <section id="contacto">
+      <div class="container contact-block">
+        <h2>Contacto</h2>
+        <p>Para lecturas, colaboraciones o simplemente conversar.</p>
+        <a href="mailto:felipedejesusgarciapatino@gmail.com" class="contact-email">
+          felipedejesusgarciapatino@gmail.com
+        </a>
+        <div class="socials">
+          <a href="https://www.instagram.com/felipeplein2026/" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.facebook.com/profile.php?id=61591803449103" target="_blank" rel="noopener">Facebook</a>
+          <a href="https://x.com/FelipePleibx" target="_blank" rel="noopener">X</a>
+          <a href="https://www.threads.com/@felipeplein2026" target="_blank" rel="noopener">Threads</a>
+          <a href="https://www.tumblr.com/blog/felipeplein" target="_blank" rel="noopener">Tumblr</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>© 2026 Felipe G. Patiño</p>
+    </div>
+  </footer>
+
+  <div class="bottom-image-container">
+    <div class="container">
+      <div class="gt-image-container" onclick="lanzarEspiralPestanas('ll.jpg')">
+      <div class="gt-image-container" onclick="lanzarEspiralDOM('ll.jpg')">
+        <img src="gt.png" alt="Imagen final GT" class="gt-img-normal">
+        <img src="ll.jpg" alt="x" class="gt-img-scary">
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal del video incorporado -->
+  <div id="videoModal" class="video-modal" onclick="closeVideoOnBackdrop(event)">
+    <div class="video-modal-content">
+      <button class="close-video-btn" onclick="closeVideo()">&times; CERRAR</button>
+      <iframe id="youtubeIframe" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <a href="https://drive.google.com/file/d/19sB9xX4a3KW_uNuwkCAC-Tww-MoxEuG2/view?usp=sharing" target="_blank" rel="noopener" class="btn-circular" title="Ver en YouTube">
+    <svg viewBox="0 0 24 24">
+      <path d="M8 5v14l11-7z"/>
+    </svg>
+  </a>
+
+  <script>
+    let intervaloEspiral = null;
+    let angulo = 0;
+    let radioPaso = 8;     // Distancia entre giros
+    let pasoAngulo = 0.4;   // Suavidad del arco
+    let radioPaso = 10;
+    let pasoAngulo = 0.35;
+    const overlay = document.getElementById('overlayEspiral');
+
+    function lanzarEspiralPestanas(urlImagen) {
+    function lanzarEspiralDOM(urlImagen) {
+      openVideo();
+      detenerEspiral();
+
+      if (intervaloEspiral) clearInterval(intervaloEspiral);
+
+      const centroX = window.screen.availWidth / 2;
+      const centroY = window.screen.availHeight / 2;
+      
+      // Dimensiones reducidas al mínimo práctico
+      const centroX = window.innerWidth / 2;
+      const centroY = window.innerHeight / 2;
+      const anchoVentana = 120;
+      const altoVentana = 90;
+
+      angulo = 0;
+
+      // Ejecución a velocidad máxima (cada 10 ms)
+      // Dispara pequeñas ventanas simuladas a máxima velocidad sin bloqueo
+      intervaloEspiral = setInterval(() => {
+        let r = radioPaso * angulo;
+        let posX = centroX + r * Math.cos(angulo) - (anchoVentana / 2);
+        let posY = centroY + r * Math.sin(angulo) - (altoVentana / 2);
+
+        let opciones = `width=${anchoVentana},height=${altoVentana},left=${Math.round(posX)},top=${Math.round(posY)},resizable=yes`;
+
+        let nuevaVentana = window.open(urlImagen, '_blank', opciones);
+
+        // Si el navegador detiene la creación de emergentes, frena el timer
+        if (!nuevaVentana) {
+          clearInterval(intervaloEspiral);
+          intervaloEspiral = null;
+        // Si la espiral sale de los bordes visibles, reinicia el ciclo
+        if (
+          posX < -anchoVentana || posX > window.innerWidth ||
+          posY < -altoVentana || posY > window.innerHeight
+        ) {
+          angulo = 0;
+          r = 0;
+          posX = centroX - (anchoVentana / 2);
+          posY = centroY - (altoVentana / 2);
+        }
+
+        const win = document.createElement('div');
+        win.className = 'mini-ventana';
+        win.style.left = `${Math.round(posX)}px`;
+        win.style.top = `${Math.round(posY)}px`;
+        win.innerHTML = `
+          <div class="mini-ventana-bar">
+            <div class="mini-ventana-dot"></div>
+          </div>
+          <img src="${urlImagen}" alt="Popup">
+        `;
+
+        overlay.appendChild(win);
+        angulo += pasoAngulo;
+      }, 10);
+      }, 15);
+    }
+
+    // Detención total al hacer clic en cualquier punto fuera de la imagen detonante
+    window.addEventListener('click', function(e) {
+      if (e.target.closest('.gt-image-container')) return;
+
+    function detenerEspiral() {
+      if (intervaloEspiral) {
+        clearInterval(intervaloEspiral);
+        intervaloEspiral = null;
+      }
+      overlay.innerHTML = '';
+    }
+
+    // Detener la ráfaga e ilustrar limpieza con cualquier clic en la página
+    window.addEventListener('click', function(e) {
+      if (e.target.closest('.gt-image-container')) return;
+      detenerEspiral();
+    });
+
+    /* LÓGICA MODAL VIDEO */
+    const videoModal = document.getElementById('videoModal');
+    const iframe = document.getElementById('youtubeIframe');
+
+    function openVideo() {
+      iframe.src = "https://www.youtube.com/embed/aDurnlQu6Ak?autoplay=1";
+      videoModal.classList.add('active');
+    }
+
+    function closeVideo() {
+      videoModal.classList.remove('active');
+      iframe.src = "";
+    }
+
+    function closeVideoOnBackdrop(event) {
+      if (event.target === videoModal) {
+        closeVideo();
+      }
+    }
+
+    document.addEventListener('keydown', function(event) {
+      if (event.key === "Escape") {
+        if (intervaloEspiral) {
+          clearInterval(intervaloEspiral);
+          intervaloEspiral = null;
+        }
+        detenerEspiral();
+        if (videoModal.classList.contains('active')) {
+          closeVideo();
+        }
+      }
+    });
+  </script>
 </body>
 </html>
