@@ -3,11 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Felipe P. / Gustavo Narváez — Escritor</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
   <style>
+
     :root {
       --bg: #0d0d0e;
       --surface: #141416;
@@ -19,8 +24,15 @@
       --accent-hover: #f1d77e;
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
 
     body {
       background-color: var(--bg);
@@ -39,14 +51,19 @@
       padding: 0 1.25rem;
     }
 
-    /* HEADER */
+    /* =========================
+       HEADER
+    ========================= */
+
     header {
       padding: 3.5rem 0 2rem;
       text-align: center;
     }
 
     @media (min-width: 768px) {
-      header { padding: 5rem 0 3rem; }
+      header {
+        padding: 5rem 0 3rem;
+      }
     }
 
     .portrait-link {
@@ -74,7 +91,9 @@
       }
     }
 
-    .portrait-container:hover { border-color: var(--accent); }
+    .portrait-container:hover {
+      border-color: var(--accent);
+    }
 
     .portrait {
       width: 100%;
@@ -92,15 +111,19 @@
       top: 0;
       left: 0;
       opacity: 0;
-      z-index: 1;
+      z-index: 2;
       filter: grayscale(30%);
     }
 
     .portrait-container:hover .portrait,
-    .portrait-container:active .portrait { opacity: 0; }
+    .portrait-container:active .portrait {
+      opacity: 0;
+    }
 
     .portrait-container:hover .portrait-alt,
-    .portrait-container:active .portrait-alt { opacity: 1; }
+    .portrait-container:active .portrait-alt {
+      opacity: 1;
+    }
 
     h1 {
       font-family: 'Cormorant Garamond', serif;
@@ -139,7 +162,11 @@
     }
 
     @media (min-width: 768px) {
-      nav { gap: 2rem; margin-top: 3rem; padding-top: 2rem; }
+      nav {
+        gap: 2rem;
+        margin-top: 3rem;
+        padding-top: 2rem;
+      }
     }
 
     nav a {
@@ -152,16 +179,24 @@
       transition: color 0.3s ease;
     }
 
-    nav a:hover, nav a:active { color: var(--accent); }
+    nav a:hover,
+    nav a:active {
+      color: var(--accent);
+    }
 
-    /* SECCIONES */
+    /* =========================
+       SECCIONES
+    ========================= */
+
     section {
       padding: 3rem 0;
       border-top: 1px solid var(--border);
     }
 
     @media (min-width: 768px) {
-      section { padding: 4rem 0; }
+      section {
+        padding: 4rem 0;
+      }
     }
 
     section h2 {
@@ -185,9 +220,14 @@
       font-style: italic;
     }
 
-    .about-text p + p { margin-top: 1.5rem; }
+    .about-text p + p {
+      margin-top: 1.5rem;
+    }
 
-    /* OBRAS */
+    /* =========================
+       OBRAS
+    ========================= */
+
     .works-grid {
       display: grid;
       grid-template-columns: 1fr;
@@ -214,7 +254,8 @@
       -webkit-tap-highlight-color: transparent;
     }
 
-    .work-card:hover, .work-card:active {
+    .work-card:hover,
+    .work-card:active {
       border-color: var(--border-hover);
       transform: translateY(-2px);
     }
@@ -228,7 +269,9 @@
       transition: color 0.3s ease;
     }
 
-    .work-card:hover h3 { color: var(--accent); }
+    .work-card:hover h3 {
+      color: var(--accent);
+    }
 
     .work-card .type {
       font-size: 0.75rem;
@@ -253,9 +296,14 @@
       transition: color 0.3s ease;
     }
 
-    .work-card:hover .read { color: var(--accent); }
+    .work-card:hover .read {
+      color: var(--accent);
+    }
 
-    /* IMAGEN INFERIOR */
+    /* =========================
+       IMAGEN INFERIOR
+    ========================= */
+
     .bottom-image-container {
       text-align: center;
       padding: 2.5rem 0 3.5rem;
@@ -270,13 +318,16 @@
       border: 1px solid var(--border);
       cursor: pointer;
       transition: border-color 0.3s ease;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .gt-image-container img {
       display: block;
       max-width: 100%;
       height: auto;
-      transition: opacity 0.5s ease, transform 0.5s ease;
+      transition:
+        opacity 0.5s ease,
+        transform 0.5s ease;
     }
 
     .gt-img-normal {
@@ -293,14 +344,18 @@
       height: 100%;
       object-fit: cover;
       opacity: 0;
-      z-index: 1;
+      z-index: 2;
       filter: grayscale(20%);
     }
 
-    .gt-image-container:hover { border-color: var(--border-hover); }
+    .gt-image-container:hover {
+      border-color: var(--border-hover);
+    }
 
     .gt-image-container:hover .gt-img-normal,
-    .gt-image-container:active .gt-img-normal { opacity: 0; }
+    .gt-image-container:active .gt-img-normal {
+      opacity: 0;
+    }
 
     .gt-image-container:hover .gt-img-scary,
     .gt-image-container:active .gt-img-scary {
@@ -308,7 +363,10 @@
       transform: scale(1.02);
     }
 
-    /* CONTENEDOR EFECTO ESPIRAL EN PANTALLA */
+    /* =========================
+       ESPIRAL
+    ========================= */
+
     #overlayEspiral {
       position: fixed;
       inset: 0;
@@ -322,11 +380,15 @@
       width: 120px;
       height: 90px;
       background: #000;
-      border: 1px solid rgba(255, 255, 255, 0.4);
+      border: 1px solid rgba(255,255,255,0.4);
       box-shadow: 0 4px 15px rgba(0,0,0,0.8);
       border-radius: 4px;
       overflow: hidden;
-      animation: popIn 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+
+      animation:
+        popIn 0.18s
+        cubic-bezier(0.175, 0.885, 0.32, 1.275)
+        forwards;
     }
 
     .mini-ventana-bar {
@@ -349,27 +411,41 @@
       width: 100%;
       height: calc(100% - 14px);
       object-fit: cover;
+      display: block;
     }
 
     @keyframes popIn {
-      0% { transform: scale(0) rotate(-20deg); opacity: 0; }
-      100% { transform: scale(1) rotate(0deg); opacity: 1; }
+      0% {
+        transform: scale(0) rotate(-20deg);
+        opacity: 0;
+      }
+
+      100% {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+      }
     }
 
-    /* MODAL VIDEO */
+    /* =========================
+       MODAL VIDEO
+    ========================= */
+
     .video-modal {
       display: none;
       position: fixed;
       inset: 0;
       z-index: 2000;
-      background: rgba(0, 0, 0, 0.88);
+      background: rgba(0,0,0,0.88);
       backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
       align-items: center;
       justify-content: center;
       padding: 1rem;
     }
 
-    .video-modal.active { display: flex; }
+    .video-modal.active {
+      display: flex;
+    }
 
     .video-modal-content {
       position: relative;
@@ -401,10 +477,17 @@
       transition: color 0.3s ease;
     }
 
-    .close-video-btn:hover { color: var(--accent); }
+    .close-video-btn:hover {
+      color: var(--accent);
+    }
 
-    /* CONTACTO Y FORMULARIO */
-    .contact-block { text-align: center; }
+    /* =========================
+       CONTACTO
+    ========================= */
+
+    .contact-block {
+      text-align: center;
+    }
 
     .contact-block p {
       color: var(--text-muted);
@@ -426,6 +509,10 @@
       color: var(--accent);
       border-color: var(--accent);
     }
+
+    /* =========================
+       FORMULARIO
+    ========================= */
 
     .comment-form {
       max-width: 520px;
@@ -459,7 +546,9 @@
     }
 
     .comment-form input:focus,
-    .comment-form textarea:focus { border-color: var(--border-hover); }
+    .comment-form textarea:focus {
+      border-color: var(--border-hover);
+    }
 
     .comment-form textarea {
       min-height: 120px;
@@ -482,7 +571,10 @@
     }
 
     @media (min-width: 600px) {
-      .comment-form button { width: auto; align-self: center; }
+      .comment-form button {
+        width: auto;
+        align-self: center;
+      }
     }
 
     .comment-form button:hover {
@@ -496,6 +588,10 @@
       text-align: center;
       margin-top: 1.2rem;
     }
+
+    /* =========================
+       REDES SOCIALES
+    ========================= */
 
     .socials {
       display: flex;
@@ -517,9 +613,14 @@
       transition: color 0.3s ease;
     }
 
-    .socials a:hover { color: var(--text-main); }
+    .socials a:hover {
+      color: var(--text-main);
+    }
 
-    /* FOOTER Y BOTÓN FLOTANTE */
+    /* =========================
+       FOOTER
+    ========================= */
+
     footer {
       padding: 2.5rem 0;
       text-align: center;
@@ -531,6 +632,10 @@
       color: var(--text-muted);
       letter-spacing: 0.05em;
     }
+
+    /* =========================
+       BOTÓN FLOTANTE
+    ========================= */
 
     .btn-circular {
       position: fixed;
@@ -562,316 +667,1008 @@
       height: 16px;
       fill: currentColor;
     }
+
   </style>
 </head>
+
 <body>
-  <!-- Contenedor para el efecto de ventanas simuladas -->
+
+  <!-- =========================
+       ESPIRAL
+  ========================== -->
+
   <div id="overlayEspiral"></div>
 
+
+  <!-- =========================
+       HEADER
+  ========================== -->
+
   <header>
+
     <div class="container">
-      <a href="https://www.facebook.com/ElConjurodelasRanas" target="_blank" rel="noopener" class="portrait-link">
+
+      <a
+        href="https://www.facebook.com/ElConjurodelasRanas"
+        target="_blank"
+        rel="noopener"
+        class="portrait-link"
+      >
+
         <div class="portrait-container">
-          <img src="9.png" alt="Felipe P. / Gustavo Narváez" class="portrait">
-          <img src="ll.jpg" alt="Felipe P. / Gustavo Narváez" class="portrait portrait-alt">
+
+          <img
+            src="9.png"
+            alt="Felipe P. / Gustavo Narváez"
+            class="portrait"
+          >
+
+          <img
+            src="ll.jpg"
+            alt="Felipe P. / Gustavo Narváez"
+            class="portrait portrait-alt"
+          >
+
         </div>
+
       </a>
+
+
       <h1>Felipe P.</h1>
-      <p class="alias">/ Gustavo Narváez</p>
-      <p class="tagline">Escritor, músico fugado del Conservatorio de Celaya, y vago.</p>
+
+      <p class="alias">
+        / Gustavo Narváez
+      </p>
+
+      <p class="tagline">
+        Escritor, músico fugado del Conservatorio de Celaya, y vago.
+      </p>
+
+
       <nav>
-        <a href="#">Inicio</a>
-        <a href="#obras">Obras</a>
-        <a href="#comentarios">Comentarios</a>
-        <a href="#contacto">Contacto</a>
+
+        <a href="#">
+          Inicio
+        </a>
+
+        <a href="#obras">
+          Obras
+        </a>
+
+        <a href="#comentarios">
+          Comentarios
+        </a>
+
+        <a href="#contacto">
+          Contacto
+        </a>
+
       </nav>
+
     </div>
+
   </header>
 
+
   <main>
+
+
+    <!-- =========================
+         SOBRE
+    ========================== -->
+
     <section id="sobre">
+
       <div class="container">
+
         <h2></h2>
+
         <div class="about-text">
-          <p>!</p>
-          <p>Todo en esta página (NO) sucedió en la realidad.<br>!</p>
+
+          <p>
+            !
+          </p>
+
+          <p>
+            Todo en esta página (NO) sucedió en la realidad.
+            <br>
+            !
+          </p>
+
         </div>
+
       </div>
+
     </section>
+
+
+    <!-- =========================
+         OBRAS
+    ========================== -->
 
     <section id="obras">
+
       <div class="container">
-        <h2>Obras</h2>
+
+        <h2>
+          Obras
+        </h2>
+
+
         <div class="works-grid">
-          <a href="FIESTA EN MINERAL DE LA LUZ.pdf" class="work-card" target="_blank">
+
+
+          <a
+            href="FIESTA EN MINERAL DE LA LUZ.pdf"
+            class="work-card"
+            target="_blank"
+          >
+
             <div>
-              <h3>Fiesta en Mineral de la Luz</h3>
-              <p class="type">Poema</p>
-              <p>Locura y amor</p>
+
+              <h3>
+                Fiesta en Mineral de la Luz
+              </h3>
+
+              <p class="type">
+                Poema
+              </p>
+
+              <p>
+                Locura y amor
+              </p>
+
             </div>
-            <span class="read">Leer PDF &rarr;</span>
+
+            <span class="read">
+              Leer PDF &rarr;
+            </span>
+
           </a>
 
-          <a href="Altas y bajas - F_G.pdf" class="work-card" target="_blank">
+
+
+          <a
+            href="Altas y bajas - F_G.pdf"
+            class="work-card"
+            target="_blank"
+          >
+
             <div>
-              <h3>Altas y bajas</h3>
-              <p class="type">Poema</p>
-              <p>Fragmentos.</p>
+
+              <h3>
+                Altas y bajas
+              </h3>
+
+              <p class="type">
+                Poema
+              </p>
+
+              <p>
+                Fragmentos.
+              </p>
+
             </div>
-            <span class="read">Leer PDF &rarr;</span>
+
+            <span class="read">
+              Leer PDF &rarr;
+            </span>
+
           </a>
 
-          <a href="t.pdf" class="work-card" target="_blank">
+
+
+          <a
+            href="t.pdf"
+            class="work-card"
+            target="_blank"
+          >
+
             <div>
-              <h3>Arrecife Alacranes</h3>
-              <p class="type">Poema (Anexado, parte 2)</p>
-              <p>Camino al arrecife sur del juicio.</p>
+
+              <h3>
+                Arrecife Alacranes
+              </h3>
+
+              <p class="type">
+                Poema (Anexado, parte 2)
+              </p>
+
+              <p>
+                Camino al arrecife sur del juicio.
+              </p>
+
             </div>
-            <span class="read">Leer PDF &rarr;</span>
+
+            <span class="read">
+              Leer PDF &rarr;
+            </span>
+
           </a>
 
-          <a href="41.pdf" class="work-card" target="_blank">
+
+
+          <a
+            href="41.pdf"
+            class="work-card"
+            target="_blank"
+          >
+
             <div>
-              <h3>¿Quién fue Alejandro Garrigós Rojas?</h3>
-              <p class="type">Recuerdo</p>
+
+              <h3>
+                ¿Quién fue Alejandro Garrigós Rojas?
+              </h3>
+
+              <p class="type">
+                Recuerdo
+              </p>
+
               <p></p>
+
             </div>
-            <span class="read">Leer PDF &rarr;</span>
+
+            <span class="read">
+              Leer PDF &rarr;
+            </span>
+
           </a>
 
-          <a href="z.pdf" class="work-card" target="_blank">
+
+
+          <a
+            href="z.pdf"
+            class="work-card"
+            target="_blank"
+          >
+
             <div>
-              <h3>Actuación 3</h3>
-              <p class="type">Mi Juicio de Amparo Indirecto, por derecho propio</p>
+
+              <h3>
+                Actuación 3
+              </h3>
+
+              <p class="type">
+                Mi Juicio de Amparo Indirecto, por derecho propio
+              </p>
+
               <p></p>
+
             </div>
-            <span class="read">Leer PDF &rarr;</span>
+
+            <span class="read">
+              Leer PDF &rarr;
+            </span>
+
           </a>
 
-          <a href="g.pdf" class="work-card" target="_blank">
+
+
+          <a
+            href="g.pdf"
+            class="work-card"
+            target="_blank"
+          >
+
             <div>
-              <h3>FE</h3>
-              <p class="type">Cuaderno</p>
-              <p>Notas.</p>
+
+              <h3>
+                FE
+              </h3>
+
+              <p class="type">
+                Cuaderno
+              </p>
+
+              <p>
+                Notas.
+              </p>
+
             </div>
-            <span class="read">Leer PDF &rarr;</span>
+
+            <span class="read">
+              Leer PDF &rarr;
+            </span>
+
           </a>
 
-          <a href="Gerardo Szae___Gustavo Narváez (1)-16-19.pdf" class="work-card" target="_blank">
+
+
+          <a
+            href="Gerardo Szae___Gustavo Narváez (1)-16-19.pdf"
+            class="work-card"
+            target="_blank"
+          >
+
             <div>
-              <h3>Sobre cómo (NO) robar un vochito</h3>
-              <p class="type">Texto</p>
-              <p>Humor sobre la expropiación de un pequeño Volkswagen.</p>
+
+              <h3>
+                Sobre cómo (NO) robar un vochito
+              </h3>
+
+              <p class="type">
+                Texto
+              </p>
+
+              <p>
+                Humor sobre la expropiación de un pequeño Volkswagen.
+              </p>
+
             </div>
-            <span class="read">Leer PDF &rarr;</span>
+
+            <span class="read">
+              Leer PDF &rarr;
+            </span>
+
           </a>
 
-          <a href="ss.pdf" class="work-card" target="_blank">
+
+
+          <a
+            href="ss.pdf"
+            class="work-card"
+            target="_blank"
+          >
+
             <div>
-              <h3>Nada</h3>
-              <p class="type">Texto</p>
-              <p> </p>
+
+              <h3>
+                Nada
+              </h3>
+
+              <p class="type">
+                Texto
+              </p>
+
+              <p></p>
+
             </div>
-            <span class="read">Leer PDF &rarr;</span>
+
+            <span class="read">
+              Leer PDF &rarr;
+            </span>
+
           </a>
+
+
         </div>
+
       </div>
+
     </section>
+
+
+    <!-- =========================
+         COMENTARIOS
+    ========================== -->
 
     <section id="comentarios">
+
       <div class="container">
-        <h2>Comentarios</h2>
-        <form class="comment-form" action="https://formsubmit.co/felipedejesusgarciapatino@gmail.com" method="POST">
-          <input type="hidden" name="_subject" value="Nuevo comentario">
-          <input type="hidden" name="_captcha" value="false">
-          <input type="hidden" name="_template" value="table">
-          <input type="text" name="_honey" style="display:none">
+
+        <h2>
+          Comentarios
+        </h2>
+
+
+        <form
+          class="comment-form"
+          action="https://formsubmit.co/felipedejesusgarciapatino@gmail.com"
+          method="POST"
+        >
+
+          <input
+            type="hidden"
+            name="_subject"
+            value="Nuevo comentario"
+          >
+
+          <input
+            type="hidden"
+            name="_captcha"
+            value="false"
+          >
+
+          <input
+            type="hidden"
+            name="_template"
+            value="table"
+          >
+
+          <input
+            type="text"
+            name="_honey"
+            style="display:none"
+          >
+
+
           <div>
-            <label for="nombre">Nombre</label>
-            <input type="text" id="nombre" name="nombre" required placeholder="Tu nombre">
+
+            <label for="nombre">
+              Nombre
+            </label>
+
+            <input
+              type="text"
+              id="nombre"
+              name="nombre"
+              required
+              placeholder="Tu nombre"
+            >
+
           </div>
+
+
           <div>
-            <label for="email">Correo electrónico</label>
-            <input type="email" id="email" name="email" required placeholder="tu@correo.com">
+
+            <label for="email">
+              Correo electrónico
+            </label>
+
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              placeholder="tu@correo.com"
+            >
+
           </div>
+
+
           <div>
-            <label for="mensaje">Comentario</label>
-            <textarea id="mensaje" name="mensaje" required placeholder="Escribe aquí tu comentario..."></textarea>
+
+            <label for="mensaje">
+              Comentario
+            </label>
+
+            <textarea
+              id="mensaje"
+              name="mensaje"
+              required
+              placeholder="Escribe aquí tu comentario..."
+            ></textarea>
+
           </div>
-          <button type="submit">Enviar comentario</button>
+
+
+          <button type="submit">
+            Enviar comentario
+          </button>
+
         </form>
-        <p class="form-note">El comentario llegará directamente a mi correo.</p>
+
+
+        <p class="form-note">
+          El comentario llegará directamente a mi correo.
+        </p>
+
       </div>
+
     </section>
+
+
+    <!-- =========================
+         CONTACTO
+    ========================== -->
 
     <section id="contacto">
+
       <div class="container contact-block">
-        <h2>Contacto</h2>
-        <p>Para lecturas, colaboraciones o simplemente conversar.</p>
-        <a href="mailto:felipedejesusgarciapatino@gmail.com" class="contact-email">
+
+        <h2>
+          Contacto
+        </h2>
+
+        <p>
+          Para lecturas, colaboraciones o simplemente conversar.
+        </p>
+
+
+        <a
+          href="mailto:felipedejesusgarciapatino@gmail.com"
+          class="contact-email"
+        >
           felipedejesusgarciapatino@gmail.com
         </a>
+
+
         <div class="socials">
-          <a href="https://www.instagram.com/felipeplein2026/" target="_blank" rel="noopener">Instagram</a>
-          <a href="https://www.facebook.com/profile.php?id=61591803449103" target="_blank" rel="noopener">Facebook</a>
-          <a href="https://x.com/FelipePleibx" target="_blank" rel="noopener">X</a>
-          <a href="https://www.threads.com/@felipeplein2026" target="_blank" rel="noopener">Threads</a>
-          <a href="https://www.tumblr.com/blog/felipeplein" target="_blank" rel="noopener">Tumblr</a>
+
+          <a
+            href="https://www.instagram.com/felipeplein2026/"
+            target="_blank"
+            rel="noopener"
+          >
+            Instagram
+          </a>
+
+          <a
+            href="https://www.facebook.com/profile.php?id=61591803449103"
+            target="_blank"
+            rel="noopener"
+          >
+            Facebook
+          </a>
+
+          <a
+            href="https://x.com/FelipePleibx"
+            target="_blank"
+            rel="noopener"
+          >
+            X
+          </a>
+
+          <a
+            href="https://www.threads.com/@felipeplein2026"
+            target="_blank"
+            rel="noopener"
+          >
+            Threads
+          </a>
+
+          <a
+            href="https://www.tumblr.com/blog/felipeplein"
+            target="_blank"
+            rel="noopener"
+          >
+            Tumblr
+          </a>
+
         </div>
+
       </div>
+
     </section>
+
   </main>
 
-  <footer>
-    <div class="container">
-      <p>© 2026 Felipe G. Patiño</p>
-    </div>
-  </footer>
+
+  <!-- =========================
+       IMAGEN FINAL
+  ========================== -->
 
   <div class="bottom-image-container">
+
     <div class="container">
-      <div class="gt-image-container" onclick="lanzarEspiralPestanas('ll.jpg')">
-      <div class="gt-image-container" onclick="lanzarEspiralDOM('ll.jpg')">
-        <img src="gt.png" alt="Imagen final GT" class="gt-img-normal">
-        <img src="ll.jpg" alt="x" class="gt-img-scary">
+
+      <div
+        class="gt-image-container"
+        id="gtTrigger"
+        role="button"
+        tabindex="0"
+        aria-label="Activar efecto"
+      >
+
+        <img
+          src="gt.png"
+          alt="Imagen final GT"
+          class="gt-img-normal"
+        >
+
+        <img
+          src="ll.jpg"
+          alt="Imagen alternativa"
+          class="gt-img-scary"
+        >
+
       </div>
+
     </div>
+
   </div>
 
-  <!-- Modal del video incorporado -->
-  <div id="videoModal" class="video-modal" onclick="closeVideoOnBackdrop(event)">
+
+  <!-- =========================
+       MODAL VIDEO
+  ========================== -->
+
+  <div
+    id="videoModal"
+    class="video-modal"
+  >
+
     <div class="video-modal-content">
-      <button class="close-video-btn" onclick="closeVideo()">&times; CERRAR</button>
-      <iframe id="youtubeIframe" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+      <button
+        class="close-video-btn"
+        id="closeVideoBtn"
+        type="button"
+      >
+        &times; CERRAR
+      </button>
+
+      <iframe
+        id="youtubeIframe"
+        allow="autoplay; encrypted-media"
+        allowfullscreen
+        title="Video"
+      ></iframe>
+
     </div>
+
   </div>
 
-  <a href="https://drive.google.com/file/d/19sB9xX4a3KW_uNuwkCAC-Tww-MoxEuG2/view?usp=sharing" target="_blank" rel="noopener" class="btn-circular" title="Ver en YouTube">
+
+  <!-- =========================
+       BOTÓN FLOTANTE
+  ========================== -->
+
+  <a
+    href="https://drive.google.com/file/d/19sB9xX4a3KW_uNuwkCAC-Tww-MoxEuG2/view?usp=sharing"
+    target="_blank"
+    rel="noopener"
+    class="btn-circular"
+    title="Ver video"
+  >
+
     <svg viewBox="0 0 24 24">
       <path d="M8 5v14l11-7z"/>
     </svg>
+
   </a>
 
-  <script>
-    let intervaloEspiral = null;
-    let angulo = 0;
-    let radioPaso = 8;     // Distancia entre giros
-    let pasoAngulo = 0.4;   // Suavidad del arco
-    let radioPaso = 10;
-    let pasoAngulo = 0.35;
-    const overlay = document.getElementById('overlayEspiral');
 
-    function lanzarEspiralPestanas(urlImagen) {
-    function lanzarEspiralDOM(urlImagen) {
-      openVideo();
+  <!-- =========================
+       JAVASCRIPT
+  ========================== -->
+
+  <script>
+
+    /* ==========================================
+       VARIABLES DEL EFECTO
+    ========================================== */
+
+    let intervaloEspiral = null;
+
+    let angulo = 0;
+
+    const radioPaso = 10;
+
+    const pasoAngulo = 0.35;
+
+    const overlay =
+      document.getElementById("overlayEspiral");
+
+    const gtTrigger =
+      document.getElementById("gtTrigger");
+
+
+    /* ==========================================
+       LANZAR ESPIRAL
+    ========================================== */
+
+    function lanzarEspiral() {
+
       detenerEspiral();
 
-      if (intervaloEspiral) clearInterval(intervaloEspiral);
-
-      const centroX = window.screen.availWidth / 2;
-      const centroY = window.screen.availHeight / 2;
-      
-      // Dimensiones reducidas al mínimo práctico
-      const centroX = window.innerWidth / 2;
-      const centroY = window.innerHeight / 2;
       const anchoVentana = 120;
       const altoVentana = 90;
 
+      const centroX =
+        window.innerWidth / 2;
+
+      const centroY =
+        window.innerHeight / 2;
+
       angulo = 0;
 
-      // Ejecución a velocidad máxima (cada 10 ms)
-      // Dispara pequeñas ventanas simuladas a máxima velocidad sin bloqueo
-      intervaloEspiral = setInterval(() => {
-        let r = radioPaso * angulo;
-        let posX = centroX + r * Math.cos(angulo) - (anchoVentana / 2);
-        let posY = centroY + r * Math.sin(angulo) - (altoVentana / 2);
 
-        let opciones = `width=${anchoVentana},height=${altoVentana},left=${Math.round(posX)},top=${Math.round(posY)},resizable=yes`;
+      intervaloEspiral = setInterval(function() {
 
-        let nuevaVentana = window.open(urlImagen, '_blank', opciones);
+        const r =
+          radioPaso * angulo;
 
-        // Si el navegador detiene la creación de emergentes, frena el timer
-        if (!nuevaVentana) {
-          clearInterval(intervaloEspiral);
-          intervaloEspiral = null;
-        // Si la espiral sale de los bordes visibles, reinicia el ciclo
+
+        let posX =
+          centroX +
+          r * Math.cos(angulo) -
+          (anchoVentana / 2);
+
+
+        let posY =
+          centroY +
+          r * Math.sin(angulo) -
+          (altoVentana / 2);
+
+
+        /*
+         * Cuando la espiral sale completamente
+         * de la pantalla vuelve al centro.
+         */
+
         if (
-          posX < -anchoVentana || posX > window.innerWidth ||
-          posY < -altoVentana || posY > window.innerHeight
+          posX < -anchoVentana ||
+          posX > window.innerWidth ||
+          posY < -altoVentana ||
+          posY > window.innerHeight
         ) {
+
           angulo = 0;
-          r = 0;
-          posX = centroX - (anchoVentana / 2);
-          posY = centroY - (altoVentana / 2);
+
+          posX =
+            centroX -
+            (anchoVentana / 2);
+
+          posY =
+            centroY -
+            (altoVentana / 2);
         }
 
-        const win = document.createElement('div');
-        win.className = 'mini-ventana';
-        win.style.left = `${Math.round(posX)}px`;
-        win.style.top = `${Math.round(posY)}px`;
+
+        /* Crear mini ventana */
+
+        const win =
+          document.createElement("div");
+
+        win.className =
+          "mini-ventana";
+
+
+        win.style.left =
+          Math.round(posX) + "px";
+
+
+        win.style.top =
+          Math.round(posY) + "px";
+
+
         win.innerHTML = `
+
           <div class="mini-ventana-bar">
+
             <div class="mini-ventana-dot"></div>
+
           </div>
-          <img src="${urlImagen}" alt="Popup">
+
+          <img
+            src="ll.jpg"
+            alt="Ventana"
+          >
+
         `;
 
+
         overlay.appendChild(win);
+
+
+        /*
+         * Limitar el número de ventanas
+         * para evitar que el iPhone se vuelva lento.
+         */
+
+        if (overlay.children.length > 180) {
+
+          overlay.removeChild(
+            overlay.firstElementChild
+          );
+
+        }
+
+
         angulo += pasoAngulo;
-      }, 10);
-      }, 15);
+
+      }, 35);
+
     }
 
-    // Detención total al hacer clic en cualquier punto fuera de la imagen detonante
-    window.addEventListener('click', function(e) {
-      if (e.target.closest('.gt-image-container')) return;
+
+    /* ==========================================
+       DETENER ESPIRAL
+    ========================================== */
 
     function detenerEspiral() {
+
       if (intervaloEspiral) {
+
         clearInterval(intervaloEspiral);
+
         intervaloEspiral = null;
+
       }
-      overlay.innerHTML = '';
+
+      overlay.innerHTML = "";
+
     }
 
-    // Detener la ráfaga e ilustrar limpieza con cualquier clic en la página
-    window.addEventListener('click', function(e) {
-      if (e.target.closest('.gt-image-container')) return;
-      detenerEspiral();
-    });
 
-    /* LÓGICA MODAL VIDEO */
-    const videoModal = document.getElementById('videoModal');
-    const iframe = document.getElementById('youtubeIframe');
+    /* ==========================================
+       VIDEO
+    ========================================== */
+
+    const videoModal =
+      document.getElementById("videoModal");
+
+    const iframe =
+      document.getElementById("youtubeIframe");
+
+    const closeVideoBtn =
+      document.getElementById("closeVideoBtn");
+
 
     function openVideo() {
-      iframe.src = "https://www.youtube.com/embed/aDurnlQu6Ak?autoplay=1";
-      videoModal.classList.add('active');
+
+      iframe.src =
+        "https://www.youtube.com/embed/aDurnlQu6Ak?autoplay=1";
+
+      videoModal.classList.add("active");
+
     }
+
 
     function closeVideo() {
-      videoModal.classList.remove('active');
+
+      videoModal.classList.remove("active");
+
       iframe.src = "";
+
     }
 
-    function closeVideoOnBackdrop(event) {
-      if (event.target === videoModal) {
+
+    /* ==========================================
+       CLIC EN LA IMAGEN FINAL
+    ========================================== */
+
+    function activarEfecto(event) {
+
+      event.stopPropagation();
+
+      openVideo();
+
+      lanzarEspiral();
+
+    }
+
+
+    gtTrigger.addEventListener(
+      "click",
+      activarEfecto
+    );
+
+
+    /*
+     * Soporte para teclado
+     */
+
+    gtTrigger.addEventListener(
+      "keydown",
+      function(event) {
+
+        if (
+          event.key === "Enter" ||
+          event.key === " "
+        ) {
+
+          event.preventDefault();
+
+          activarEfecto(event);
+
+        }
+
+      }
+    );
+
+
+    /* ==========================================
+       CERRAR VIDEO
+    ========================================== */
+
+    closeVideoBtn.addEventListener(
+      "click",
+      function(event) {
+
+        event.stopPropagation();
+
         closeVideo();
-      }
-    }
 
-    document.addEventListener('keydown', function(event) {
-      if (event.key === "Escape") {
-        if (intervaloEspiral) {
-          clearInterval(intervaloEspiral);
-          intervaloEspiral = null;
-        }
         detenerEspiral();
-        if (videoModal.classList.contains('active')) {
-          closeVideo();
-        }
+
       }
-    });
+    );
+
+
+    /*
+     * Cerrar tocando el fondo oscuro
+     */
+
+    videoModal.addEventListener(
+      "click",
+      function(event) {
+
+        if (
+          event.target === videoModal
+        ) {
+
+          closeVideo();
+
+          detenerEspiral();
+
+        }
+
+      }
+    );
+
+
+    /* ==========================================
+       CLIC FUERA DE LA IMAGEN
+    ========================================== */
+
+    document.addEventListener(
+      "click",
+      function(event) {
+
+        /*
+         * Si el clic fue sobre la imagen
+         * detonante, no hacemos nada.
+         */
+
+        if (
+          event.target.closest(
+            "#gtTrigger"
+          )
+        ) {
+
+          return;
+
+        }
+
+
+        /*
+         * Si el clic fue dentro del video,
+         * tampoco detenemos la espiral aquí.
+         */
+
+        if (
+          event.target.closest(
+            ".video-modal-content"
+          )
+        ) {
+
+          return;
+
+        }
+
+
+        detenerEspiral();
+
+      }
+    );
+
+
+    /* ==========================================
+       ESCAPE
+    ========================================== */
+
+    document.addEventListener(
+      "keydown",
+      function(event) {
+
+        if (event.key === "Escape") {
+
+          detenerEspiral();
+
+          closeVideo();
+
+        }
+
+      }
+    );
+
+
+    /* ==========================================
+       LIMPIEZA AL CAMBIAR DE PÁGINA
+    ========================================== */
+
+    window.addEventListener(
+      "beforeunload",
+      function() {
+
+        detenerEspiral();
+
+      }
+    );
+
   </script>
+
 </body>
 </html>
