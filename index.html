@@ -1,1674 +1,298 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>Felipe P. / Gustavo Narváez — Escritor</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-
-  <style>
-
-    :root {
-      --bg: #0d0d0e;
-      --surface: #141416;
-      --border: rgba(255, 255, 255, 0.08);
-      --border-hover: rgba(255, 255, 255, 0.25);
-      --text-main: #e4e4e7;
-      --text-muted: #8e8e93;
-      --accent: #d4af37;
-      --accent-hover: #f1d77e;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      background-color: var(--bg);
-      color: var(--text-main);
-      font-family: 'Inter', sans-serif;
-      font-weight: 300;
-      line-height: 1.7;
-      overflow-x: hidden;
-      width: 100%;
-    }
-
-    .container {
-      width: 100%;
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 0 1.25rem;
-    }
-
-    /* =========================
-       HEADER
-    ========================= */
-
-    header {
-      padding: 3.5rem 0 2rem;
-      text-align: center;
-    }
-
-    @media (min-width: 768px) {
-      header {
-        padding: 5rem 0 3rem;
-      }
-    }
-
-    .portrait-link {
-      display: inline-block;
-      text-decoration: none;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    .portrait-container {
-      position: relative;
-      width: 120px;
-      height: 120px;
-      margin: 0 auto 1.5rem;
-      border-radius: 50%;
-      overflow: hidden;
-      border: 1px solid var(--border-hover);
-      transition: border-color 0.4s ease;
-    }
-
-    @media (min-width: 768px) {
-      .portrait-container {
-        width: 140px;
-        height: 140px;
-        margin-bottom: 2rem;
-      }
-    }
-
-    .portrait-container:hover {
-      border-color: var(--accent);
-    }
-
-    .portrait {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      filter: grayscale(100%);
-      transition: opacity 0.5s ease;
-      position: relative;
-      z-index: 1;
-    }
-
-    .portrait-alt {
-      position: absolute;
-      top: 0;
-      left: 0;
-      opacity: 0;
-      z-index: 2;
-      filter: grayscale(30%);
-    }
-
-    .portrait-container:hover .portrait,
-    .portrait-container:active .portrait {
-      opacity: 0;
-    }
-
-    .portrait-container:hover .portrait-alt,
-    .portrait-container:active .portrait-alt {
-      opacity: 1;
-    }
-
-    h1 {
-      font-family: 'Cormorant Garamond', serif;
-      font-weight: 600;
-      font-size: clamp(2.2rem, 7vw, 3.5rem);
-      letter-spacing: 0.02em;
-      color: #ffffff;
-      margin-bottom: 0.1rem;
-    }
-
-    .alias {
-      font-family: 'Cormorant Garamond', serif;
-      font-style: italic;
-      font-size: clamp(1.1rem, 3.5vw, 1.35rem);
-      color: var(--text-muted);
-      margin-bottom: 1.2rem;
-    }
-
-    .tagline {
-      font-size: clamp(0.85rem, 2.5vw, 0.95rem);
-      color: var(--text-muted);
-      max-width: 480px;
-      margin: 0 auto;
-      letter-spacing: 0.01em;
-      text-align: center;
-    }
-
-    nav {
-      display: flex;
-      justify-content: center;
-      gap: 1.2rem;
-      flex-wrap: wrap;
-      margin-top: 2rem;
-      padding-top: 1.5rem;
-      border-top: 1px solid var(--border);
-    }
-
-    @media (min-width: 768px) {
-      nav {
-        gap: 2rem;
-        margin-top: 3rem;
-        padding-top: 2rem;
-      }
-    }
-
-    nav a {
-      color: var(--text-muted);
-      text-decoration: none;
-      font-size: 0.8rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      padding: 0.3rem 0;
-      transition: color 0.3s ease;
-    }
-
-    nav a:hover,
-    nav a:active {
-      color: var(--accent);
-    }
-
-    /* =========================
-       SECCIONES
-    ========================= */
-
-    section {
-      padding: 3rem 0;
-      border-top: 1px solid var(--border);
-    }
-
-    @media (min-width: 768px) {
-      section {
-        padding: 4rem 0;
-      }
-    }
-
-    section h2 {
-      font-family: 'Cormorant Garamond', serif;
-      font-weight: 400;
-      font-size: clamp(1.75rem, 5vw, 2.2rem);
-      letter-spacing: 0.03em;
-      color: #ffffff;
-      margin-bottom: 2rem;
-      text-align: center;
-    }
-
-    .about-text {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(1.1rem, 3.5vw, 1.25rem);
-      line-height: 1.8;
-      color: #d1d1d6;
-      max-width: 600px;
-      margin: 0 auto;
-      text-align: center;
-      font-style: italic;
-    }
-
-    .about-text p + p {
-      margin-top: 1.5rem;
-    }
-
-    /* =========================
-       OBRAS
-    ========================= */
-
-    .works-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 1.25rem;
-    }
-
-    @media (min-width: 600px) {
-      .works-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    .work-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      padding: 1.5rem;
-      transition: all 0.3s ease;
-      text-decoration: none;
-      color: inherit;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    .work-card:hover,
-    .work-card:active {
-      border-color: var(--border-hover);
-      transform: translateY(-2px);
-    }
-
-    .work-card h3 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.4rem;
-      font-weight: 600;
-      color: #ffffff;
-      margin-bottom: 0.2rem;
-      transition: color 0.3s ease;
-    }
-
-    .work-card:hover h3 {
-      color: var(--accent);
-    }
-
-    .work-card .type {
-      font-size: 0.75rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 0.6rem;
-    }
-
-    .work-card p {
-      font-size: 0.88rem;
-      color: var(--text-muted);
-      line-height: 1.5;
-    }
-
-    .work-card .read {
-      display: inline-block;
-      margin-top: 1.2rem;
-      font-size: 0.8rem;
-      letter-spacing: 0.05em;
-      color: var(--text-main);
-      transition: color 0.3s ease;
-    }
-
-    .work-card:hover .read {
-      color: var(--accent);
-    }
-
-    /* =========================
-       IMAGEN INFERIOR
-    ========================= */
-
-    .bottom-image-container {
-      text-align: center;
-      padding: 2.5rem 0 3.5rem;
-    }
-
-    .gt-image-container {
-      display: inline-block;
-      position: relative;
-      overflow: hidden;
-      max-width: 100%;
-      border-radius: 4px;
-      border: 1px solid var(--border);
-      cursor: pointer;
-      transition: border-color 0.3s ease;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    .gt-image-container img {
-      display: block;
-      max-width: 100%;
-      height: auto;
-      transition:
-        opacity 0.5s ease,
-        transform 0.5s ease;
-    }
-
-    .gt-img-normal {
-      position: relative;
-      z-index: 1;
-      filter: grayscale(100%);
-    }
-
-    .gt-img-scary {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      opacity: 0;
-      z-index: 2;
-      filter: grayscale(20%);
-    }
-
-    .gt-image-container:hover {
-      border-color: var(--border-hover);
-    }
-
-    .gt-image-container:hover .gt-img-normal,
-    .gt-image-container:active .gt-img-normal {
-      opacity: 0;
-    }
-
-    .gt-image-container:hover .gt-img-scary,
-    .gt-image-container:active .gt-img-scary {
-      opacity: 1;
-      transform: scale(1.02);
-    }
-
-    /* =========================
-       ESPIRAL
-    ========================= */
-
-    #overlayEspiral {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 9999;
-      overflow: hidden;
-    }
-
-    .mini-ventana {
-      position: absolute;
-      width: 120px;
-      height: 90px;
-      background: #000;
-      border: 1px solid rgba(255,255,255,0.4);
-      box-shadow: 0 4px 15px rgba(0,0,0,0.8);
-      border-radius: 4px;
-      overflow: hidden;
-
-      animation:
-        popIn 0.18s
-        cubic-bezier(0.175, 0.885, 0.32, 1.275)
-        forwards;
-    }
-
-    .mini-ventana-bar {
-      height: 14px;
-      background: #222;
-      border-bottom: 1px solid #333;
-      display: flex;
-      align-items: center;
-      padding: 0 4px;
-    }
-
-    .mini-ventana-dot {
-      width: 6px;
-      height: 6px;
-      background: #ff5f56;
-      border-radius: 50%;
-    }
-
-    .mini-ventana img {
-      width: 100%;
-      height: calc(100% - 14px);
-      object-fit: cover;
-      display: block;
-    }
-
-    @keyframes popIn {
-      0% {
-        transform: scale(0) rotate(-20deg);
-        opacity: 0;
-      }
-
-      100% {
-        transform: scale(1) rotate(0deg);
-        opacity: 1;
-      }
-    }
-
-    /* =========================
-       MODAL VIDEO
-    ========================= */
-
-    .video-modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      z-index: 2000;
-      background: rgba(0,0,0,0.88);
-      backdrop-filter: blur(5px);
-      -webkit-backdrop-filter: blur(5px);
-      align-items: center;
-      justify-content: center;
-      padding: 1rem;
-    }
-
-    .video-modal.active {
-      display: flex;
-    }
-
-    .video-modal-content {
-      position: relative;
-      width: 100%;
-      max-width: 800px;
-      aspect-ratio: 16 / 9;
-      border: 1px solid var(--border-hover);
-      background: #000;
-    }
-
-    .video-modal-content iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
-
-    .close-video-btn {
-      position: absolute;
-      top: -38px;
-      right: 0;
-      background: transparent;
-      border: none;
-      color: var(--text-main);
-      font-family: 'Inter', sans-serif;
-      font-size: 0.85rem;
-      letter-spacing: 0.08em;
-      cursor: pointer;
-      padding: 5px 10px;
-      transition: color 0.3s ease;
-    }
-
-    .close-video-btn:hover {
-      color: var(--accent);
-    }
-
-    /* =========================
-       CONTACTO
-    ========================= */
-
-    .contact-block {
-      text-align: center;
-    }
-
-    .contact-block p {
-      color: var(--text-muted);
-      margin-bottom: 1.5rem;
-      font-size: 0.95rem;
-    }
-
-    .contact-email {
-      font-size: clamp(0.95rem, 3.5vw, 1.1rem);
-      color: var(--text-main);
-      text-decoration: none;
-      word-break: break-all;
-      border-bottom: 1px solid var(--border-hover);
-      padding-bottom: 2px;
-      transition: all 0.3s ease;
-    }
-
-    .contact-email:hover {
-      color: var(--accent);
-      border-color: var(--accent);
-    }
-
-    /* =========================
-       FORMULARIO
-    ========================= */
-
-    .comment-form {
-      max-width: 520px;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      gap: 1.25rem;
-    }
-
-    .comment-form label {
-      display: block;
-      font-size: 0.75rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      margin-bottom: 0.5rem;
-    }
-
-    .comment-form input,
-    .comment-form textarea {
-      width: 100%;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      color: #fff;
-      font-family: 'Inter', sans-serif;
-      font-size: 16px;
-      padding: 0.8rem 1rem;
-      outline: none;
-      transition: border-color 0.3s ease;
-    }
-
-    .comment-form input:focus,
-    .comment-form textarea:focus {
-      border-color: var(--border-hover);
-    }
-
-    .comment-form textarea {
-      min-height: 120px;
-      resize: vertical;
-    }
-
-    .comment-form button {
-      width: 100%;
-      background: transparent;
-      border: 1px solid var(--border-hover);
-      border-radius: 4px;
-      color: var(--text-main);
-      font-family: 'Inter', sans-serif;
-      font-size: 0.8rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 0.9rem 2rem;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    @media (min-width: 600px) {
-      .comment-form button {
-        width: auto;
-        align-self: center;
-      }
-    }
-
-    .comment-form button:hover {
-      background: var(--text-main);
-      color: var(--bg);
-    }
-
-    .form-note {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      text-align: center;
-      margin-top: 1.2rem;
-    }
-
-    /* =========================
-       REDES SOCIALES
-    ========================= */
-
-    .socials {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 1rem 1.5rem;
-      margin-top: 2.5rem;
-      padding-top: 2rem;
-      border-top: 1px dashed var(--border);
-    }
-
-    .socials a {
-      color: var(--text-muted);
-      text-decoration: none;
-      font-size: 0.8rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      padding: 0.2rem 0;
-      transition: color 0.3s ease;
-    }
-
-    .socials a:hover {
-      color: var(--text-main);
-    }
-
-    /* =========================
-       FOOTER
-    ========================= */
-
-    footer {
-      padding: 2.5rem 0;
-      text-align: center;
-      border-top: 1px solid var(--border);
-    }
-
-    footer p {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      letter-spacing: 0.05em;
-    }
-
-    /* =========================
-       BOTÓN FLOTANTE
-    ========================= */
-
-    .btn-circular {
-      position: fixed;
-      bottom: 1.5rem;
-      right: 1.5rem;
-      width: 44px;
-      height: 44px;
-      background: var(--surface);
-      border: 1px solid var(--border-hover);
-      border-radius: 50%;
-      color: var(--text-muted);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-decoration: none;
-      z-index: 1001;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-    }
-
-    .btn-circular:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-      transform: scale(1.08);
-    }
-
-    .btn-circular svg {
-      width: 16px;
-      height: 16px;
-      fill: currentColor;
-    }
-
-  </style>
+<meta charset="UTF-8">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background-color: #050505;
+    color: #e0e0e0;
+    font-family: 'Courier New', Courier, monospace;
+    padding: 30px;
+  }
+  .poster {
+    border: 2px solid #ff0033;
+    padding: 30px;
+    background: radial-gradient(circle at center, #110000 0%, #050505 100%);
+    box-shadow: 0 0 20px rgba(255, 0, 51, 0.2);
+  }
+  .header {
+    text-align: center;
+    border-bottom: 2px solid #ff0033;
+    padding-bottom: 20px;
+    margin-bottom: 25px;
+  }
+  .title {
+    color: #ff0033;
+    font-size: 2.2rem;
+    font-weight: 900;
+    letter-spacing: 3px;
+    text-shadow: 0 0 10px #ff0033;
+  }
+  .subtitle {
+    color: #888;
+    font-size: 0.9rem;
+    margin-top: 8px;
+    letter-spacing: 1px;
+  }
+  .counter {
+    display: inline-block;
+    background: #ff0033;
+    color: #000;
+    font-weight: bold;
+    padding: 2px 8px;
+    margin-top: 10px;
+    border-radius: 3px;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+  }
+  .category {
+    background: #0a0a0a;
+    border: 1px solid #222;
+    border-left: 3px solid #ff0033;
+    padding: 12px;
+  }
+  .category-title {
+    color: #ff0033;
+    font-size: 0.85rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #222;
+    padding-bottom: 4px;
+  }
+  ul { list-style: none; }
+  li {
+    font-size: 0.72rem;
+    color: #bbb;
+    padding: 2px 0;
+    display: flex;
+    align-items: center;
+  }
+  li::before {
+    content: ">";
+    color: #ff0033;
+    margin-right: 6px;
+    font-weight: bold;
+  }
+  .footer {
+    margin-top: 30px;
+    text-align: center;
+    border-top: 1px solid #222;
+    padding-top: 15px;
+    font-size: 0.8rem;
+    color: #ff0033;
+    letter-spacing: 1px;
+  }
+</style>
 </head>
-
 <body>
 
-  <!-- =========================
-       ESPIRAL
-  ========================== -->
-
-  <div id="overlayEspiral"></div>
-
-
-  <!-- =========================
-       HEADER
-  ========================== -->
-
-  <header>
-
-    <div class="container">
-
-      <a
-        href="https://www.facebook.com/ElConjurodelasRanas"
-        target="_blank"
-        rel="noopener"
-        class="portrait-link"
-      >
-
-        <div class="portrait-container">
-
-          <img
-            src="9.png"
-            alt="Felipe P. / Gustavo Narváez"
-            class="portrait"
-          >
-
-          <img
-            src="ll.jpg"
-            alt="Felipe P. / Gustavo Narváez"
-            class="portrait portrait-alt"
-          >
-
-        </div>
-
-      </a>
-
-
-      <h1>Felipe P.</h1>
-
-      <p class="alias">
-        / Gustavo Narváez
-      </p>
-
-      <p class="tagline">
-        Escritor, músico fugado del Conservatorio de Celaya, y vago.
-      </p>
-
-
-      <nav>
-
-        <a href="#">
-          Inicio
-        </a>
-
-        <a href="#obras">
-          Obras
-        </a>
-
-        <a href="#comentarios">
-          Comentarios
-        </a>
-
-        <a href="#contacto">
-          Contacto
-        </a>
-
-      </nav>
-
-    </div>
-
-  </header>
-
-
-  <main>
-
-
-    <!-- =========================
-         SOBRE
-    ========================== -->
-
-    <section id="sobre">
-
-      <div class="container">
-
-        <h2></h2>
-
-        <div class="about-text">
-
-          <p>
-            !!!!!!!!!!!!!!!!!!
-          </p>
-
-          <p>
-            Todo en esta página (NO) sucedió en la realidad.
-            <br>
-            !!!!!!!!!!!!!!!!!!
-          </p>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =========================
-         OBRAS
-    ========================== -->
-
-    <section id="obras">
-
-      <div class="container">
-
-        <h2>
-          Obras
-        </h2>
-
-
-        <div class="works-grid">
-
-
-          <a
-            href="FIESTA EN MINERAL DE LA LUZ.pdf"
-            class="work-card"
-            target="_blank"
-          >
-
-            <div>
-
-              <h3>
-                Fiesta en Mineral de la Luz
-              </h3>
-
-              <p class="type">
-                Poema
-              </p>
-
-              <p>
-                Locura y amor
-              </p>
-
-            </div>
-
-            <span class="read">
-              Leer PDF &rarr;
-            </span>
-
-          </a>
-
-
-
-          <a
-            href="Altas y bajas - F_G.pdf"
-            class="work-card"
-            target="_blank"
-          >
-
-            <div>
-
-              <h3>
-                Altas y bajas
-              </h3>
-
-              <p class="type">
-                Poema
-              </p>
-
-              <p>
-                Fragmentos.
-              </p>
-
-            </div>
-
-            <span class="read">
-              Leer PDF &rarr;
-            </span>
-
-          </a>
-
-
-
-          <a
-            href="t.pdf"
-            class="work-card"
-            target="_blank"
-          >
-
-            <div>
-
-              <h3>
-                Arrecife Alacranes
-              </h3>
-
-              <p class="type">
-                Poema (Anexado, parte 2)
-              </p>
-
-              <p>
-                Camino al arrecife sur del juicio.
-              </p>
-
-            </div>
-
-            <span class="read">
-              Leer PDF &rarr;
-            </span>
-
-          </a>
-
-
-
-          <a
-            href="41.pdf"
-            class="work-card"
-            target="_blank"
-          >
-
-            <div>
-
-              <h3>
-                ¿Quién fue Alejandro Garrigós Rojas?
-              </h3>
-
-              <p class="type">
-                Recuerdo
-              </p>
-
-              <p></p>
-
-            </div>
-
-            <span class="read">
-              Leer PDF &rarr;
-            </span>
-
-          </a>
-
-
-
-          <a
-            href="z.pdf"
-            class="work-card"
-            target="_blank"
-          >
-
-            <div>
-
-              <h3>
-                Actuación 3
-              </h3>
-
-              <p class="type">
-                Mi Juicio de Amparo Indirecto, por derecho propio
-              </p>
-
-              <p></p>
-
-            </div>
-
-            <span class="read">
-              Leer PDF &rarr;
-            </span>
-
-          </a>
-
-
-
-          <a
-            href="g.pdf"
-            class="work-card"
-            target="_blank"
-          >
-
-            <div>
-
-              <h3>
-                FE
-              </h3>
-
-              <p class="type">
-                Cuaderno
-              </p>
-
-              <p>
-                Notas.
-              </p>
-
-            </div>
-
-            <span class="read">
-              Leer PDF &rarr;
-            </span>
-
-          </a>
-
-
-
-          <a
-            href="Gerardo Szae___Gustavo Narváez (1)-16-19.pdf"
-            class="work-card"
-            target="_blank"
-          >
-
-            <div>
-
-              <h3>
-                Sobre cómo (NO) robar un vochito
-              </h3>
-
-              <p class="type">
-                Texto
-              </p>
-
-              <p>
-                Humor sobre la expropiación de un pequeño Volkswagen.
-              </p>
-
-            </div>
-
-            <span class="read">
-              Leer PDF &rarr;
-            </span>
-
-          </a>
-
-
-
-          <a
-            href="ss.pdf"
-            class="work-card"
-            target="_blank"
-          >
-
-            <div>
-
-              <h3>
-                Nada
-              </h3>
-
-              <p class="type">
-                Texto
-              </p>
-
-              <p></p>
-
-            </div>
-
-            <span class="read">
-              Leer PDF &rarr;
-            </span>
-
-          </a>
-
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =========================
-         COMENTARIOS
-    ========================== -->
-
-    <section id="comentarios">
-
-      <div class="container">
-
-        <h2>
-          Comentarios
-        </h2>
-
-
-        <form
-          class="comment-form"
-          action="https://formsubmit.co/felipedejesusgarciapatino@gmail.com"
-          method="POST"
-        >
-
-          <input
-            type="hidden"
-            name="_subject"
-            value="Nuevo comentario"
-          >
-
-          <input
-            type="hidden"
-            name="_captcha"
-            value="false"
-          >
-
-          <input
-            type="hidden"
-            name="_template"
-            value="table"
-          >
-
-          <input
-            type="text"
-            name="_honey"
-            style="display:none"
-          >
-
-
-          <div>
-
-            <label for="nombre">
-              Nombre
-            </label>
-
-            <input
-              type="text"
-              id="nombre"
-              name="nombre"
-              required
-              placeholder="Tu nombre"
-            >
-
-          </div>
-
-
-          <div>
-
-            <label for="email">
-              Correo electrónico
-            </label>
-
-            <input
-              type="email"
-              id="email"
-              name="email"
-              required
-              placeholder="tu@correo.com"
-            >
-
-          </div>
-
-
-          <div>
-
-            <label for="mensaje">
-              Comentario
-            </label>
-
-            <textarea
-              id="mensaje"
-              name="mensaje"
-              required
-              placeholder="Escribe aquí tu comentario..."
-            ></textarea>
-
-          </div>
-
-
-          <button type="submit">
-            Enviar comentario
-          </button>
-
-        </form>
-
-
-        <p class="form-note">
-          El comentario llegará directamente a mi correo.
-        </p>
-
-      </div>
-
-    </section>
-
-
-    <!-- =========================
-         CONTACTO
-    ========================== -->
-
-    <section id="contacto">
-
-      <div class="container contact-block">
-
-        <h2>
-          Contacto
-        </h2>
-
-        <p>
-          Para lecturas, colaboraciones o simplemente conversar.
-        </p>
-
-
-        <a
-          href="mailto:felipedejesusgarciapatino@gmail.com"
-          class="contact-email"
-        >
-          felipedejesusgarciapatino@gmail.com
-        </a>
-
-
-        <div class="socials">
-
-          <a
-            href="https://www.instagram.com/felipeplein2026/"
-            target="_blank"
-            rel="noopener"
-          >
-            Instagram
-          </a>
-
-          <a
-            href="https://www.facebook.com/profile.php?id=61591803449103"
-            target="_blank"
-            rel="noopener"
-          >
-            Facebook
-          </a>
-
-          <a
-            href="https://x.com/FelipePleibx"
-            target="_blank"
-            rel="noopener"
-          >
-            X
-          </a>
-
-          <a
-            href="https://www.threads.com/@felipeplein2026"
-            target="_blank"
-            rel="noopener"
-          >
-            Threads
-          </a>
-
-          <a
-            href="https://www.tumblr.com/blog/felipeplein"
-            target="_blank"
-            rel="noopener"
-          >
-            Tumblr
-          </a>
-
-        </div>
-
-      </div>
-
-    </section>
-
-  </main>
-
-
-  <!-- =========================
-       IMAGEN FINAL
-  ========================== -->
-
-  <div class="bottom-image-container">
-
-    <div class="container">
-
-      <div
-        class="gt-image-container"
-        id="gtTrigger"
-        role="button"
-        tabindex="0"
-        aria-label="Activar efecto"
-      >
-
-        <img
-          src="gt.png"
-          alt="Imagen final GT"
-          class="gt-img-normal"
-        >
-
-        <img
-          src="ll.jpg"
-          alt="Imagen alternativa"
-          class="gt-img-scary"
-        >
-
-      </div>
-
-    </div>
-
+<div class="poster">
+  <div class="header">
+    <div class="title">AMENAZAS DIGITALES</div>
+    <div class="subtitle">MAPA DE VULNERABILIDADES Y VECTOR DE ATAQUE</div>
+    <div class="counter">TOTAL: 121 VECTORES REGISTRADOS</div>
   </div>
 
-
-  <!-- =========================
-       MODAL VIDEO
-  ========================== -->
-
-  <div
-    id="videoModal"
-    class="video-modal"
-  >
-
-    <div class="video-modal-content">
-
-      <button
-        class="close-video-btn"
-        id="closeVideoBtn"
-        type="button"
-      >
-        &times; CERRAR
-      </button>
-
-      <iframe
-        id="youtubeIframe"
-        allow="autoplay; encrypted-media"
-        allowfullscreen
-        title="Video"
-      ></iframe>
-
+  <div class="grid">
+    <div class="category">
+      <div class="category-title">1. Ingeniería Social y Fraude Directo</div>
+      <ul>
+        <li>Phishing</li>
+        <li>Spear Phishing</li>
+        <li>Whaling</li>
+        <li>Smishing</li>
+        <li>Vishing</li>
+        <li>Baiting</li>
+        <li>Quid Pro Quo</li>
+        <li>Pretexting</li>
+        <li>Scareware</li>
+        <li>Tailgating</li>
+        <li>Piggybacking</li>
+        <li>Shoulder Surfing</li>
+        <li>Dumpster Diving</li>
+      </ul>
     </div>
 
+    <div class="category">
+      <div class="category-title">2. Código Malicioso (Malware)</div>
+      <ul>
+        <li>Ransomware</li>
+        <li>Spyware</li>
+        <li>Keylogger</li>
+        <li>Adware</li>
+        <li>Troyano</li>
+        <li>Backdoor</li>
+        <li>Rootkit</li>
+        <li>Worm (Gusano)</li>
+        <li>Virus</li>
+        <li>Bot</li>
+        <li>Botnet</li>
+        <li>Cryptojacking</li>
+        <li>Fileless Malware</li>
+        <li>Wiper</li>
+        <li>Loader</li>
+        <li>Downloader</li>
+      </ul>
+    </div>
+
+    <div class="category">
+      <div class="category-title">3. Credenciales y Autenticación</div>
+      <ul>
+        <li>Credential Stuffing</li>
+        <li>Brute Force</li>
+        <li>Password Spraying</li>
+        <li>Dictionary Attack</li>
+        <li>Credential Phishing</li>
+        <li>Pass-the-Hash</li>
+        <li>Pass-the-Ticket</li>
+        <li>Session Hijacking</li>
+        <li>Cookie Theft</li>
+        <li>SIM Swapping</li>
+        <li>SIM Cloning</li>
+      </ul>
+    </div>
+
+    <div class="category">
+      <div class="category-title">4. Redes e Intercepción</div>
+      <ul>
+        <li>Man-in-the-Middle (MitM)</li>
+        <li>Man-in-the-Browser (MitB)</li>
+        <li>Denial of Service (DoS)</li>
+        <li>Distributed Denial of Service (DDoS)</li>
+        <li>DNS Spoofing</li>
+        <li>DNS Cache Poisoning</li>
+        <li>IP Spoofing</li>
+        <li>ARP Spoofing</li>
+        <li>MAC Spoofing</li>
+        <li>Rogue Access Point</li>
+        <li>Evil Twin</li>
+        <li>Packet Sniffing</li>
+        <li>Replay Attack</li>
+      </ul>
+    </div>
+
+    <div class="category">
+      <div class="category-title">5. Exploits y Aplicaciones Web</div>
+      <ul>
+        <li>Zero-Day Exploit</li>
+        <li>Remote Code Execution (RCE)</li>
+        <li>Local Privilege Escalation (LPE)</li>
+        <li>SQL Injection (SQLi)</li>
+        <li>Cross-Site Scripting (XSS)</li>
+        <li>Cross-Site Request Forgery (CSRF)</li>
+        <li>Command Injection</li>
+        <li>OS Command Injection</li>
+        <li>LDAP Injection</li>
+        <li>XML Injection</li>
+        <li>Path Traversal</li>
+        <li>Local File Inclusion (LFI)</li>
+        <li>Remote File Inclusion (RFI)</li>
+        <li>Server-Side Request Forgery (SSRF)</li>
+      </ul>
+    </div>
+
+    <div class="category">
+      <div class="category-title">6. Vulnerabilidades de Memoria y Lógica</div>
+      <ul>
+        <li>Insecure Deserialization</li>
+        <li>Buffer Overflow</li>
+        <li>Use-After-Free</li>
+        <li>Race Condition</li>
+        <li>Memory Corruption</li>
+        <li>HTTP Request Smuggling</li>
+        <li>HTTP Parameter Pollution</li>
+        <li>Clickjacking</li>
+        <li>Authentication Bypass</li>
+        <li>Broken Access Control</li>
+        <li>API Abuse</li>
+        <li>API Injection</li>
+        <li>Web Shell</li>
+        <li>Website Defacement</li>
+      </ul>
+    </div>
+
+    <div class="category">
+      <div class="category-title">7. Estafas Financieras y BEC</div>
+      <ul>
+        <li>Business Email Compromise (BEC)</li>
+        <li>CEO Fraud</li>
+        <li>Invoice Fraud</li>
+        <li>Payroll Fraud</li>
+        <li>Romance Scam</li>
+        <li>Catfishing</li>
+        <li>Investment Scam</li>
+        <li>Ponzi Scheme</li>
+        <li>Fake E-commerce</li>
+        <li>Fake Support Scam</li>
+        <li>Prize Scam</li>
+        <li>Lottery Scam</li>
+        <li>Tech Support Scam</li>
+        <li>Advance-Fee Fraud</li>
+        <li>Cryptocurrency Scam</li>
+        <li>Payment Diversion Fraud</li>
+      </ul>
+    </div>
+
+    <div class="category">
+      <div class="category-title">8. Dispositivos Móviles y Hardware</div>
+      <ul>
+        <li>Mobile Malware</li>
+        <li>Mobile Phishing</li>
+        <li>Rogue Apps</li>
+        <li>Bluetooth Attack</li>
+        <li>NFC Attack</li>
+        <li>USB Attack</li>
+        <li>Juice Jacking</li>
+        <li>USB Drop Attack</li>
+        <li>Hardware Tampering</li>
+        <li>Malicious Peripheral Attack</li>
+      </ul>
+    </div>
+
+    <div class="category">
+      <div class="category-title">9. Estrategia y Movimiento Avanzado</div>
+      <ul>
+        <li>Supply Chain Attack</li>
+        <li>Watering Hole Attack</li>
+        <li>Drive-by Download</li>
+        <li>Lateral Movement</li>
+        <li>Privilege Escalation</li>
+        <li>Persistence Attack</li>
+        <li>Living off the Land (LotL)</li>
+        <li>Insider Threat</li>
+        <li>Data Exfiltration</li>
+        <li>Data Destruction</li>
+      </ul>
+    </div>
+
+    <div class="category">
+      <div class="category-title">10. Correo Electrónico y Denegación</div>
+      <ul>
+        <li>Email Spoofing</li>
+        <li>Malicious Email Attachment</li>
+        <li>Malicious Link</li>
+        <li>Email Bombing</li>
+        <li>Email Thread Hijacking</li>
+        <li>DNS Amplification</li>
+        <li>NTP Amplification</li>
+        <li>UDP Flood</li>
+        <li>SYN Flood</li>
+        <li>HTTP Flood</li>
+        <li>Resource Exhaustion</li>
+      </ul>
+    </div>
   </div>
 
-
-  <!-- =========================
-       BOTÓN FLOTANTE
-  ========================== -->
-
-  <a
-    href="https://drive.google.com/file/d/19sB9xX4a3KW_uNuwkCAC-Tww-MoxEuG2/view?usp=sharing"
-    target="_blank"
-    rel="noopener"
-    class="btn-circular"
-    title="Ver video"
-  >
-
-    <svg viewBox="0 0 24 24">
-      <path d="M8 5v14l11-7z"/>
-    </svg>
-
-  </a>
-
-
-  <!-- =========================
-       JAVASCRIPT
-  ========================== -->
-
-  <script>
-
-    /* ==========================================
-       VARIABLES DEL EFECTO
-    ========================================== */
-
-    let intervaloEspiral = null;
-
-    let angulo = 0;
-
-    const radioPaso = 10;
-
-    const pasoAngulo = 0.35;
-
-    const overlay =
-      document.getElementById("overlayEspiral");
-
-    const gtTrigger =
-      document.getElementById("gtTrigger");
-
-
-    /* ==========================================
-       LANZAR ESPIRAL
-    ========================================== */
-
-    function lanzarEspiral() {
-
-      detenerEspiral();
-
-      const anchoVentana = 120;
-      const altoVentana = 90;
-
-      const centroX =
-        window.innerWidth / 2;
-
-      const centroY =
-        window.innerHeight / 2;
-
-      angulo = 0;
-
-
-      intervaloEspiral = setInterval(function() {
-
-        const r =
-          radioPaso * angulo;
-
-
-        let posX =
-          centroX +
-          r * Math.cos(angulo) -
-          (anchoVentana / 2);
-
-
-        let posY =
-          centroY +
-          r * Math.sin(angulo) -
-          (altoVentana / 2);
-
-
-        /*
-         * Cuando la espiral sale completamente
-         * de la pantalla vuelve al centro.
-         */
-
-        if (
-          posX < -anchoVentana ||
-          posX > window.innerWidth ||
-          posY < -altoVentana ||
-          posY > window.innerHeight
-        ) {
-
-          angulo = 0;
-
-          posX =
-            centroX -
-            (anchoVentana / 2);
-
-          posY =
-            centroY -
-            (altoVentana / 2);
-        }
-
-
-        /* Crear mini ventana */
-
-        const win =
-          document.createElement("div");
-
-        win.className =
-          "mini-ventana";
-
-
-        win.style.left =
-          Math.round(posX) + "px";
-
-
-        win.style.top =
-          Math.round(posY) + "px";
-
-
-        win.innerHTML = `
-
-          <div class="mini-ventana-bar">
-
-            <div class="mini-ventana-dot"></div>
-
-          </div>
-
-          <img
-            src="ll.jpg"
-            alt="Ventana"
-          >
-
-        `;
-
-
-        overlay.appendChild(win);
-
-
-        /*
-         * Limitar el número de ventanas
-         * para evitar que el iPhone se vuelva lento.
-         */
-
-        if (overlay.children.length > 180) {
-
-          overlay.removeChild(
-            overlay.firstElementChild
-          );
-
-        }
-
-
-        angulo += pasoAngulo;
-
-      }, 35);
-
-    }
-
-
-    /* ==========================================
-       DETENER ESPIRAL
-    ========================================== */
-
-    function detenerEspiral() {
-
-      if (intervaloEspiral) {
-
-        clearInterval(intervaloEspiral);
-
-        intervaloEspiral = null;
-
-      }
-
-      overlay.innerHTML = "";
-
-    }
-
-
-    /* ==========================================
-       VIDEO
-    ========================================== */
-
-    const videoModal =
-      document.getElementById("videoModal");
-
-    const iframe =
-      document.getElementById("youtubeIframe");
-
-    const closeVideoBtn =
-      document.getElementById("closeVideoBtn");
-
-
-    function openVideo() {
-
-      iframe.src =
-        "https://www.youtube.com/embed/aDurnlQu6Ak?autoplay=1";
-
-      videoModal.classList.add("active");
-
-    }
-
-
-    function closeVideo() {
-
-      videoModal.classList.remove("active");
-
-      iframe.src = "";
-
-    }
-
-
-    /* ==========================================
-       CLIC EN LA IMAGEN FINAL
-    ========================================== */
-
-    function activarEfecto(event) {
-
-      event.stopPropagation();
-
-      openVideo();
-
-      lanzarEspiral();
-
-    }
-
-
-    gtTrigger.addEventListener(
-      "click",
-      activarEfecto
-    );
-
-
-    /*
-     * Soporte para teclado
-     */
-
-    gtTrigger.addEventListener(
-      "keydown",
-      function(event) {
-
-        if (
-          event.key === "Enter" ||
-          event.key === " "
-        ) {
-
-          event.preventDefault();
-
-          activarEfecto(event);
-
-        }
-
-      }
-    );
-
-
-    /* ==========================================
-       CERRAR VIDEO
-    ========================================== */
-
-    closeVideoBtn.addEventListener(
-      "click",
-      function(event) {
-
-        event.stopPropagation();
-
-        closeVideo();
-
-        detenerEspiral();
-
-      }
-    );
-
-
-    /*
-     * Cerrar tocando el fondo oscuro
-     */
-
-    videoModal.addEventListener(
-      "click",
-      function(event) {
-
-        if (
-          event.target === videoModal
-        ) {
-
-          closeVideo();
-
-          detenerEspiral();
-
-        }
-
-      }
-    );
-
-
-    /* ==========================================
-       CLIC FUERA DE LA IMAGEN
-    ========================================== */
-
-    document.addEventListener(
-      "click",
-      function(event) {
-
-        /*
-         * Si el clic fue sobre la imagen
-         * detonante, no hacemos nada.
-         */
-
-        if (
-          event.target.closest(
-            "#gtTrigger"
-          )
-        ) {
-
-          return;
-
-        }
-
-
-        /*
-         * Si el clic fue dentro del video,
-         * tampoco detenemos la espiral aquí.
-         */
-
-        if (
-          event.target.closest(
-            ".video-modal-content"
-          )
-        ) {
-
-          return;
-
-        }
-
-
-        detenerEspiral();
-
-      }
-    );
-
-
-    /* ==========================================
-       ESCAPE
-    ========================================== */
-
-    document.addEventListener(
-      "keydown",
-      function(event) {
-
-        if (event.key === "Escape") {
-
-          detenerEspiral();
-
-          closeVideo();
-
-        }
-
-      }
-    );
-
-
-    /* ==========================================
-       LIMPIEZA AL CAMBIAR DE PÁGINA
-    ========================================== */
-
-    window.addEventListener(
-      "beforeunload",
-      function() {
-
-        detenerEspiral();
-
-      }
-    );
-
-  </script>
+  <div class="footer">
+    [ LA SEGURIDAD NO ES UN PRODUCTO, ES UN PROCESO. MANTENTE ALERTA. ]
+  </div>
+</div>
 
 </body>
 </html>
