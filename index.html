@@ -52,7 +52,7 @@
     }
 
     /* =========================
-       HEADER
+        HEADER
     ========================= */
 
     header {
@@ -185,7 +185,7 @@
     }
 
     /* =========================
-       SECCIONES
+        SECCIONES
     ========================= */
 
     section {
@@ -225,7 +225,7 @@
     }
 
     /* =========================
-       OBRAS
+        OBRAS
     ========================= */
 
     .works-grid {
@@ -301,7 +301,7 @@
     }
 
     /* =========================
-       IMAGEN INFERIOR
+        IMAGEN INFERIOR
     ========================= */
 
     .bottom-image-container {
@@ -364,7 +364,7 @@
     }
 
     /* =========================
-       ESPIRAL
+        ESPIRAL Y EXÁGONOS
     ========================= */
 
     #overlayEspiral {
@@ -389,6 +389,12 @@
         popIn 0.18s
         cubic-bezier(0.175, 0.885, 0.32, 1.275)
         forwards;
+    }
+
+    /* Forma hexagonal activada tras los 7 segundos */
+    .mini-ventana.hex-shape {
+      clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+      border: none;
     }
 
     .mini-ventana-bar {
@@ -427,7 +433,7 @@
     }
 
     /* =========================
-       MODAL VIDEO
+        MODAL VIDEO
     ========================= */
 
     .video-modal {
@@ -482,7 +488,7 @@
     }
 
     /* =========================
-       CONTACTO
+        CONTACTO
     ========================= */
 
     .contact-block {
@@ -511,7 +517,7 @@
     }
 
     /* =========================
-       FORMULARIO
+        FORMULARIO
     ========================= */
 
     .comment-form {
@@ -590,7 +596,7 @@
     }
 
     /* =========================
-       REDES SOCIALES
+        REDES SOCIALES
     ========================= */
 
     .socials {
@@ -618,7 +624,7 @@
     }
 
     /* =========================
-       FOOTER
+        FOOTER
     ========================= */
 
     footer {
@@ -634,7 +640,7 @@
     }
 
     /* =========================
-       BOTÓN FLOTANTE
+        BOTÓN FLOTANTE
     ========================= */
 
     .btn-circular {
@@ -674,14 +680,14 @@
 <body>
 
   <!-- =========================
-       ESPIRAL
+        ESPIRAL
   ========================== -->
 
   <div id="overlayEspiral"></div>
 
 
   <!-- =========================
-       HEADER
+        HEADER
   ========================== -->
 
   <header>
@@ -754,7 +760,7 @@
 
 
     <!-- =========================
-         SOBRE
+          SOBRE
     ========================== -->
 
     <section id="sobre">
@@ -783,7 +789,7 @@
 
 
     <!-- =========================
-         OBRAS
+          OBRAS
     ========================== -->
 
     <section id="obras">
@@ -1039,7 +1045,7 @@
 
 
     <!-- =========================
-         COMENTARIOS
+          COMENTARIOS
     ========================== -->
 
     <section id="comentarios">
@@ -1149,7 +1155,7 @@
 
 
     <!-- =========================
-         CONTACTO
+          CONTACTO
     ========================== -->
 
     <section id="contacto">
@@ -1225,7 +1231,7 @@
 
 
   <!-- =========================
-       IMAGEN FINAL
+        IMAGEN FINAL
   ========================== -->
 
   <div class="bottom-image-container">
@@ -1260,7 +1266,7 @@
 
 
   <!-- =========================
-       MODAL VIDEO
+        MODAL VIDEO
   ========================== -->
 
   <div
@@ -1291,7 +1297,7 @@
 
 
   <!-- =========================
-       BOTÓN FLOTANTE
+        BOTÓN FLOTANTE
   ========================== -->
 
   <a
@@ -1310,7 +1316,7 @@
 
 
   <!-- =========================
-       JAVASCRIPT
+        JAVASCRIPT
   ========================== -->
 
   <script>
@@ -1320,22 +1326,19 @@
     ========================================== */
 
     let intervaloEspiral = null;
+    let timerHexagonal = null;
+    let esHexagonal = false;
 
     let angulo = 0;
-
     const radioPaso = 10;
-
     const pasoAngulo = 0.35;
 
-    const overlay =
-      document.getElementById("overlayEspiral");
-
-    const gtTrigger =
-      document.getElementById("gtTrigger");
+    const overlay = document.getElementById("overlayEspiral");
+    const gtTrigger = document.getElementById("gtTrigger");
 
 
     /* ==========================================
-       LANZAR ESPIRAL
+       LANZAR ESPIRAL CON TRANSICIÓN A HEXÁGONO
     ========================================== */
 
     function lanzarEspiral() {
@@ -1345,106 +1348,63 @@
       const anchoVentana = 120;
       const altoVentana = 90;
 
-      const centroX =
-        window.innerWidth / 2;
-
-      const centroY =
-        window.innerHeight / 2;
+      const centroX = window.innerWidth / 2;
+      const centroY = window.innerHeight / 2;
 
       angulo = 0;
+      esHexagonal = false;
 
+      // Cambiar a modo hexagonal exactamente a los 7 segundos (7000 ms)
+      timerHexagonal = setTimeout(function() {
+        esHexagonal = true;
+      }, 7000);
 
       intervaloEspiral = setInterval(function() {
 
-        const r =
-          radioPaso * angulo;
+        // Si pasaron 7s, forzamos el ángulo a múltiplos de 60° (PI / 3)
+        let anguloEfectivo = angulo;
+        if (esHexagonal) {
+          const paso60deg = Math.PI / 3;
+          anguloEfectivo = Math.floor(angulo / paso60deg) * paso60deg;
+        }
 
+        const r = radioPaso * angulo;
 
-        let posX =
-          centroX +
-          r * Math.cos(angulo) -
-          (anchoVentana / 2);
+        let posX = centroX + r * Math.cos(anguloEfectivo) - (anchoVentana / 2);
+        let posY = centroY + r * Math.sin(anguloEfectivo) - (altoVentana / 2);
 
-
-        let posY =
-          centroY +
-          r * Math.sin(angulo) -
-          (altoVentana / 2);
-
-
-        /*
-         * Cuando la espiral sale completamente
-         * de la pantalla vuelve al centro.
-         */
-
+        /* Reiniciar si sale de la pantalla */
         if (
           posX < -anchoVentana ||
           posX > window.innerWidth ||
           posY < -altoVentana ||
           posY > window.innerHeight
         ) {
-
           angulo = 0;
-
-          posX =
-            centroX -
-            (anchoVentana / 2);
-
-          posY =
-            centroY -
-            (altoVentana / 2);
+          posX = centroX - (anchoVentana / 2);
+          posY = centroY - (altoVentana / 2);
         }
 
-
         /* Crear mini ventana */
+        const win = document.createElement("div");
+        win.className = esHexagonal ? "mini-ventana hex-shape" : "mini-ventana";
 
-        const win =
-          document.createElement("div");
-
-        win.className =
-          "mini-ventana";
-
-
-        win.style.left =
-          Math.round(posX) + "px";
-
-
-        win.style.top =
-          Math.round(posY) + "px";
-
+        win.style.left = Math.round(posX) + "px";
+        win.style.top = Math.round(posY) + "px";
 
         win.innerHTML = `
-
           <div class="mini-ventana-bar">
-
             <div class="mini-ventana-dot"></div>
-
           </div>
-
-          <img
-            src="ll.jpg"
-            alt="Ventana"
-          >
-
+          <img src="ll.jpg" alt="Ventana">
         `;
-
 
         overlay.appendChild(win);
 
-
-        /*
-         * Limitar el número de ventanas
-         * para evitar que el iPhone se vuelva lento.
-         */
-
+        /* Limitar elementos para evitar sobrecarga de memoria */
         if (overlay.children.length > 180) {
-
-          overlay.removeChild(
-            overlay.firstElementChild
-          );
-
+          overlay.removeChild(overlay.firstElementChild);
         }
-
 
         angulo += pasoAngulo;
 
@@ -1454,219 +1414,93 @@
 
 
     /* ==========================================
-       DETENER ESPIRAL
+       DETENER ESPIRAL Y TIMERS
     ========================================== */
 
     function detenerEspiral() {
 
       if (intervaloEspiral) {
-
         clearInterval(intervaloEspiral);
-
         intervaloEspiral = null;
-
       }
 
+      if (timerHexagonal) {
+        clearTimeout(timerHexagonal);
+        timerHexagonal = null;
+      }
+
+      esHexagonal = false;
       overlay.innerHTML = "";
 
     }
 
 
     /* ==========================================
-       VIDEO
+       VIDEO MODAL
     ========================================== */
 
-    const videoModal =
-      document.getElementById("videoModal");
-
-    const iframe =
-      document.getElementById("youtubeIframe");
-
-    const closeVideoBtn =
-      document.getElementById("closeVideoBtn");
-
+    const videoModal = document.getElementById("videoModal");
+    const iframe = document.getElementById("youtubeIframe");
+    const closeVideoBtn = document.getElementById("closeVideoBtn");
 
     function openVideo() {
-
-      iframe.src =
-        "https://www.youtube.com/embed/aDurnlQu6Ak?autoplay=1";
-
+      iframe.src = "https://www.youtube.com/embed/aDurnlQu6Ak?autoplay=1";
       videoModal.classList.add("active");
-
     }
 
-
     function closeVideo() {
-
       videoModal.classList.remove("active");
-
       iframe.src = "";
-
     }
 
 
     /* ==========================================
-       CLIC EN LA IMAGEN FINAL
+       EVENTOS Y DETONADORES
     ========================================== */
 
     function activarEfecto(event) {
-
       event.stopPropagation();
-
       openVideo();
-
       lanzarEspiral();
-
     }
 
+    gtTrigger.addEventListener("click", activarEfecto);
 
-    gtTrigger.addEventListener(
-      "click",
-      activarEfecto
-    );
-
-
-    /*
-     * Soporte para teclado
-     */
-
-    gtTrigger.addEventListener(
-      "keydown",
-      function(event) {
-
-        if (
-          event.key === "Enter" ||
-          event.key === " "
-        ) {
-
-          event.preventDefault();
-
-          activarEfecto(event);
-
-        }
-
+    gtTrigger.addEventListener("keydown", function(event) {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        activarEfecto(event);
       }
-    );
+    });
 
+    closeVideoBtn.addEventListener("click", function(event) {
+      event.stopPropagation();
+      closeVideo();
+      detenerEspiral();
+    });
 
-    /* ==========================================
-       CERRAR VIDEO
-    ========================================== */
+    videoModal.addEventListener("click", function(event) {
+      event.target === videoModal && (closeVideo(), detenerEspiral());
+    });
 
-    closeVideoBtn.addEventListener(
-      "click",
-      function(event) {
+    document.addEventListener("click", function(event) {
+      if (
+        event.target.closest("#gtTrigger") ||
+        event.target.closest(".video-modal-content")
+      ) {
+        return;
+      }
+      detenerEspiral();
+    });
 
-        event.stopPropagation();
-
+    document.addEventListener("keydown", function(event) {
+      if (event.key === "Escape") {
+        detenerEspiral();
         closeVideo();
-
-        detenerEspiral();
-
       }
-    );
+    });
 
-
-    /*
-     * Cerrar tocando el fondo oscuro
-     */
-
-    videoModal.addEventListener(
-      "click",
-      function(event) {
-
-        if (
-          event.target === videoModal
-        ) {
-
-          closeVideo();
-
-          detenerEspiral();
-
-        }
-
-      }
-    );
-
-
-    /* ==========================================
-       CLIC FUERA DE LA IMAGEN
-    ========================================== */
-
-    document.addEventListener(
-      "click",
-      function(event) {
-
-        /*
-         * Si el clic fue sobre la imagen
-         * detonante, no hacemos nada.
-         */
-
-        if (
-          event.target.closest(
-            "#gtTrigger"
-          )
-        ) {
-
-          return;
-
-        }
-
-
-        /*
-         * Si el clic fue dentro del video,
-         * tampoco detenemos la espiral aquí.
-         */
-
-        if (
-          event.target.closest(
-            ".video-modal-content"
-          )
-        ) {
-
-          return;
-
-        }
-
-
-        detenerEspiral();
-
-      }
-    );
-
-
-    /* ==========================================
-       ESCAPE
-    ========================================== */
-
-    document.addEventListener(
-      "keydown",
-      function(event) {
-
-        if (event.key === "Escape") {
-
-          detenerEspiral();
-
-          closeVideo();
-
-        }
-
-      }
-    );
-
-
-    /* ==========================================
-       LIMPIEZA AL CAMBIAR DE PÁGINA
-    ========================================== */
-
-    window.addEventListener(
-      "beforeunload",
-      function() {
-
-        detenerEspiral();
-
-      }
-    );
+    window.addEventListener("beforeunload", detenerEspiral);
 
   </script>
 
