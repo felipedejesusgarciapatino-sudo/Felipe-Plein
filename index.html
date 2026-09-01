@@ -21,9 +21,10 @@
         flex-direction: column;
         align-items: center;
         padding: 20px;
+        position: relative;
     }
 
-    /* Título Hero x2.png con destello */
+    /* Título Hero x3.png con destello */
     .hero-titulo {
         max-width: min(85vw, 420px);
         height: auto;
@@ -45,21 +46,19 @@
                 brightness(1.25);
     }
 
-    /* Selector de dificultad y controles */
+    /* Controles y Panel superior */
     .controles {
         display: flex;
         gap: 10px;
         align-items: center;
         margin-bottom: 10px;
-        flex-wrap: wrap;
-        justify-content: center;
     }
 
-    select, button {
+    button {
         border: none;
         background: #e0e0e0;
         color: #111;
-        padding: 10px 16px;
+        padding: 10px 22px;
         font-size: 15px;
         font-weight: bold;
         border-radius: 6px;
@@ -68,11 +67,7 @@
         transition: background 0.2s, transform 0.1s;
     }
 
-    select {
-        outline: none;
-    }
-
-    button:hover, select:hover {
+    button:hover {
         background: #fff;
     }
 
@@ -93,6 +88,7 @@
         color: #ff4d4d;
     }
 
+    /* Tablero de cartas */
     #tablero {
         width: min(95vw, 900px);
         display: grid;
@@ -146,6 +142,63 @@
         box-shadow: 0 0 12px #00ff66;
     }
 
+    /* MODAL DE SELECCIÓN DE DIFICULTAD INICIAL */
+    #overlay-dificultad {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.85);
+        backdrop-filter: blur(4px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 100;
+    }
+
+    .modal-dificultad {
+        background: #1a1a1a;
+        border: 2px solid #333;
+        border-radius: 12px;
+        padding: 30px 20px;
+        width: min(90vw, 380px);
+        text-align: center;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.9);
+    }
+
+    .modal-dificultad h2 {
+        margin-top: 0;
+        margin-bottom: 20px;
+        font-size: 22px;
+        letter-spacing: 1px;
+    }
+
+    .opciones-dificultad {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .btn-dificultad {
+        padding: 12px;
+        font-size: 16px;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+        font-weight: bold;
+        transition: transform 0.2s, background 0.2s;
+    }
+
+    .btn-facil { background: #28a745; color: white; }
+    .btn-medio { background: #ffc107; color: #111; }
+    .btn-dificil { background: #dc3545; color: white; }
+
+    .btn-dificultad:hover {
+        transform: scale(1.03);
+        filter: brightness(1.15);
+    }
+
     @media (max-width: 650px) {
         body {
             padding: 10px 5px;
@@ -170,20 +223,28 @@
 
 <body>
 
-<img src="x2.png" alt="MemoramAi" class="hero-titulo">
+<!-- PANTALLA INICIAL DE SELECCIÓN DE DIFICULTAD -->
+<div id="overlay-dificultad">
+    <div class="modal-dificultad">
+        <h2>SELECCIONA LA DIFICULTAD</h2>
+        <div class="opciones-dificultad">
+            <button class="btn-dificultad btn-facil" onclick="seleccionarDificultad(24)">Fácil (24 fallos)</button>
+            <button class="btn-dificultad btn-medio" onclick="seleccionarDificultad(16)">Medio (16 fallos)</button>
+            <button class="btn-dificultad btn-dificil" onclick="seleccionarDificultad(10)">Difícil (10 fallos)</button>
+        </div>
+    </div>
+</div>
+
+<!-- Título Hero reemplazado por x3.png -->
+<img src="x3.png" alt="MemoramAi" class="hero-titulo">
 
 <div class="controles">
-    <select id="dificultad" onchange="reiniciarJuego()">
-        <option value="24">Fácil (24 fallos)</option>
-        <option value="16" selected>Medio (16 fallos)</option>
-        <option value="10">Difícil (10 fallos)</option>
-    </select>
-    <button onclick="reiniciarJuego()">Reiniciar juego</button>
+    <button onclick="mostrarPantallaDificultad()">Reiniciar / Cambiar Nivel</button>
 </div>
 
 <div id="panel-estado">
     <div id="mensaje-parejas">Parejas: 0 / 16</div>
-    <div id="mensaje-fallos" class="vidas-restantes">Fallos restantes: 16</div>
+    <div id="mensaje-fallos" class="vidas-restantes">Fallos restantes: --</div>
 </div>
 
 <div id="tablero"></div>
@@ -198,6 +259,16 @@ let bloqueo = false;
 let parejasEncontradas = 0;
 let fallosPermitidos = 16;
 let fallosCometidos = 0;
+
+function seleccionarDificultad(fallos) {
+    fallosPermitidos = fallos;
+    document.getElementById("overlay-dificultad").style.display = "none";
+    reiniciarJuego();
+}
+
+function mostrarPantallaDificultad() {
+    document.getElementById("overlay-dificultad").style.display = "flex";
+}
 
 function crearCartas() {
     cartas = [];
@@ -316,15 +387,10 @@ function reiniciarJuego() {
     parejasEncontradas = 0;
     fallosCometidos = 0;
 
-    const selector = document.getElementById("dificultad");
-    fallosPermitidos = parseInt(selector.value, 10);
-
     actualizarPanel();
     crearCartas();
     crearTablero();
 }
-
-reiniciarJuego();
 </script>
 
 </body>
