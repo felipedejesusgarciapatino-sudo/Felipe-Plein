@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Memorama</title>
+<title>MemoramAi</title>
 
 <style>
     * {
@@ -13,7 +13,9 @@
     body {
         margin: 0;
         min-height: 100vh;
-        background: #111;
+        /* Fondo con x1.jpg */
+        background: url('x1.jpg') no-repeat center center fixed;
+        background-size: cover;
         color: white;
         font-family: Arial, sans-serif;
         display: flex;
@@ -22,17 +24,36 @@
         padding: 20px;
     }
 
-    h1 {
-        margin: 10px 0 5px;
-        font-size: 28px;
-        letter-spacing: 1px;
+    /* Título Hero SVG/PNG renderizado en vivo */
+    .hero-titulo {
+        max-width: min(85vw, 420px);
+        height: auto;
+        margin: 10px 0 10px;
+        display: block;
+        cursor: pointer;
+        /* Transiciones suaves para tamaño y brillo */
+        transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+                    filter 0.3s ease-in-out;
+        filter: drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.8));
+        user-select: none;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    /* EFECTO: Destello y Agrandamiento al pasar el mouse o presionar en celular */
+    .hero-titulo:hover,
+    .hero-titulo:active {
+        transform: scale(1.08);
+        filter: drop-shadow(0px 0px 20px rgba(255, 255, 255, 0.9)) 
+                drop-shadow(0px 0px 35px rgba(255, 255, 255, 0.6)) 
+                brightness(1.25);
     }
 
     #mensaje {
         margin: 5px 0 15px;
         font-size: 16px;
         min-height: 22px;
-        color: #ccc;
+        color: #eee;
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
     }
 
     button {
@@ -45,11 +66,16 @@
         border-radius: 6px;
         cursor: pointer;
         margin-bottom: 20px;
-        transition: background 0.2s;
+        transition: background 0.2s, transform 0.1s;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
     }
 
     button:hover {
         background: #fff;
+    }
+
+    button:active {
+        transform: scale(0.97);
     }
 
     /* Tablero para 32 cartas: 8 columnas x 4 filas */
@@ -84,7 +110,7 @@
         border-radius: 6px;
         overflow: hidden;
         backface-visibility: hidden;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.6);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
     }
 
     .cara img {
@@ -106,10 +132,14 @@
         box-shadow: 0 0 12px #00ff66;
     }
 
-    /* Adaptación a pantallas pequeñas (Celulares): 4 columnas x 8 filas */
+    /* Adaptación a celulares: 4 columnas x 8 filas */
     @media (max-width: 650px) {
         body {
             padding: 10px 5px;
+        }
+
+        .hero-titulo {
+            max-width: 75vw;
         }
 
         #tablero {
@@ -127,7 +157,13 @@
 
 <body>
 
-<h1>MEMORAMA</h1>
+<!-- Título Hero embebido como Data URI con tipografía y diseño impactante -->
+<img 
+    src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 100' width='500' height='100'><style>text { font-family: Impact, Arial Black, sans-serif; font-size: 68px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; }</style><text x='50%' y='70%' text-anchor='middle' fill='%23ffffff' stroke='%23000000' stroke-width='4' stroke-linejoin='miter'>MemoramAi</text></svg>" 
+    alt="MemoramAi" 
+    class="hero-titulo"
+>
+
 <div id="mensaje">Encuentra todas las parejas (0 / 16)</div>
 <button onclick="reiniciarJuego()">Reiniciar juego</button>
 
@@ -173,7 +209,7 @@ function crearTablero() {
         imagenReverso.alt = "Reverso";
         reverso.appendChild(imagenReverso);
 
-        // Frente (a1.jpg hasta a16.jpg)
+        // Frente (a1.jpg a a16.jpg)
         const frente = document.createElement("div");
         frente.classList.add("cara", "frente");
         const imagenFrente = document.createElement("img");
@@ -245,7 +281,6 @@ function reiniciarJuego() {
     crearTablero();
 }
 
-// Inicialización
 reiniciarJuego();
 </script>
 
