@@ -1,1508 +1,253 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Memorama</title>
 
-  <title>Felipe P. / Gustavo Narváez — Escritor</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-
-  <style>
-
-    :root {
-      --bg: #0d0d0e;
-      --surface: #141416;
-      --border: rgba(255, 255, 255, 0.08);
-      --border-hover: rgba(255, 255, 255, 0.25);
-      --text-main: #e4e4e7;
-      --text-muted: #8e8e93;
-      --accent: #d4af37;
-      --accent-hover: #f1d77e;
-    }
-
+<style>
     * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
+        box-sizing: border-box;
     }
 
     body {
-      background-color: var(--bg);
-      color: var(--text-main);
-      font-family: 'Inter', sans-serif;
-      font-weight: 300;
-      line-height: 1.7;
-      overflow-x: hidden;
-      width: 100%;
-    }
-
-    .container {
-      width: 100%;
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 0 1.25rem;
-    }
-
-    /* =========================
-        HEADER
-    ========================= */
-
-    header {
-      padding: 3.5rem 0 2rem;
-      text-align: center;
-    }
-
-    @media (min-width: 768px) {
-      header {
-        padding: 5rem 0 3rem;
-      }
-    }
-
-    .portrait-link {
-      display: inline-block;
-      text-decoration: none;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    .portrait-container {
-      position: relative;
-      width: 120px;
-      height: 120px;
-      margin: 0 auto 1.5rem;
-      border-radius: 50%;
-      overflow: hidden;
-      border: 1px solid var(--border-hover);
-      transition: border-color 0.4s ease;
-    }
-
-    @media (min-width: 768px) {
-      .portrait-container {
-        width: 140px;
-        height: 140px;
-        margin-bottom: 2rem;
-      }
-    }
-
-    .portrait-container:hover {
-      border-color: var(--accent);
-    }
-
-    .portrait {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      filter: grayscale(100%);
-      transition: opacity 0.5s ease;
-      position: relative;
-      z-index: 1;
-    }
-
-    .portrait-alt {
-      position: absolute;
-      top: 0;
-      left: 0;
-      opacity: 0;
-      z-index: 2;
-      filter: grayscale(30%);
-    }
-
-    .portrait-container:hover .portrait,
-    .portrait-container:active .portrait {
-      opacity: 0;
-    }
-
-    .portrait-container:hover .portrait-alt,
-    .portrait-container:active .portrait-alt {
-      opacity: 1;
+        margin: 0;
+        min-height: 100vh;
+        background: #111;
+        color: white;
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
     }
 
     h1 {
-      font-family: 'Cormorant Garamond', serif;
-      font-weight: 600;
-      font-size: clamp(2.2rem, 7vw, 3.5rem);
-      letter-spacing: 0.02em;
-      color: #ffffff;
-      margin-bottom: 0.1rem;
+        margin: 10px 0 5px;
+        font-size: 28px;
+        letter-spacing: 1px;
     }
 
-    .alias {
-      font-family: 'Cormorant Garamond', serif;
-      font-style: italic;
-      font-size: clamp(1.1rem, 3.5vw, 1.35rem);
-      color: var(--text-muted);
-      margin-bottom: 1.2rem;
+    #mensaje {
+        margin: 5px 0 15px;
+        font-size: 16px;
+        min-height: 22px;
+        color: #ccc;
     }
 
-    .tagline {
-      font-size: clamp(0.85rem, 2.5vw, 0.95rem);
-      color: var(--text-muted);
-      max-width: 480px;
-      margin: 0 auto;
-      letter-spacing: 0.01em;
-      text-align: center;
+    button {
+        border: none;
+        background: #e0e0e0;
+        color: #111;
+        padding: 10px 22px;
+        font-size: 15px;
+        font-weight: bold;
+        border-radius: 6px;
+        cursor: pointer;
+        margin-bottom: 20px;
+        transition: background 0.2s;
     }
 
-    nav {
-      display: flex;
-      justify-content: center;
-      gap: 1.2rem;
-      flex-wrap: wrap;
-      margin-top: 2rem;
-      padding-top: 1.5rem;
-      border-top: 1px solid var(--border);
+    button:hover {
+        background: #fff;
     }
 
-    @media (min-width: 768px) {
-      nav {
-        gap: 2rem;
-        margin-top: 3rem;
-        padding-top: 2rem;
-      }
+    /* Tablero para 32 cartas: 8 columnas x 4 filas */
+    #tablero {
+        width: min(95vw, 900px);
+        display: grid;
+        grid-template-columns: repeat(8, 1fr);
+        gap: 8px;
+        perspective: 1000px;
     }
 
-    nav a {
-      color: var(--text-muted);
-      text-decoration: none;
-      font-size: 0.8rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      padding: 0.3rem 0;
-      transition: color 0.3s ease;
+    .carta {
+        aspect-ratio: 1 / 1;
+        cursor: pointer;
+        position: relative;
+        transform-style: preserve-3d;
+        transition: transform 0.4s ease-in-out;
     }
 
-    nav a:hover,
-    nav a:active {
-      color: var(--accent);
+    .carta.volteada {
+        transform: rotateY(180deg);
     }
 
-    /* =========================
-        SECCIONES
-    ========================= */
-
-    section {
-      padding: 3rem 0;
-      border-top: 1px solid var(--border);
-    }
-
-    @media (min-width: 768px) {
-      section {
-        padding: 4rem 0;
-      }
-    }
-
-    section h2 {
-      font-family: 'Cormorant Garamond', serif;
-      font-weight: 400;
-      font-size: clamp(1.75rem, 5vw, 2.2rem);
-      letter-spacing: 0.03em;
-      color: #ffffff;
-      margin-bottom: 2rem;
-      text-align: center;
-    }
-
-    .about-text {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(1.1rem, 3.5vw, 1.25rem);
-      line-height: 1.8;
-      color: #d1d1d6;
-      max-width: 600px;
-      margin: 0 auto;
-      text-align: center;
-      font-style: italic;
-    }
-
-    .about-text p + p {
-      margin-top: 1.5rem;
-    }
-
-    /* =========================
-        OBRAS
-    ========================= */
-
-    .works-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 1.25rem;
-    }
-
-    @media (min-width: 600px) {
-      .works-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    .work-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      padding: 1.5rem;
-      transition: all 0.3s ease;
-      text-decoration: none;
-      color: inherit;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    .work-card:hover,
-    .work-card:active {
-      border-color: var(--border-hover);
-      transform: translateY(-2px);
-    }
-
-    .work-card h3 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.4rem;
-      font-weight: 600;
-      color: #ffffff;
-      margin-bottom: 0.2rem;
-      transition: color 0.3s ease;
-    }
-
-    .work-card:hover h3 {
-      color: var(--accent);
-    }
-
-    .work-card .type {
-      font-size: 0.75rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 0.6rem;
-    }
-
-    .work-card p {
-      font-size: 0.88rem;
-      color: var(--text-muted);
-      line-height: 1.5;
-    }
-
-    .work-card .read {
-      display: inline-block;
-      margin-top: 1.2rem;
-      font-size: 0.8rem;
-      letter-spacing: 0.05em;
-      color: var(--text-main);
-      transition: color 0.3s ease;
-    }
-
-    .work-card:hover .read {
-      color: var(--accent);
-    }
-
-    /* =========================
-        IMAGEN INFERIOR
-    ========================= */
-
-    .bottom-image-container {
-      text-align: center;
-      padding: 2.5rem 0 3.5rem;
-    }
-
-    .gt-image-container {
-      display: inline-block;
-      position: relative;
-      overflow: hidden;
-      max-width: 100%;
-      border-radius: 4px;
-      border: 1px solid var(--border);
-      cursor: pointer;
-      transition: border-color 0.3s ease;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    .gt-image-container img {
-      display: block;
-      max-width: 100%;
-      height: auto;
-      transition:
-        opacity 0.5s ease,
-        transform 0.5s ease;
-    }
-
-    .gt-img-normal {
-      position: relative;
-      z-index: 1;
-      filter: grayscale(100%);
-    }
-
-    .gt-img-scary {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      opacity: 0;
-      z-index: 2;
-      filter: grayscale(20%);
-    }
-
-    .gt-image-container:hover {
-      border-color: var(--border-hover);
-    }
-
-    .gt-image-container:hover .gt-img-normal,
-    .gt-image-container:active .gt-img-normal {
-      opacity: 0;
-    }
-
-    .gt-image-container:hover .gt-img-scary,
-    .gt-image-container:active .gt-img-scary {
-      opacity: 1;
-      transform: scale(1.02);
-    }
-
-    /* =========================
-        ESPIRAL Y EXÁGONOS
-    ========================= */
-
-    #overlayEspiral {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 9999;
-      overflow: hidden;
-    }
-
-    .mini-ventana {
-      position: absolute;
-      width: 120px;
-      height: 90px;
-      background: #000;
-      border: 1px solid rgba(255,255,255,0.4);
-      box-shadow: 0 4px 15px rgba(0,0,0,0.8);
-      border-radius: 4px;
-      overflow: hidden;
-
-      animation:
-        popIn 0.18s
-        cubic-bezier(0.175, 0.885, 0.32, 1.275)
-        forwards;
-    }
-
-    /* Forma hexagonal activada tras los 7 segundos */
-    .mini-ventana.hex-shape {
-      clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
-      border: none;
+    .carta.bloqueada {
+        cursor: default;
     }
 
-    .mini-ventana-bar {
-      height: 14px;
-      background: #222;
-      border-bottom: 1px solid #333;
-      display: flex;
-      align-items: center;
-      padding: 0 4px;
+    .cara {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border-radius: 6px;
+        overflow: hidden;
+        backface-visibility: hidden;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.6);
     }
 
-    .mini-ventana-dot {
-      width: 6px;
-      height: 6px;
-      background: #ff5f56;
-      border-radius: 50%;
+    .cara img {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: cover;
     }
 
-    .mini-ventana img {
-      width: 100%;
-      height: calc(100% - 14px);
-      object-fit: cover;
-      display: block;
+    .reverso {
+        transform: rotateY(0deg);
     }
 
-    @keyframes popIn {
-      0% {
-        transform: scale(0) rotate(-20deg);
-        opacity: 0;
-      }
-
-      100% {
-        transform: scale(1) rotate(0deg);
-        opacity: 1;
-      }
-    }
-
-    /* =========================
-        MODAL VIDEO
-    ========================= */
-
-    .video-modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      z-index: 2000;
-      background: rgba(0,0,0,0.88);
-      backdrop-filter: blur(5px);
-      -webkit-backdrop-filter: blur(5px);
-      align-items: center;
-      justify-content: center;
-      padding: 1rem;
-    }
-
-    .video-modal.active {
-      display: flex;
-    }
-
-    .video-modal-content {
-      position: relative;
-      width: 100%;
-      max-width: 800px;
-      aspect-ratio: 16 / 9;
-      border: 1px solid var(--border-hover);
-      background: #000;
-    }
-
-    .video-modal-content iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
-
-    .close-video-btn {
-      position: absolute;
-      top: -38px;
-      right: 0;
-      background: transparent;
-      border: none;
-      color: var(--text-main);
-      font-family: 'Inter', sans-serif;
-      font-size: 0.85rem;
-      letter-spacing: 0.08em;
-      cursor: pointer;
-      padding: 5px 10px;
-      transition: color 0.3s ease;
-    }
-
-    .close-video-btn:hover {
-      color: var(--accent);
-    }
-
-    /* =========================
-        CONTACTO
-    ========================= */
-
-    .contact-block {
-      text-align: center;
-    }
-
-    .contact-block p {
-      color: var(--text-muted);
-      margin-bottom: 1.5rem;
-      font-size: 0.95rem;
-    }
-
-    .contact-email {
-      font-size: clamp(0.95rem, 3.5vw, 1.1rem);
-      color: var(--text-main);
-      text-decoration: none;
-      word-break: break-all;
-      border-bottom: 1px solid var(--border-hover);
-      padding-bottom: 2px;
-      transition: all 0.3s ease;
-    }
-
-    .contact-email:hover {
-      color: var(--accent);
-      border-color: var(--accent);
-    }
-
-    /* =========================
-        FORMULARIO
-    ========================= */
-
-    .comment-form {
-      max-width: 520px;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      gap: 1.25rem;
-    }
-
-    .comment-form label {
-      display: block;
-      font-size: 0.75rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      margin-bottom: 0.5rem;
+    .frente {
+        transform: rotateY(180deg);
     }
 
-    .comment-form input,
-    .comment-form textarea {
-      width: 100%;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      color: #fff;
-      font-family: 'Inter', sans-serif;
-      font-size: 16px;
-      padding: 0.8rem 1rem;
-      outline: none;
-      transition: border-color 0.3s ease;
+    .pareja {
+        box-shadow: 0 0 12px #00ff66;
     }
 
-    .comment-form input:focus,
-    .comment-form textarea:focus {
-      border-color: var(--border-hover);
-    }
-
-    .comment-form textarea {
-      min-height: 120px;
-      resize: vertical;
-    }
-
-    .comment-form button {
-      width: 100%;
-      background: transparent;
-      border: 1px solid var(--border-hover);
-      border-radius: 4px;
-      color: var(--text-main);
-      font-family: 'Inter', sans-serif;
-      font-size: 0.8rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 0.9rem 2rem;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    @media (min-width: 600px) {
-      .comment-form button {
-        width: auto;
-        align-self: center;
-      }
-    }
-
-    .comment-form button:hover {
-      background: var(--text-main);
-      color: var(--bg);
-    }
-
-    .form-note {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      text-align: center;
-      margin-top: 1.2rem;
-    }
-
-    /* =========================
-        REDES SOCIALES
-    ========================= */
-
-    .socials {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 1rem 1.5rem;
-      margin-top: 2.5rem;
-      padding-top: 2rem;
-      border-top: 1px dashed var(--border);
-    }
+    /* Adaptación a pantallas pequeñas (Celulares): 4 columnas x 8 filas */
+    @media (max-width: 650px) {
+        body {
+            padding: 10px 5px;
+        }
 
-    .socials a {
-      color: var(--text-muted);
-      text-decoration: none;
-      font-size: 0.8rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      padding: 0.2rem 0;
-      transition: color 0.3s ease;
-    }
-
-    .socials a:hover {
-      color: var(--text-main);
-    }
-
-    /* =========================
-        FOOTER
-    ========================= */
-
-    footer {
-      padding: 2.5rem 0;
-      text-align: center;
-      border-top: 1px solid var(--border);
-    }
-
-    footer p {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      letter-spacing: 0.05em;
-    }
-
-    /* =========================
-        BOTÓN FLOTANTE
-    ========================= */
-
-    .btn-circular {
-      position: fixed;
-      bottom: 1.5rem;
-      right: 1.5rem;
-      width: 44px;
-      height: 44px;
-      background: var(--surface);
-      border: 1px solid var(--border-hover);
-      border-radius: 50%;
-      color: var(--text-muted);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-decoration: none;
-      z-index: 1001;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-    }
-
-    .btn-circular:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-      transform: scale(1.08);
-    }
+        #tablero {
+            grid-template-columns: repeat(4, 1fr);
+            gap: 6px;
+            width: 98vw;
+        }
 
-    .btn-circular svg {
-      width: 16px;
-      height: 16px;
-      fill: currentColor;
+        .cara {
+            border-radius: 4px;
+        }
     }
-
-  </style>
+</style>
 </head>
 
 <body>
 
-  <!-- =========================
-        ESPIRAL
-  ========================== -->
-
-  <div id="overlayEspiral"></div>
-
-
-  <!-- =========================
-        HEADER
-  ========================== -->
-
-  <header>
-
-    <div class="container">
-
-      <a
-        href="https://www.facebook.com/ElConjurodelasRanas"
-        target="_blank"
-        rel="noopener"
-        class="portrait-link"
-      >
-
-        <div class="portrait-container">
-
-          <img
-            src="9.png"
-            alt="Felipe P. / Gustavo Narváez"
-            class="portrait"
-          >
-
-          <img
-            src="ll.jpg"
-            alt="Felipe P. / Gustavo Narváez"
-            class="portrait portrait-alt"
-          >
-
-        </div>
-
-      </a>
-
-
-      <h1>Felipe P.</h1>
-
-      <p class="alias">
-        / Gustavo Narváez
-      </p>
-
-      <p class="tagline">
-        Escritor, músico fugado del Conservatorio de Celaya, y vago.
-      </p>
-
-
-      <nav>
-
-        <a href="#">
-          Inicio
-        </a>
-
-        <a href="#obras">
-          Obras
-        </a>
-
-        <a href="#comentarios">
-          Comentarios
-        </a>
-
-        <a href="#contacto">
-          Contacto
-        </a>
-
-      </nav>
-
-    </div>
-
-  </header>
-
-
-  <main>
-
-
-    <!-- =========================
-          SOBRE
-    ========================== -->
-
-    <section id="sobre">
-
-      <div class="container">
-
-        <h2></h2>
-
-        <div class="about-text">
-
-          <p>
-            !!!!!!!!!!!!!!!!!!
-          </p>
-
-          <p>
-            Todo en esta página (NO) sucedió en la realidad.
-            <br>
-            !!!!!!!!!!!!!!!!!!
-          </p>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =========================
-          OBRAS
-    ========================== -->
-
-    <section id="obras">
-
-      <div class="container">
-
-        <h2>
-          Obras
-        </h2>
-
-
-        <div class="works-grid">
-
-
-          <a
-            href="FIESTA EN MINERAL DE LA LUZ.pdf"
-            class="work-card"
-            target="_blank"
-          >
-
-            <div>
-
-              <h3>
-                Fiesta en Mineral de la Luz
-              </h3>
-
-              <p class="type">
-                Poema
-              </p>
-
-              <p>
-                Locura y amor
-              </p>
-
-            </div>
-
-            <span class="read">
-              Leer PDF &rarr;
-            </span>
-
-          </a>
-
-
-
-          <a
-            href="Altas y bajas - F_G.pdf"
-            class="work-card"
-            target="_blank"
-          >
-
-            <div>
-
-              <h3>
-                Altas y bajas
-              </h3>
-
-              <p class="type">
-                Poema
-              </p>
-
-              <p>
-                Fragmentos.
-              </p>
-
-            </div>
-
-            <span class="read">
-              Leer PDF &rarr;
-            </span>
-
-          </a>
-
-
-
-          <a
-            href="t.pdf"
-            class="work-card"
-            target="_blank"
-          >
-
-            <div>
-
-              <h3>
-                Arrecife Alacranes
-              </h3>
-
-              <p class="type">
-                Poema (Anexado, parte 2)
-              </p>
-
-              <p>
-                Camino al arrecife sur del juicio.
-              </p>
-
-            </div>
-
-            <span class="read">
-              Leer PDF &rarr;
-            </span>
-
-          </a>
-
-
-
-          <a
-            href="41.pdf"
-            class="work-card"
-            target="_blank"
-          >
-
-            <div>
-
-              <h3>
-                ¿Quién fue Alejandro Garrigós Rojas?
-              </h3>
-
-              <p class="type">
-                Recuerdo
-              </p>
-
-              <p></p>
-
-            </div>
-
-            <span class="read">
-              Leer PDF &rarr;
-            </span>
-
-          </a>
-
-
-
-          <a
-            href="z.pdf"
-            class="work-card"
-            target="_blank"
-          >
-
-            <div>
-
-              <h3>
-                Actuación 3
-              </h3>
-
-              <p class="type">
-                Mi Juicio de Amparo Indirecto, por derecho propio
-              </p>
-
-              <p></p>
-
-            </div>
-
-            <span class="read">
-              Leer PDF &rarr;
-            </span>
-
-          </a>
-
-
-
-          <a
-            href="g.pdf"
-            class="work-card"
-            target="_blank"
-          >
-
-            <div>
-
-              <h3>
-                FE
-              </h3>
-
-              <p class="type">
-                Cuaderno
-              </p>
-
-              <p>
-                Notas.
-              </p>
-
-            </div>
-
-            <span class="read">
-              Leer PDF &rarr;
-            </span>
-
-          </a>
-
-
-
-          <a
-            href="Gerardo Szae___Gustavo Narváez (1)-16-19.pdf"
-            class="work-card"
-            target="_blank"
-          >
-
-            <div>
-
-              <h3>
-                Sobre cómo (NO) robar un vochito
-              </h3>
-
-              <p class="type">
-                Texto
-              </p>
-
-              <p>
-                Humor sobre la expropiación de un pequeño Volkswagen.
-              </p>
-
-            </div>
-
-            <span class="read">
-              Leer PDF &rarr;
-            </span>
-
-          </a>
-
-
-
-          <a
-            href="ss.pdf"
-            class="work-card"
-            target="_blank"
-          >
-
-            <div>
-
-              <h3>
-                Nada
-              </h3>
-
-              <p class="type">
-                Texto
-              </p>
-
-              <p></p>
-
-            </div>
-
-            <span class="read">
-              Leer PDF &rarr;
-            </span>
-
-          </a>
-
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =========================
-          COMENTARIOS
-    ========================== -->
-
-    <section id="comentarios">
-
-      <div class="container">
-
-        <h2>
-          Comentarios
-        </h2>
-
-
-        <form
-          class="comment-form"
-          action="https://formsubmit.co/felipedejesusgarciapatino@gmail.com"
-          method="POST"
-        >
-
-          <input
-            type="hidden"
-            name="_subject"
-            value="Nuevo comentario"
-          >
-
-          <input
-            type="hidden"
-            name="_captcha"
-            value="false"
-          >
-
-          <input
-            type="hidden"
-            name="_template"
-            value="table"
-          >
-
-          <input
-            type="text"
-            name="_honey"
-            style="display:none"
-          >
-
-
-          <div>
-
-            <label for="nombre">
-              Nombre
-            </label>
-
-            <input
-              type="text"
-              id="nombre"
-              name="nombre"
-              required
-              placeholder="Tu nombre"
-            >
-
-          </div>
-
-
-          <div>
-
-            <label for="email">
-              Correo electrónico
-            </label>
-
-            <input
-              type="email"
-              id="email"
-              name="email"
-              required
-              placeholder="tu@correo.com"
-            >
-
-          </div>
-
-
-          <div>
-
-            <label for="mensaje">
-              Comentario
-            </label>
-
-            <textarea
-              id="mensaje"
-              name="mensaje"
-              required
-              placeholder="Escribe aquí tu comentario..."
-            ></textarea>
-
-          </div>
-
-
-          <button type="submit">
-            Enviar comentario
-          </button>
-
-        </form>
-
-
-        <p class="form-note">
-          El comentario llegará directamente a mi correo.
-        </p>
-
-      </div>
-
-    </section>
-
-
-    <!-- =========================
-          CONTACTO
-    ========================== -->
-
-    <section id="contacto">
-
-      <div class="container contact-block">
-
-        <h2>
-          Contacto
-        </h2>
-
-        <p>
-          Para lecturas, colaboraciones o simplemente conversar.
-        </p>
-
-
-        <a
-          href="mailto:felipedejesusgarciapatino@gmail.com"
-          class="contact-email"
-        >
-          felipedejesusgarciapatino@gmail.com
-        </a>
-
-
-        <div class="socials">
-
-          <a
-            href="https://www.instagram.com/felipeplein2026/"
-            target="_blank"
-            rel="noopener"
-          >
-            Instagram
-          </a>
-
-          <a
-            href="https://www.facebook.com/profile.php?id=61591803449103"
-            target="_blank"
-            rel="noopener"
-          >
-            Facebook
-          </a>
-
-          <a
-            href="https://x.com/FelipePleibx"
-            target="_blank"
-            rel="noopener"
-          >
-            X
-          </a>
-
-          <a
-            href="https://www.threads.com/@felipeplein2026"
-            target="_blank"
-            rel="noopener"
-          >
-            Threads
-          </a>
-
-          <a
-            href="https://www.tumblr.com/blog/felipeplein"
-            target="_blank"
-            rel="noopener"
-          >
-            Tumblr
-          </a>
-
-        </div>
-
-      </div>
-
-    </section>
-
-  </main>
-
-
-  <!-- =========================
-        IMAGEN FINAL
-  ========================== -->
-
-  <div class="bottom-image-container">
-
-    <div class="container">
-
-      <div
-        class="gt-image-container"
-        id="gtTrigger"
-        role="button"
-        tabindex="0"
-        aria-label="Activar efecto"
-      >
-
-        <img
-          src="gt.png"
-          alt="Imagen final GT"
-          class="gt-img-normal"
-        >
-
-        <img
-          src="ll.jpg"
-          alt="Imagen alternativa"
-          class="gt-img-scary"
-        >
-
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <!-- =========================
-        MODAL VIDEO
-  ========================== -->
-
-  <div
-    id="videoModal"
-    class="video-modal"
-  >
-
-    <div class="video-modal-content">
-
-      <button
-        class="close-video-btn"
-        id="closeVideoBtn"
-        type="button"
-      >
-        &times; CERRAR
-      </button>
-
-      <iframe
-        id="youtubeIframe"
-        allow="autoplay; encrypted-media"
-        allowfullscreen
-        title="Video"
-      ></iframe>
-
-    </div>
-
-  </div>
-
-
-  <!-- =========================
-        BOTÓN FLOTANTE
-  ========================== -->
-
-  <a
-    href="https://drive.google.com/file/d/19sB9xX4a3KW_uNuwkCAC-Tww-MoxEuG2/view?usp=sharing"
-    target="_blank"
-    rel="noopener"
-    class="btn-circular"
-    title="Ver video"
-  >
-
-    <svg viewBox="0 0 24 24">
-      <path d="M8 5v14l11-7z"/>
-    </svg>
-
-  </a>
-
-
-  <!-- =========================
-        JAVASCRIPT
-  ========================== -->
-
-  <script>
-
-    /* ==========================================
-       VARIABLES DEL EFECTO
-    ========================================== */
-
-    let intervaloEspiral = null;
-    let timerHexagonal = null;
-    let esHexagonal = false;
-
-    let angulo = 0;
-    const radioPaso = 10;
-    const pasoAngulo = 0.35;
-
-    const overlay = document.getElementById("overlayEspiral");
-    const gtTrigger = document.getElementById("gtTrigger");
-
-
-    /* ==========================================
-       LANZAR ESPIRAL CON TRANSICIÓN A HEXÁGONO
-    ========================================== */
-
-    function lanzarEspiral() {
-
-      detenerEspiral();
-
-      const anchoVentana = 120;
-      const altoVentana = 90;
-
-      const centroX = window.innerWidth / 2;
-      const centroY = window.innerHeight / 2;
-
-      angulo = 0;
-      esHexagonal = false;
-
-      // Cambiar a modo hexagonal exactamente a los 7 segundos (7000 ms)
-      timerHexagonal = setTimeout(function() {
-        esHexagonal = true;
-      }, 7000);
-
-      intervaloEspiral = setInterval(function() {
-
-        // Si pasaron 7s, forzamos el ángulo a múltiplos de 60° (PI / 3)
-        let anguloEfectivo = angulo;
-        if (esHexagonal) {
-          const paso60deg = Math.PI / 3;
-          anguloEfectivo = Math.floor(angulo / paso60deg) * paso60deg;
-        }
-
-        const r = radioPaso * angulo;
-
-        let posX = centroX + r * Math.cos(anguloEfectivo) - (anchoVentana / 2);
-        let posY = centroY + r * Math.sin(anguloEfectivo) - (altoVentana / 2);
-
-        /* Reiniciar si sale de la pantalla */
-        if (
-          posX < -anchoVentana ||
-          posX > window.innerWidth ||
-          posY < -altoVentana ||
-          posY > window.innerHeight
-        ) {
-          angulo = 0;
-          posX = centroX - (anchoVentana / 2);
-          posY = centroY - (altoVentana / 2);
-        }
-
-        /* Crear mini ventana */
-        const win = document.createElement("div");
-        win.className = esHexagonal ? "mini-ventana hex-shape" : "mini-ventana";
-
-        win.style.left = Math.round(posX) + "px";
-        win.style.top = Math.round(posY) + "px";
-
-        win.innerHTML = `
-          <div class="mini-ventana-bar">
-            <div class="mini-ventana-dot"></div>
-          </div>
-          <img src="ll.jpg" alt="Ventana">
-        `;
-
-        overlay.appendChild(win);
-
-        /* Limitar elementos para evitar sobrecarga de memoria */
-        if (overlay.children.length > 180) {
-          overlay.removeChild(overlay.firstElementChild);
-        }
-
-        angulo += pasoAngulo;
-
-      }, 35);
-
+<h1>MEMORAMA</h1>
+<div id="mensaje">Encuentra todas las parejas (0 / 16)</div>
+<button onclick="reiniciarJuego()">Reiniciar juego</button>
+
+<div id="tablero"></div>
+
+<script>
+const parejasTotales = 16;
+let cartas = [];
+let primeraCarta = null;
+let segundaCarta = null;
+let bloqueo = false;
+let parejasEncontradas = 0;
+
+function crearCartas() {
+    cartas = [];
+    for (let i = 1; i <= parejasTotales; i++) {
+        cartas.push(i);
+        cartas.push(i);
     }
+}
 
-
-    /* ==========================================
-       DETENER ESPIRAL Y TIMERS
-    ========================================== */
-
-    function detenerEspiral() {
-
-      if (intervaloEspiral) {
-        clearInterval(intervaloEspiral);
-        intervaloEspiral = null;
-      }
-
-      if (timerHexagonal) {
-        clearTimeout(timerHexagonal);
-        timerHexagonal = null;
-      }
-
-      esHexagonal = false;
-      overlay.innerHTML = "";
-
+function mezclar(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
     }
+}
 
+function crearTablero() {
+    const tablero = document.getElementById("tablero");
+    tablero.innerHTML = "";
+    mezclar(cartas);
 
-    /* ==========================================
-       VIDEO MODAL
-    ========================================== */
+    cartas.forEach((numero) => {
+        const carta = document.createElement("div");
+        carta.classList.add("carta");
 
-    const videoModal = document.getElementById("videoModal");
-    const iframe = document.getElementById("youtubeIframe");
-    const closeVideoBtn = document.getElementById("closeVideoBtn");
+        // Reverso (a0.jpg)
+        const reverso = document.createElement("div");
+        reverso.classList.add("cara", "reverso");
+        const imagenReverso = document.createElement("img");
+        imagenReverso.src = "a0.jpg";
+        imagenReverso.alt = "Reverso";
+        reverso.appendChild(imagenReverso);
 
-    function openVideo() {
-      iframe.src = "https://www.youtube.com/embed/aDurnlQu6Ak?autoplay=1";
-      videoModal.classList.add("active");
-    }
+        // Frente (a1.jpg hasta a16.jpg)
+        const frente = document.createElement("div");
+        frente.classList.add("cara", "frente");
+        const imagenFrente = document.createElement("img");
+        imagenFrente.src = "a" + numero + ".jpg";
+        imagenFrente.alt = "Carta " + numero;
+        frente.appendChild(imagenFrente);
 
-    function closeVideo() {
-      videoModal.classList.remove("active");
-      iframe.src = "";
-    }
+        carta.dataset.valor = numero;
+        carta.appendChild(reverso);
+        carta.appendChild(frente);
 
-
-    /* ==========================================
-       EVENTOS Y DETONADORES
-    ========================================== */
-
-    function activarEfecto(event) {
-      event.stopPropagation();
-      openVideo();
-      lanzarEspiral();
-    }
-
-    gtTrigger.addEventListener("click", activarEfecto);
-
-    gtTrigger.addEventListener("keydown", function(event) {
-      if (event.key === "Enter" || event.key === " ") {
-        event.preventDefault();
-        activarEfecto(event);
-      }
+        carta.addEventListener("click", () => voltearCarta(carta));
+        tablero.appendChild(carta);
     });
+}
 
-    closeVideoBtn.addEventListener("click", function(event) {
-      event.stopPropagation();
-      closeVideo();
-      detenerEspiral();
-    });
+function voltearCarta(carta) {
+    if (bloqueo) return;
+    if (carta.classList.contains("volteada") || carta.classList.contains("pareja")) return;
 
-    videoModal.addEventListener("click", function(event) {
-      event.target === videoModal && (closeVideo(), detenerEspiral());
-    });
+    carta.classList.add("volteada");
 
-    document.addEventListener("click", function(event) {
-      if (
-        event.target.closest("#gtTrigger") ||
-        event.target.closest(".video-modal-content")
-      ) {
+    if (!primeraCarta) {
+        primeraCarta = carta;
         return;
-      }
-      detenerEspiral();
-    });
+    }
 
-    document.addEventListener("keydown", function(event) {
-      if (event.key === "Escape") {
-        detenerEspiral();
-        closeVideo();
-      }
-    });
+    segundaCarta = carta;
+    comprobarPareja();
+}
 
-    window.addEventListener("beforeunload", detenerEspiral);
+function comprobarPareja() {
+    const valor1 = primeraCarta.dataset.valor;
+    const valor2 = segundaCarta.dataset.valor;
 
-  </script>
+    if (valor1 === valor2) {
+        primeraCarta.classList.add("pareja", "bloqueada");
+        segundaCarta.classList.add("pareja", "bloqueada");
+        parejasEncontradas++;
+
+        document.getElementById("mensaje").textContent = 
+            `Parejas encontradas: ${parejasEncontradas} / ${parejasTotales}`;
+
+        primeraCarta = null;
+        segundaCarta = null;
+
+        if (parejasEncontradas === parejasTotales) {
+            document.getElementById("mensaje").textContent = "🎉 ¡Felicidades! Encontraste todas las parejas.";
+        }
+    } else {
+        bloqueo = true;
+        setTimeout(() => {
+            primeraCarta.classList.remove("volteada");
+            segundaCarta.classList.remove("volteada");
+            primeraCarta = null;
+            segundaCarta = null;
+            bloqueo = false;
+        }, 900);
+    }
+}
+
+function reiniciarJuego() {
+    primeraCarta = null;
+    segundaCarta = null;
+    bloqueo = false;
+    parejasEncontradas = 0;
+    document.getElementById("mensaje").textContent = "Encuentra todas las parejas (0 / 16)";
+    crearCartas();
+    crearTablero();
+}
+
+// Inicialización
+reiniciarJuego();
+</script>
 
 </body>
 </html>
