@@ -1,397 +1,849 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MemoramAi</title>
-
-<style>
-    * {
-        box-sizing: border-box;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Felipe P. / Gustavo Narváez — Escritor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0d0d0e;
+      --surface: #141416;
+      --border: rgba(255, 255, 255, 0.08);
+      --border-hover: rgba(255, 255, 255, 0.25);
+      --text-main: #e4e4e7;
+      --text-muted: #8e8e93;
+      --accent: #d4af37;
+      --accent-hover: #f1d77e;
     }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
 
     body {
-        margin: 0;
-        min-height: 100vh;
-        background: url('x1.jpg') no-repeat center center fixed;
-        background-size: cover;
-        color: white;
-        font-family: Arial, sans-serif;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: 20px;
-        position: relative;
+      background-color: var(--bg);
+      color: var(--text-main);
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+      width: 100%;
     }
 
-    /* Título Hero x3.png con destello */
-    .hero-titulo {
-        max-width: min(85vw, 420px);
-        height: auto;
-        margin: 5px 0 10px;
-        display: block;
-        cursor: pointer;
-        transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
-                    filter 0.3s ease-in-out;
-        filter: drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.8));
-        user-select: none;
-        -webkit-tap-highlight-color: transparent;
+    .container {
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 1.25rem;
     }
 
-    .hero-titulo:hover,
-    .hero-titulo:active {
-        transform: scale(1.08);
-        filter: drop-shadow(0px 0px 20px rgba(255, 255, 255, 0.9)) 
-                drop-shadow(0px 0px 35px rgba(255, 255, 255, 0.6)) 
-                brightness(1.25);
+    /* HEADER */
+    header {
+      padding: 3.5rem 0 2rem;
+      text-align: center;
     }
 
-    /* Controles y Panel superior */
-    .controles {
-        display: flex;
-        gap: 10px;
-        align-items: center;
-        margin-bottom: 10px;
+    @media (min-width: 768px) {
+      header { padding: 5rem 0 3rem; }
     }
 
-    button {
-        border: none;
-        background: #e0e0e0;
-        color: #111;
-        padding: 10px 22px;
-        font-size: 15px;
-        font-weight: bold;
-        border-radius: 6px;
-        cursor: pointer;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
-        transition: background 0.2s, transform 0.1s;
+    .portrait-link {
+      display: inline-block;
+      text-decoration: none;
+      -webkit-tap-highlight-color: transparent;
     }
 
-    button:hover {
-        background: #fff;
+    .portrait-container {
+      position: relative;
+      width: 120px;
+      height: 120px;
+      margin: 0 auto 1.5rem;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 1px solid var(--border-hover);
+      transition: border-color 0.4s ease;
     }
 
-    button:active {
-        transform: scale(0.97);
+    @media (min-width: 768px) {
+      .portrait-container {
+        width: 140px;
+        height: 140px;
+        margin-bottom: 2rem;
+      }
     }
 
-    #panel-estado {
-        display: flex;
-        gap: 20px;
-        margin-bottom: 15px;
-        font-size: 16px;
-        font-weight: bold;
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
+    .portrait-container:hover { border-color: var(--accent); }
+
+    .portrait {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: grayscale(100%);
+      transition: opacity 0.5s ease;
+      position: relative;
+      z-index: 1;
     }
 
-    .vidas-restantes {
-        color: #ff4d4d;
+    .portrait-alt {
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      z-index: 1;
+      filter: grayscale(30%);
     }
 
-    /* Tablero de cartas */
-    #tablero {
-        width: min(95vw, 900px);
-        display: grid;
-        grid-template-columns: repeat(8, 1fr);
-        gap: 8px;
-        perspective: 1000px;
+    .portrait-container:hover .portrait,
+    .portrait-container:active .portrait { opacity: 0; }
+
+    .portrait-container:hover .portrait-alt,
+    .portrait-container:active .portrait-alt { opacity: 1; }
+
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      font-size: clamp(2.2rem, 7vw, 3.5rem);
+      letter-spacing: 0.02em;
+      color: #ffffff;
+      margin-bottom: 0.1rem;
     }
 
-    .carta {
-        aspect-ratio: 1 / 1;
-        cursor: pointer;
-        position: relative;
-        transform-style: preserve-3d;
-        transition: transform 0.4s ease-in-out;
+    .alias {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: clamp(1.1rem, 3.5vw, 1.35rem);
+      color: var(--text-muted);
+      margin-bottom: 1.2rem;
     }
 
-    .carta.volteada {
-        transform: rotateY(180deg);
+    .tagline {
+      font-size: clamp(0.85rem, 2.5vw, 0.95rem);
+      color: var(--text-muted);
+      max-width: 480px;
+      margin: 0 auto;
+      letter-spacing: 0.01em;
+      text-align: center;
     }
 
-    .carta.bloqueada {
-        cursor: default;
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
     }
 
-    .cara {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        border-radius: 6px;
-        overflow: hidden;
-        backface-visibility: hidden;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+    @media (min-width: 768px) {
+      nav { gap: 2rem; margin-top: 3rem; padding-top: 2rem; }
     }
 
-    .cara img {
-        width: 100%;
-        height: 100%;
-        display: block;
-        object-fit: cover;
+    nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.3rem 0;
+      transition: color 0.3s ease;
     }
 
-    .reverso {
-        transform: rotateY(0deg);
+    nav a:hover, nav a:active { color: var(--accent); }
+
+    /* SECCIONES */
+    section {
+      padding: 3rem 0;
+      border-top: 1px solid var(--border);
     }
 
-    .frente {
-        transform: rotateY(180deg);
+    @media (min-width: 768px) {
+      section { padding: 4rem 0; }
     }
 
-    .pareja {
-        box-shadow: 0 0 12px #00ff66;
+    section h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 400;
+      font-size: clamp(1.75rem, 5vw, 2.2rem);
+      letter-spacing: 0.03em;
+      color: #ffffff;
+      margin-bottom: 2rem;
+      text-align: center;
     }
 
-    /* MODAL DE SELECCIÓN DE DIFICULTAD INICIAL */
-    #overlay-dificultad {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        background: rgba(0, 0, 0, 0.85);
-        backdrop-filter: blur(4px);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 100;
+    .about-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.1rem, 3.5vw, 1.25rem);
+      line-height: 1.8;
+      color: #d1d1d6;
+      max-width: 600px;
+      margin: 0 auto;
+      text-align: center;
+      font-style: italic;
     }
 
-    .modal-dificultad {
-        background: #1a1a1a;
-        border: 2px solid #333;
-        border-radius: 12px;
-        padding: 30px 20px;
-        width: min(90vw, 380px);
-        text-align: center;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.9);
+    .about-text p + p { margin-top: 1.5rem; }
+
+    /* OBRAS */
+    .works-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
     }
 
-    .modal-dificultad h2 {
-        margin-top: 0;
-        margin-bottom: 20px;
-        font-size: 22px;
-        letter-spacing: 1px;
+    @media (min-width: 600px) {
+      .works-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
 
-    .opciones-dificultad {
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
+    .work-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1.5rem;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      -webkit-tap-highlight-color: transparent;
     }
 
-    .btn-dificultad {
-        padding: 12px;
-        font-size: 16px;
-        border-radius: 8px;
-        border: none;
-        cursor: pointer;
-        font-weight: bold;
-        transition: transform 0.2s, background 0.2s;
+    .work-card:hover, .work-card:active {
+      border-color: var(--border-hover);
+      transform: translateY(-2px);
     }
 
-    .btn-facil { background: #28a745; color: white; }
-    .btn-medio { background: #ffc107; color: #111; }
-    .btn-dificil { background: #dc3545; color: white; }
-
-    .btn-dificultad:hover {
-        transform: scale(1.03);
-        filter: brightness(1.15);
+    .work-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: #ffffff;
+      margin-bottom: 0.2rem;
+      transition: color 0.3s ease;
     }
 
-    @media (max-width: 650px) {
-        body {
-            padding: 10px 5px;
-        }
+    .work-card:hover h3 { color: var(--accent); }
 
-        .hero-titulo {
-            max-width: 75vw;
-        }
-
-        #tablero {
-            grid-template-columns: repeat(4, 1fr);
-            gap: 6px;
-            width: 98vw;
-        }
-
-        .cara {
-            border-radius: 4px;
-        }
+    .work-card .type {
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.6rem;
     }
-</style>
+
+    .work-card p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .work-card .read {
+      display: inline-block;
+      margin-top: 1.2rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.05em;
+      color: var(--text-main);
+      transition: color 0.3s ease;
+    }
+
+    .work-card:hover .read { color: var(--accent); }
+
+    /* IMAGEN INFERIOR */
+    .bottom-image-container {
+      text-align: center;
+      padding: 2.5rem 0 3.5rem;
+    }
+
+    .gt-image-container {
+      display: inline-block;
+      position: relative;
+      overflow: hidden;
+      max-width: 100%;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: border-color 0.3s ease;
+    }
+
+    .gt-image-container img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .gt-img-normal {
+      position: relative;
+      z-index: 1;
+      filter: grayscale(100%);
+    }
+
+    .gt-img-scary {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      z-index: 1;
+      filter: grayscale(20%);
+    }
+
+    .gt-image-container:hover { border-color: var(--border-hover); }
+
+    .gt-image-container:hover .gt-img-normal,
+    .gt-image-container:active .gt-img-normal { opacity: 0; }
+
+    .gt-image-container:hover .gt-img-scary,
+    .gt-image-container:active .gt-img-scary {
+      opacity: 1;
+      transform: scale(1.02);
+    }
+
+    /* CONTENEDOR EFECTO ESPIRAL EN PANTALLA */
+    #overlayEspiral {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9999;
+      overflow: hidden;
+    }
+
+    .mini-ventana {
+      position: absolute;
+      width: 120px;
+      height: 90px;
+      background: #000;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.8);
+      border-radius: 4px;
+      overflow: hidden;
+      animation: popIn 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    }
+
+    .mini-ventana-bar {
+      height: 14px;
+      background: #222;
+      border-bottom: 1px solid #333;
+      display: flex;
+      align-items: center;
+      padding: 0 4px;
+    }
+
+    .mini-ventana-dot {
+      width: 6px;
+      height: 6px;
+      background: #ff5f56;
+      border-radius: 50%;
+    }
+
+    .mini-ventana img {
+      width: 100%;
+      height: calc(100% - 14px);
+      object-fit: cover;
+    }
+
+    @keyframes popIn {
+      0% { transform: scale(0) rotate(-20deg); opacity: 0; }
+      100% { transform: scale(1) rotate(0deg); opacity: 1; }
+    }
+
+    /* MODAL VIDEO */
+    .video-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 2000;
+      background: rgba(0, 0, 0, 0.88);
+      backdrop-filter: blur(5px);
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .video-modal.active { display: flex; }
+
+    .video-modal-content {
+      position: relative;
+      width: 100%;
+      max-width: 800px;
+      aspect-ratio: 16 / 9;
+      border: 1px solid var(--border-hover);
+      background: #000;
+    }
+
+    .video-modal-content iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .close-video-btn {
+      position: absolute;
+      top: -38px;
+      right: 0;
+      background: transparent;
+      border: none;
+      color: var(--text-main);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      padding: 5px 10px;
+      transition: color 0.3s ease;
+    }
+
+    .close-video-btn:hover { color: var(--accent); }
+
+    /* CONTACTO Y FORMULARIO */
+    .contact-block { text-align: center; }
+
+    .contact-block p {
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+      font-size: 0.95rem;
+    }
+
+    .contact-email {
+      font-size: clamp(0.95rem, 3.5vw, 1.1rem);
+      color: var(--text-main);
+      text-decoration: none;
+      word-break: break-all;
+      border-bottom: 1px solid var(--border-hover);
+      padding-bottom: 2px;
+      transition: all 0.3s ease;
+    }
+
+    .contact-email:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .comment-form {
+      max-width: 520px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .comment-form label {
+      display: block;
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .comment-form input,
+    .comment-form textarea {
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      padding: 0.8rem 1rem;
+      outline: none;
+      transition: border-color 0.3s ease;
+    }
+
+    .comment-form input:focus,
+    .comment-form textarea:focus { border-color: var(--border-hover); }
+
+    .comment-form textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .comment-form button {
+      width: 100%;
+      background: transparent;
+      border: 1px solid var(--border-hover);
+      border-radius: 4px;
+      color: var(--text-main);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.9rem 2rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    @media (min-width: 600px) {
+      .comment-form button { width: auto; align-self: center; }
+    }
+
+    .comment-form button:hover {
+      background: var(--text-main);
+      color: var(--bg);
+    }
+
+    .form-note {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-align: center;
+      margin-top: 1.2rem;
+    }
+
+    .socials {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1rem 1.5rem;
+      margin-top: 2.5rem;
+      padding-top: 2rem;
+      border-top: 1px dashed var(--border);
+    }
+
+    .socials a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.2rem 0;
+      transition: color 0.3s ease;
+    }
+
+    .socials a:hover { color: var(--text-main); }
+
+    /* FOOTER Y BOTÓN FLOTANTE */
+    footer {
+      padding: 2.5rem 0;
+      text-align: center;
+      border-top: 1px solid var(--border);
+    }
+
+    footer p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+    }
+
+    .btn-circular {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      width: 44px;
+      height: 44px;
+      background: var(--surface);
+      border: 1px solid var(--border-hover);
+      border-radius: 50%;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      z-index: 1001;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    }
+
+    .btn-circular:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: scale(1.08);
+    }
+
+    .btn-circular svg {
+      width: 16px;
+      height: 16px;
+      fill: currentColor;
+    }
+  </style>
 </head>
-
 <body>
+  <!-- Contenedor para el efecto de ventanas simuladas -->
+  <div id="overlayEspiral"></div>
 
-<!-- PANTALLA INICIAL DE SELECCIÓN DE DIFICULTAD -->
-<div id="overlay-dificultad">
-    <div class="modal-dificultad">
-        <h2>SELECCIONA LA DIFICULTAD</h2>
-        <div class="opciones-dificultad">
-            <button class="btn-dificultad btn-facil" onclick="seleccionarDificultad(24)">Fácil (24 fallos)</button>
-            <button class="btn-dificultad btn-medio" onclick="seleccionarDificultad(16)">Medio (16 fallos)</button>
-            <button class="btn-dificultad btn-dificil" onclick="seleccionarDificultad(10)">Difícil (10 fallos)</button>
+  <header>
+    <div class="container">
+      <a href="https://www.facebook.com/ElConjurodelasRanas" target="_blank" rel="noopener" class="portrait-link">
+        <div class="portrait-container">
+          <img src="9.png" alt="Felipe P. / Gustavo Narváez" class="portrait">
+          <img src="ll.jpg" alt="Felipe P. / Gustavo Narváez" class="portrait portrait-alt">
         </div>
+      </a>
+      <h1>Felipe P.</h1>
+      <p class="alias">/ Gustavo Narváez</p>
+      <p class="tagline">Escritor, músico fugado del Conservatorio de Celaya, y vago.</p>
+      <nav>
+        <a href="#">Inicio</a>
+        <a href="#obras">Obras</a>
+        <a href="#comentarios">Comentarios</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
     </div>
-</div>
+  </header>
 
-<!-- Título Hero reemplazado por x3.png -->
-<img src="x3.png" alt="MemoramAi" class="hero-titulo">
+  <main>
+    <section id="sobre">
+      <div class="container">
+        <h2></h2>
+        <div class="about-text">
+          <p>!</p>
+          <p>Todo en esta página (NO) sucedió en la realidad.<br>!</p>
+        </div>
+      </div>
+    </section>
 
-<div class="controles">
-    <button onclick="mostrarPantallaDificultad()">Reiniciar / Cambiar Nivel</button>
-</div>
+    <section id="obras">
+      <div class="container">
+        <h2>Obras</h2>
+        <div class="works-grid">
+          <a href="FIESTA EN MINERAL DE LA LUZ.pdf" class="work-card" target="_blank">
+            <div>
+              <h3>Fiesta en Mineral de la Luz</h3>
+              <p class="type">Poema</p>
+              <p>Locura y amor</p>
+            </div>
+            <span class="read">Leer PDF &rarr;</span>
+          </a>
 
-<div id="panel-estado">
-    <div id="mensaje-parejas">Parejas: 0 / 16</div>
-    <div id="mensaje-fallos" class="vidas-restantes">Fallos restantes: --</div>
-</div>
+          <a href="Altas y bajas - F_G.pdf" class="work-card" target="_blank">
+            <div>
+              <h3>Altas y bajas</h3>
+              <p class="type">Poema</p>
+              <p>Fragmentos.</p>
+            </div>
+            <span class="read">Leer PDF &rarr;</span>
+          </a>
 
-<div id="tablero"></div>
+          <a href="t.pdf" class="work-card" target="_blank">
+            <div>
+              <h3>Arrecife Alacranes</h3>
+              <p class="type">Poema (Anexado, parte 2)</p>
+              <p>Camino al arrecife sur del juicio.</p>
+            </div>
+            <span class="read">Leer PDF &rarr;</span>
+          </a>
 
-<script>
-const parejasTotales = 16;
-let cartas = [];
-let primeraCarta = null;
-let segundaCarta = null;
-let bloqueo = false;
+          <a href="41.pdf" class="work-card" target="_blank">
+            <div>
+              <h3>¿Quién fue Alejandro Garrigós Rojas?</h3>
+              <p class="type">Recuerdo</p>
+              <p></p>
+            </div>
+            <span class="read">Leer PDF &rarr;</span>
+          </a>
 
-let parejasEncontradas = 0;
-let fallosPermitidos = 16;
-let fallosCometidos = 0;
+          <a href="z.pdf" class="work-card" target="_blank">
+            <div>
+              <h3>Actuación 3</h3>
+              <p class="type">Mi Juicio de Amparo Indirecto, por derecho propio</p>
+              <p></p>
+            </div>
+            <span class="read">Leer PDF &rarr;</span>
+          </a>
 
-function seleccionarDificultad(fallos) {
-    fallosPermitidos = fallos;
-    document.getElementById("overlay-dificultad").style.display = "none";
-    reiniciarJuego();
-}
+          <a href="g.pdf" class="work-card" target="_blank">
+            <div>
+              <h3>FE</h3>
+              <p class="type">Cuaderno</p>
+              <p>Notas.</p>
+            </div>
+            <span class="read">Leer PDF &rarr;</span>
+          </a>
 
-function mostrarPantallaDificultad() {
-    document.getElementById("overlay-dificultad").style.display = "flex";
-}
+          <a href="Gerardo Szae___Gustavo Narváez (1)-16-19.pdf" class="work-card" target="_blank">
+            <div>
+              <h3>Sobre cómo (NO) robar un vochito</h3>
+              <p class="type">Texto</p>
+              <p>Humor sobre la expropiación de un pequeño Volkswagen.</p>
+            </div>
+            <span class="read">Leer PDF &rarr;</span>
+          </a>
 
-function crearCartas() {
-    cartas = [];
-    for (let i = 1; i <= parejasTotales; i++) {
-        cartas.push(i);
-        cartas.push(i);
+          <a href="ss.pdf" class="work-card" target="_blank">
+            <div>
+              <h3>Nada</h3>
+              <p class="type">Texto</p>
+              <p> </p>
+            </div>
+            <span class="read">Leer PDF &rarr;</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section id="comentarios">
+      <div class="container">
+        <h2>Comentarios</h2>
+        <form class="comment-form" action="https://formsubmit.co/felipedejesusgarciapatino@gmail.com" method="POST">
+          <input type="hidden" name="_subject" value="Nuevo comentario">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_template" value="table">
+          <input type="text" name="_honey" style="display:none">
+          <div>
+            <label for="nombre">Nombre</label>
+            <input type="text" id="nombre" name="nombre" required placeholder="Tu nombre">
+          </div>
+          <div>
+            <label for="email">Correo electrónico</label>
+            <input type="email" id="email" name="email" required placeholder="tu@correo.com">
+          </div>
+          <div>
+            <label for="mensaje">Comentario</label>
+            <textarea id="mensaje" name="mensaje" required placeholder="Escribe aquí tu comentario..."></textarea>
+          </div>
+          <button type="submit">Enviar comentario</button>
+        </form>
+        <p class="form-note">El comentario llegará directamente a mi correo.</p>
+      </div>
+    </section>
+
+    <section id="contacto">
+      <div class="container contact-block">
+        <h2>Contacto</h2>
+        <p>Para lecturas, colaboraciones o simplemente conversar.</p>
+        <a href="mailto:felipedejesusgarciapatino@gmail.com" class="contact-email">
+          felipedejesusgarciapatino@gmail.com
+        </a>
+        <div class="socials">
+          <a href="https://www.instagram.com/felipeplein2026/" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.facebook.com/profile.php?id=61591803449103" target="_blank" rel="noopener">Facebook</a>
+          <a href="https://x.com/FelipePleibx" target="_blank" rel="noopener">X</a>
+          <a href="https://www.threads.com/@felipeplein2026" target="_blank" rel="noopener">Threads</a>
+          <a href="https://www.tumblr.com/blog/felipeplein" target="_blank" rel="noopener">Tumblr</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>© 2026 Felipe G. Patiño</p>
+    </div>
+  </footer>
+
+  <div class="bottom-image-container">
+    <div class="container">
+      <div class="gt-image-container" onclick="lanzarEspiralDOM('ll.jpg')">
+        <img src="gt.png" alt="Imagen final GT" class="gt-img-normal">
+        <img src="ll.jpg" alt="x" class="gt-img-scary">
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal del video incorporado -->
+  <div id="videoModal" class="video-modal" onclick="closeVideoOnBackdrop(event)">
+    <div class="video-modal-content">
+      <button class="close-video-btn" onclick="closeVideo()">&times; CERRAR</button>
+      <iframe id="youtubeIframe" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <a href="https://drive.google.com/file/d/19sB9xX4a3KW_uNuwkCAC-Tww-MoxEuG2/view?usp=sharing" target="_blank" rel="noopener" class="btn-circular" title="Ver en YouTube">
+    <svg viewBox="0 0 24 24">
+      <path d="M8 5v14l11-7z"/>
+    </svg>
+  </a>
+
+  <script>
+    let intervaloEspiral = null;
+    let angulo = 0;
+    let radioPaso = 10;
+    let pasoAngulo = 0.35;
+    const overlay = document.getElementById('overlayEspiral');
+
+    function lanzarEspiralDOM(urlImagen) {
+      openVideo();
+      detenerEspiral();
+
+      const centroX = window.innerWidth / 2;
+      const centroY = window.innerHeight / 2;
+      const anchoVentana = 120;
+      const altoVentana = 90;
+
+      angulo = 0;
+
+      // Dispara pequeñas ventanas simuladas a máxima velocidad sin bloqueo
+      intervaloEspiral = setInterval(() => {
+        let r = radioPaso * angulo;
+        let posX = centroX + r * Math.cos(angulo) - (anchoVentana / 2);
+        let posY = centroY + r * Math.sin(angulo) - (altoVentana / 2);
+
+        // Si la espiral sale de los bordes visibles, reinicia el ciclo
+        if (
+          posX < -anchoVentana || posX > window.innerWidth ||
+          posY < -altoVentana || posY > window.innerHeight
+        ) {
+          angulo = 0;
+          r = 0;
+          posX = centroX - (anchoVentana / 2);
+          posY = centroY - (altoVentana / 2);
+        }
+
+        const win = document.createElement('div');
+        win.className = 'mini-ventana';
+        win.style.left = `${Math.round(posX)}px`;
+        win.style.top = `${Math.round(posY)}px`;
+        win.innerHTML = `
+          <div class="mini-ventana-bar">
+            <div class="mini-ventana-dot"></div>
+          </div>
+          <img src="${urlImagen}" alt="Popup">
+        `;
+
+        overlay.appendChild(win);
+        angulo += pasoAngulo;
+      }, 15);
     }
-}
 
-function mezclar(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
+    function detenerEspiral() {
+      if (intervaloEspiral) {
+        clearInterval(intervaloEspiral);
+        intervaloEspiral = null;
+      }
+      overlay.innerHTML = '';
     }
-}
 
-function crearTablero() {
-    const tablero = document.getElementById("tablero");
-    tablero.innerHTML = "";
-    mezclar(cartas);
-
-    cartas.forEach((numero) => {
-        const carta = document.createElement("div");
-        carta.classList.add("carta");
-
-        const reverso = document.createElement("div");
-        reverso.classList.add("cara", "reverso");
-        const imagenReverso = document.createElement("img");
-        imagenReverso.src = "a0.jpg";
-        imagenReverso.alt = "Reverso";
-        reverso.appendChild(imagenReverso);
-
-        const frente = document.createElement("div");
-        frente.classList.add("cara", "frente");
-        const imagenFrente = document.createElement("img");
-        imagenFrente.src = "a" + numero + ".jpg";
-        imagenFrente.alt = "Carta " + numero;
-        frente.appendChild(imagenFrente);
-
-        carta.dataset.valor = numero;
-        carta.appendChild(reverso);
-        carta.appendChild(frente);
-
-        carta.addEventListener("click", () => voltearCarta(carta));
-        tablero.appendChild(carta);
+    // Detener la ráfaga e ilustrar limpieza con cualquier clic en la página
+    window.addEventListener('click', function(e) {
+      if (e.target.closest('.gt-image-container')) return;
+      detenerEspiral();
     });
-}
 
-function voltearCarta(carta) {
-    if (bloqueo) return;
-    if (carta.classList.contains("volteada") || carta.classList.contains("pareja")) return;
+    /* LÓGICA MODAL VIDEO */
+    const videoModal = document.getElementById('videoModal');
+    const iframe = document.getElementById('youtubeIframe');
 
-    carta.classList.add("volteada");
-
-    if (!primeraCarta) {
-        primeraCarta = carta;
-        return;
+    function openVideo() {
+      iframe.src = "https://www.youtube.com/embed/aDurnlQu6Ak?autoplay=1";
+      videoModal.classList.add('active');
     }
 
-    segundaCarta = carta;
-    comprobarPareja();
-}
-
-function comprobarPareja() {
-    const valor1 = primeraCarta.dataset.valor;
-    const valor2 = segundaCarta.dataset.valor;
-
-    if (valor1 === valor2) {
-        primeraCarta.classList.add("pareja", "bloqueada");
-        segundaCarta.classList.add("pareja", "bloqueada");
-        parejasEncontradas++;
-
-        actualizarPanel();
-
-        primeraCarta = null;
-        segundaCarta = null;
-
-        if (parejasEncontradas === parejasTotales) {
-            document.getElementById("mensaje-parejas").textContent = "🎉 ¡Felicidades! Has ganado.";
-            document.getElementById("mensaje-fallos").textContent = "";
-            bloqueo = true;
-        }
-    } else {
-        bloqueo = true;
-        fallosCometidos++;
-        actualizarPanel();
-
-        if (fallosCometidos >= fallosPermitidos) {
-            setTimeout(() => {
-                document.getElementById("mensaje-parejas").textContent = "💀 ¡GAME OVER!";
-                document.getElementById("mensaje-fallos").textContent = "Te quedaste sin intentos.";
-            }, 500);
-            return;
-        }
-
-        setTimeout(() => {
-            primeraCarta.classList.remove("volteada");
-            segundaCarta.classList.remove("volteada");
-            primeraCarta = null;
-            segundaCarta = null;
-            bloqueo = false;
-        }, 900);
+    function closeVideo() {
+      videoModal.classList.remove('active');
+      iframe.src = "";
     }
-}
 
-function actualizarPanel() {
-    document.getElementById("mensaje-parejas").textContent = `Parejas: ${parejasEncontradas} / ${parejasTotales}`;
-    const restantes = fallosPermitidos - fallosCometidos;
-    document.getElementById("mensaje-fallos").textContent = `Fallos restantes: ${restantes}`;
-}
+    function closeVideoOnBackdrop(event) {
+      if (event.target === videoModal) {
+        closeVideo();
+      }
+    }
 
-function reiniciarJuego() {
-    primeraCarta = null;
-    segundaCarta = null;
-    bloqueo = false;
-    parejasEncontradas = 0;
-    fallosCometidos = 0;
-
-    actualizarPanel();
-    crearCartas();
-    crearTablero();
-}
-</script>
-
+    document.addEventListener('keydown', function(event) {
+      if (event.key === "Escape") {
+        detenerEspiral();
+        if (videoModal.classList.contains('active')) {
+          closeVideo();
+        }
+      }
+    });
+  </script>
 </body>
 </html>
